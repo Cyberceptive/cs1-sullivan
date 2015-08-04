@@ -1,4 +1,4 @@
-## Kevin Sullivan writings on the foundations and practice of programming.
+### Kevin Sullivan writings on the foundations and practice of programming.
 
 #### Materials in this repository are Copyright (c) Kevin J. Sullivan 2015. All rights reserved.
 
