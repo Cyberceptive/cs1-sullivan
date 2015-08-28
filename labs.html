@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-08-27 Thu 20:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>CS1-Sullivan: Lab 1</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Kevin Sullivan" />
+<meta  name="description" content="CS1113-Sullivan, Fall 2015, Lab #1"
+ />
+<meta  name="keywords" content="computation, programming, logic, software, recursion, data, processes, fun" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+
+<script type="text/javascript" src="org-info.js">
+/**
+ *
+ * @source: org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">CS1-Sullivan: Lab 1</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline12">1. Lab 1</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Goals</a></li>
+<li><a href="#orgheadline11">1.2. Linux</a>
+<ul>
+<li><a href="#orgheadline2">1.2.1. terminal</a></li>
+<li><a href="#orgheadline3">1.2.2. other basic programs</a></li>
+<li><a href="#orgheadline4">1.2.3. the ls command</a></li>
+<li><a href="#orgheadline5">1.2.4. current directory</a></li>
+<li><a href="#orgheadline6">1.2.5. directory shorthands</a></li>
+<li><a href="#orgheadline7">1.2.6. creating files</a></li>
+<li><a href="#orgheadline8">1.2.7. other file operations</a></li>
+<li><a href="#orgheadline9">1.2.8. other shorthands</a></li>
+<li><a href="#orgheadline10">1.2.9. files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline13">2. Lab 2</a></li>
+<li><a href="#orgheadline14">3. Lab 3</a></li>
+<li><a href="#orgheadline15">4. Lab 4</a></li>
+<li><a href="#orgheadline16">5. Lab 5</a></li>
+<li><a href="#orgheadline17">6. Lab 6</a></li>
+<li><a href="#orgheadline18">7. Lab 7</a></li>
+<li><a href="#orgheadline19">8. Lab 8</a></li>
+<li><a href="#orgheadline20">9. Lab 9</a></li>
+<li><a href="#orgheadline21">10. Lab 10</a></li>
+<li><a href="#orgheadline22">11. Lab 11</a></li>
+<li><a href="#orgheadline23">12. Lab 12</a></li>
+<li><a href="#orgheadline24">13. Lab 13</a></li>
+<li><a href="#orgheadline25">14. Lab 14</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">1</span> Lab 1</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Goals</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Make sure everyone has VM running</li>
+<li>Learn basic Linux concepts</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">1.2</span> Linux</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2"><span class="section-number-4">1.2.1</span> terminal</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<ul class="org-ul">
+<li>you've already used a terminal window</li>
+<li>a terminal runs a program called a <i>shell</i></li>
+<li>the shell lets you interact with Linux</li>
+<li>to run programs and see results</li>
+<li>to suspend or "kill" programs</li>
+<li>to run programs in the foreground/background</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">1.2.2</span> other basic programs</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li><i>pwd</i> print your working directory</li>
+<li><i>ls</i> lists files in your working directory</li>
+<li><i>cat</i> outputs the contents of a file</li>
+<li>programs take <i>command line arguments</i></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">1.2.3</span> the ls command</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<ul class="org-ul">
+<li><i>ls</i> lists names of files only</li>
+<li><i>ls -l</i> gives more information</li>
+<li><i>ls -a</i> lists <i>hidden</i> files</li>
+<li><i>ls -l -a</i> does both</li>
+<li><i>ls -la</i> is easier to type</li>
+<li>. is current directory, .. is parent</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">1.2.4</span> current directory</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<ul class="org-ul">
+<li>the shell remembers your current directory</li>
+<li>remember to use <i>pwd</i> to print it out</li>
+<li>programs like <i>ls</i> work on your cur. dir.</li>
+<li>you have a <i>home directory</i> and &#x2026;</li>
+<li>it is initially your current directory</li>
+<li>use the <i>cd</i> command to change cur. dir.</li>
+<li>use <i>cd &lt;name&gt;</i> to move up and down hierarchy</li>
+<li><i>cd</i> with no arguments -&gt; home directory</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">1.2.5</span> directory shorthands</h4>
+<div class="outline-text-4" id="text-1-2-5">
+<ul class="org-ul">
+<li>. means the current directory</li>
+<li>.. means the parent of the current directory</li>
+<li>~ means your home directory</li>
+<li>e.g., <i>ls ~</i> lists files in home directory</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">1.2.6</span> creating files</h4>
+<div class="outline-text-4" id="text-1-2-6">
+<ul class="org-ul">
+<li>many ways to create basic files (emacs)</li>
+<li>use <i>mkdir</i> command to create directory</li>
+<li>create <i>animals</i> directory</li>
+<li>create basic file named cat in that directory</li>
+<li>store the text string, <i>meow</i> in that file</li>
+<li>print the content of the file to the screen</li>
+<li>change back to your home directory</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">1.2.7</span> other file operations</h4>
+<div class="outline-text-4" id="text-1-2-7">
+<ul class="org-ul">
+<li>use <i>cp</i> to copy file to another</li>
+<li>be careful about overwriting!</li>
+<li>use <i>mv</i> to move/rename a file</li>
+<li>use <i>rm</i> to remove a file</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">1.2.8</span> other shorthands</h4>
+<div class="outline-text-4" id="text-1-2-8">
+<ul class="org-ul">
+<li><i>*</i> expands to all files in directory</li>
+<li>don't do <i>rm *</i> unless you really want to!</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">1.2.9</span> files</h4>
+<div class="outline-text-4" id="text-1-2-9">
+<ul class="org-ul">
+<li>The concept of a <i>file</i> is fundamental to Linux</li>
+<li>a file is either a <i>basic file</i> or a <i>directory</i></li>
+<li>a <i>directory</i> contains a <i>list of files</i></li>
+<li>think about this <i>recursive</i> definition</li>
+<li>draw some pictures of possible <i>files</i></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">2</span> Lab 2</h2>
+</div>
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">3</span> Lab 3</h2>
+</div>
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">4</span> Lab 4</h2>
+</div>
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16"><span class="section-number-2">5</span> Lab 5</h2>
+</div>
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">6</span> Lab 6</h2>
+</div>
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">7</span> Lab 7</h2>
+</div>
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">8</span> Lab 8</h2>
+</div>
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">9</span> Lab 9</h2>
+</div>
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">10</span> Lab 10</h2>
+</div>
+<div id="outline-container-orgheadline22" class="outline-2">
+<h2 id="orgheadline22"><span class="section-number-2">11</span> Lab 11</h2>
+</div>
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">12</span> Lab 12</h2>
+</div>
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">13</span> Lab 13</h2>
+</div>
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">14</span> Lab 14</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kevin Sullivan</p>
+<p class="date">Created: 2015-08-27 Thu 20:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
