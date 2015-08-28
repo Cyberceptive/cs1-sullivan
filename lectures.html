@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-08-28 Fri 13:09 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lectures</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Kevin Sullivan" />
+<meta  name="description" content="A book on the foundations and performance of computer programming."
+ />
+<meta  name="keywords" content="computation, programming, logic, software, recursion, data, processes, fun" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+
+<script type="text/javascript" src="org-info.js">
+/**
+ *
+ * @source: org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Lectures</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline12">1. Lecture 1</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Welcome</a></li>
+<li><a href="#orgheadline2">1.2. Software</a></li>
+<li><a href="#orgheadline3">1.3. Videos</a></li>
+<li><a href="#orgheadline4">1.4. Get to know each other</a></li>
+<li><a href="#orgheadline5">1.5. Crank up VMs</a></li>
+<li><a href="#orgheadline6">1.6. Introduce terminal</a></li>
+<li><a href="#orgheadline7">1.7. Crank up emacs</a></li>
+<li><a href="#orgheadline8">1.8. Write Python program</a></li>
+<li><a href="#orgheadline9">1.9. Run it in emacs</a></li>
+<li><a href="#orgheadline10">1.10. Close emacs</a></li>
+<li><a href="#orgheadline11">1.11. Brief Q/A</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline23">2. 2</a>
+<ul>
+<li><a href="#orgheadline15">2.1. A tiny bit of Linux</a>
+<ul>
+<li><a href="#orgheadline13">2.1.1. foreground/background, running/stopped</a></li>
+<li><a href="#orgheadline14">2.1.2. what to do</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline22">2.2. Concept of software evolution</a>
+<ul>
+<li><a href="#orgheadline16">2.2.1. Change management</a></li>
+<li><a href="#orgheadline17">2.2.2. Git</a></li>
+<li><a href="#orgheadline18">2.2.3. GitHub</a></li>
+<li><a href="#orgheadline19">2.2.4. Get Set Up</a></li>
+<li><a href="#orgheadline20">2.2.5. Demo of adding to repo</a></li>
+<li><a href="#orgheadline21">2.2.6. More GitHub</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline24">3. more to come &#x2026;</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">1</span> Lecture 1</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Welcome</h3>
+</div>
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Software</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>interacts with world</li>
+<li>easy to write software</li>
+<li>hard to know it's right</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Videos</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>TED talk, inverted pendulum drone</li>
+<li>concept of feedback control</li>
+<li>concept of embedded computation</li>
+<li>Youtube video, Arianne 5 launch</li>
+<li>how bad computations can affect real world</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.4</span> Get to know each other</h3>
+</div>
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">1.5</span> Crank up VMs</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>Goal to make sure everyone's got a VM</li>
+<li>And to help remaining few who don't</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">1.6</span> Introduce terminal</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>how we interact with Linux kernel</li>
+<li>the <i>ls</i> command</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">1.7</span> Crank up emacs</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>how we create text files</li>
+<li>C-x C-f to open file (f is for file)</li>
+<li>type (using commands from emacs tutorial)</li>
+<li>C-x C-s to save changes (s is for save)</li>
+<li>C-x C-c to close emacs (c is for close)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">1.8</span> Write Python program</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>print("Hello CS1!")</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">1.9</span> Run it in emacs</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>C-c C-c</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">1.10</span> Close emacs</h3>
+<div class="outline-text-3" id="text-1-10">
+<ul class="org-ul">
+<li>C-x C-c</li>
+<li>note running process (Python REPL)</li>
+<li>agree to "kill" it</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">1.11</span> Brief Q/A</h3>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">2</span> 2</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">2.1</span> A tiny bit of Linux</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">2.1.1</span> foreground/background, running/stopped</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li>some processes (like emacs) run for a while</li>
+<li>an example is emacs; it runs while you edit</li>
+<li>running it in your terminal <i>blocks</i> use of terminal</li>
+<li>you want emacs to keep running, but in <i>background</i></li>
+<li>so that you can continue to use your terminal</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">2.1.2</span> what to do</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>to run command in background, use &amp;</li>
+<li>try it with emacs: <i>emacs hello.py &amp;</i></li>
+<li>now you can edit <i>and</i> use your terminal</li>
+<li>the <i>jobs</i> command tells you what's in background</li>
+<li>type it at your terminal: <i>jobs</i></li>
+<li>you should see emacs <i>Running</i> in background</li>
+<li>if you close emacs, that <i>job</i> will go away</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">2.2</span> Concept of software evolution</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>value of software is in changeability</li>
+<li>make machines do new things w/o hardware upgrades</li>
+<li>example - your cell phone and its apps</li>
+<li>example - Tesla cars update themselves continually</li>
+</ul>
+</div>
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">2.2.1</span> Change management</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>managing software change is really important</li>
+<li>e.g., how to back out of a bad update?</li>
+<li>doing so with multiple people involved is critical</li>
+<li>state of art is <i>distributed version control</i></li>
+<li>most common tool today is <i>git</i></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">2.2.2</span> Git</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>everyone has copy of entire project</li>
+<li>copy of project called <i>repository</i></li>
+<li>too many syllables, so we say <i>repo</i></li>
+<li>make changes to your own local repo</li>
+<li>send changes to, pull from, other repos</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">2.2.3</span> GitHub</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<ul class="org-ul">
+<li>team designates shared repo</li>
+<li>GitHub is web service for shared repos</li>
+<li><i>clone</i> existing GitHub repo to get local copy</li>
+<li>make and <i>commit</i> changes to local repo</li>
+<li><i>push</i> changes to shared GitHub repo, or &#x2026;</li>
+<li>&#x2026; request that your changes be <i>pulled</i></li>
+<li>pull changes that others have pushed</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">2.2.4</span> Get Set Up</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<ul class="org-ul">
+<li>edit ~/.gitconfig</li>
+<li>cd ~/my/stuff</li>
+<li>remove existing files/directories</li>
+<li>browse to github.com</li>
+<li>search for cs1-sullivan repo</li>
+<li>select and copy repo https URL</li>
+<li>in terminal, do <i>git clone &lt;paste URL&gt;</i></li>
+<li>cd into ./cs1-sullivan</li>
+<li>list files</li>
+<li>browse to html file</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">2.2.5</span> Demo of adding to repo</h4>
+<div class="outline-text-4" id="text-2-2-5">
+<ul class="org-ul">
+<li>Do <i>not</i> copy my actions</li>
+<li>create new directories</li>
+<li>./code, ./code/lecture1</li>
+<li>edit hello.py</li>
+<li>test hello.py</li>
+<li><i>git add .</i></li>
+<li><i>git commit</i></li>
+<li><i>git push</i></li>
+<li>and now you! <i>git pull</i></li>
+<li>have fun changing hello.py</li>
+<li>you can't push to this repo</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">2.2.6</span> More GitHub</h4>
+<div class="outline-text-4" id="text-2-2-6">
+<ul class="org-ul">
+<li>we'll learn more git as we go</li>
+<li>business model: free for public repos ("open source")</li>
+<li>business model: charge for private repos</li>
+<li>personal repos as <i>portfolios, resumes</i></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">3</span> more to come &#x2026;</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kevin Sullivan</p>
+<p class="date">Created: 2015-08-28 Fri 13:09</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
