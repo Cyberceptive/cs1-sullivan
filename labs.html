@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-01 Tue 15:39 -->
+<!-- 2015-09-04 Fri 00:44 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>CS1-Sullivan: Lab 1</title>
@@ -234,7 +234,7 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline12">1. Lab 1</a>
+<li><a href="#orgheadline12">1. Linux</a>
 <ul>
 <li><a href="#orgheadline1">1.1. Goals</a></li>
 <li><a href="#orgheadline11">1.2. Linux</a>
@@ -252,57 +252,64 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline38">2. 2</a>
+<li><a href="#orgheadline40">2. REPLs</a>
 <ul>
-<li><a href="#orgheadline24">2.1. More Linux</a>
+<li><a href="#orgheadline25">2.1. More Linux</a>
 <ul>
 <li><a href="#orgheadline13">2.1.1. input and output streams</a></li>
 <li><a href="#orgheadline14">2.1.2. example: the <i>cat</i> command</a></li>
-<li><a href="#orgheadline20">2.1.3. redirection</a></li>
-<li><a href="#orgheadline21">2.1.4. grep</a></li>
-<li><a href="#orgheadline22">2.1.5. pipe-and-filter model</a></li>
-<li><a href="#orgheadline23">2.1.6. </a></li>
+<li><a href="#orgheadline15">2.1.3. redirection</a></li>
+<li><a href="#orgheadline16">2.1.4. try it!</a></li>
+<li><a href="#orgheadline17">2.1.5. sending output to another stream</a></li>
+<li><a href="#orgheadline18">2.1.6. try it!</a></li>
+<li><a href="#orgheadline19">2.1.7. an experiment</a></li>
+<li><a href="#orgheadline20">2.1.8. grep</a></li>
+<li><a href="#orgheadline21">2.1.9. try it!</a></li>
+<li><a href="#orgheadline22">2.1.10. pipe-and-filter model</a></li>
+<li><a href="#orgheadline23">2.1.11. try it!</a></li>
+<li><a href="#orgheadline24">2.1.12. The <i>wc</i> command</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline30">2.2. More Emacs</a>
+<li><a href="#orgheadline31">2.2. More Emacs</a>
 <ul>
-<li><a href="#orgheadline25">2.2.1. Emacs concepts</a></li>
-<li><a href="#orgheadline26">2.2.2. Buffers</a></li>
-<li><a href="#orgheadline27">2.2.3. Exploring buffers</a></li>
-<li><a href="#orgheadline28">2.2.4. Closing windows and buffers</a></li>
-<li><a href="#orgheadline29">2.2.5. Running shell within emacs</a></li>
+<li><a href="#orgheadline26">2.2.1. Emacs concepts</a></li>
+<li><a href="#orgheadline27">2.2.2. Buffers</a></li>
+<li><a href="#orgheadline28">2.2.3. Exploring buffers</a></li>
+<li><a href="#orgheadline29">2.2.4. Closing windows and buffers</a></li>
+<li><a href="#orgheadline30">2.2.5. Running shell within emacs</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline35">2.3. REPLs</a>
+<li><a href="#orgheadline39">2.3. REPLs</a>
 <ul>
-<li><a href="#orgheadline31">2.3.1. Python REPL</a></li>
-<li><a href="#orgheadline32">2.3.2. Idris REPL</a></li>
-<li><a href="#orgheadline33">2.3.3. Python REPL inside emacs</a></li>
-<li><a href="#orgheadline34">2.3.4. Idris REPL inside emacs</a></li>
+<li><a href="#orgheadline32">2.3.1. Python REPL</a></li>
+<li><a href="#orgheadline33">2.3.2. Python REPL inside emacs</a></li>
+<li><a href="#orgheadline34">2.3.3. Write a little Idris program</a></li>
+<li><a href="#orgheadline35">2.3.4. Idris REPL</a></li>
+<li><a href="#orgheadline36">2.3.5. Idris REPL inside emacs</a></li>
+<li><a href="#orgheadline37">2.3.6. Explore your Code</a></li>
+<li><a href="#orgheadline38">2.3.7. Success!</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline36">2.4. Questions?</a></li>
-<li><a href="#orgheadline37">2.5. Get counted</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline39">3. 3</a></li>
-<li><a href="#orgheadline40">4. 4</a></li>
-<li><a href="#orgheadline41">5. 5</a></li>
-<li><a href="#orgheadline42">6. 6</a></li>
-<li><a href="#orgheadline43">7. 7</a></li>
-<li><a href="#orgheadline44">8. 8</a></li>
-<li><a href="#orgheadline45">9. 9</a></li>
-<li><a href="#orgheadline46">10. 10</a></li>
-<li><a href="#orgheadline47">11. 11</a></li>
-<li><a href="#orgheadline48">12. 12</a></li>
-<li><a href="#orgheadline49">13. 13</a></li>
-<li><a href="#orgheadline50">14. 14</a></li>
+<li><a href="#orgheadline41">3. 3</a></li>
+<li><a href="#orgheadline42">4. 4</a></li>
+<li><a href="#orgheadline43">5. 5</a></li>
+<li><a href="#orgheadline44">6. 6</a></li>
+<li><a href="#orgheadline45">7. 7</a></li>
+<li><a href="#orgheadline46">8. 8</a></li>
+<li><a href="#orgheadline47">9. 9</a></li>
+<li><a href="#orgheadline48">10. 10</a></li>
+<li><a href="#orgheadline49">11. 11</a></li>
+<li><a href="#orgheadline50">12. 12</a></li>
+<li><a href="#orgheadline51">13. 13</a></li>
+<li><a href="#orgheadline52">14. 14</a></li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-orgheadline12" class="outline-2">
-<h2 id="orgheadline12"><span class="section-number-2">1</span> Lab 1</h2>
+<h2 id="orgheadline12"><span class="section-number-2">1</span> Linux</h2>
 <div class="outline-text-2" id="text-1">
 </div><div id="outline-container-orgheadline1" class="outline-3">
 <h3 id="orgheadline1"><span class="section-number-3">1.1</span> Goals</h3>
@@ -436,17 +443,24 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline38" class="outline-2">
-<h2 id="orgheadline38"><span class="section-number-2">2</span> 2</h2>
+
+<div id="outline-container-orgheadline40" class="outline-2">
+<h2 id="orgheadline40"><span class="section-number-2">2</span> REPLs</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-This is a <i>DRAFT</i> version of CS1-Sullivan Lab2. This document is
-almost certain to change before lab 2 happens. 
+The goal of this lab is to continue to boostrap your ability to
+program in a Linux environment by teaching you:
 </p>
+<ul class="org-ul">
+<li>the Unix <i>pipe-and-filter model</i> of computation</li>
+<li>a Linux command, <i>grep</i>, for searching files for text</li>
+<li>the wonders of read-eval-print-loops (REPLs)</li>
+<li>how to use REPLs at the command line and in emacs</li>
+<li>writing and exploring your first Idris program</li>
+</ul>
 </div>
-
-<div id="outline-container-orgheadline24" class="outline-3">
-<h3 id="orgheadline24"><span class="section-number-3">2.1</span> More Linux</h3>
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">2.1</span> More Linux</h3>
 <div class="outline-text-3" id="text-2-1">
 </div><div id="outline-container-orgheadline13" class="outline-4">
 <h4 id="orgheadline13"><span class="section-number-4">2.1.1</span> input and output streams</h4>
@@ -481,10 +495,9 @@ almost certain to change before lab 2 happens.
 </div>
 </div>
 
-<div id="outline-container-orgheadline20" class="outline-4">
-<h4 id="orgheadline20"><span class="section-number-4">2.1.3</span> redirection</h4>
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">2.1.3</span> redirection</h4>
 <div class="outline-text-4" id="text-2-1-3">
-</div><ol class="org-ol"><li><a id="orgheadline15"></a>taking input from another stream<br  /><div class="outline-text-5" id="text-2-1-3-1">
 <ul class="org-ul">
 <li>redirection changes the input/output streams for a command</li>
 <li>whereas <i>cat &lt;filename&gt;</i> takes input from file &#x2026;</li>
@@ -496,17 +509,23 @@ almost certain to change before lab 2 happens.
 <p><img src="labs-images/filter3.png" alt="filter3.png" />
 </p>
 </div>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline16"></a>try it!<br  /><div class="outline-text-5" id="text-2-1-3-2">
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">2.1.4</span> try it!</h4>
+<div class="outline-text-4" id="text-2-1-4">
 <ul class="org-ul">
 <li>try it; type <i>cat</i>; it will sit there waiting for input</li>
 <li>each time you enter a line, cat will print it (to terminal)</li>
-<li>you signal <i>eod-of-file</i> with a Control-D character</li>
+<li>you signal <i>end-of-file</i> with a Control-D character</li>
 </ul>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline17"></a>sending output to another stream<br  /><div class="outline-text-5" id="text-2-1-3-3">
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">2.1.5</span> sending output to another stream</h4>
+<div class="outline-text-4" id="text-2-1-5">
 <ul class="org-ul">
 <li>just as commands can take input from another stream &#x2026;</li>
 <li>&#x2026; they can also send output to another stream</li>
@@ -517,9 +536,12 @@ almost certain to change before lab 2 happens.
 <p><img src="labs-images/filter4.png" alt="filter4.png" />
 </p>
 </div>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline18"></a>try it!<br  /><div class="outline-text-5" id="text-2-1-3-4">
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">2.1.6</span> try it!</h4>
+<div class="outline-text-4" id="text-2-1-6">
 <ul class="org-ul">
 <li>type <i>ls -l &gt; myfiles.txt</i>; then <i>cat myfiles.txt</i></li>
 <li>type <i>cat &gt; some.txt</i>; remember that ^D is EOF</li>
@@ -528,32 +550,45 @@ almost certain to change before lab 2 happens.
 <li>Note that &gt; overwrites output; &gt;&gt; appends to output</li>
 <li>Try it on your own</li>
 </ul>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline19"></a>an experiment<br  /><div class="outline-text-5" id="text-2-1-3-5">
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">2.1.7</span> an experiment</h4>
+<div class="outline-text-4" id="text-2-1-7">
 <ul class="org-ul">
 <li>predict what does <i>cat file1 file2</i> do?</li>
 <li>what about <i>cat file1 file2 &gt; file3</i></li>
 </ul>
-</div></li></ol>
+</div>
+</div>
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">2.1.8</span> grep</h4>
+<div class="outline-text-4" id="text-2-1-8">
+<ul class="org-ul">
+<li><i>grep &lt;pattern&gt; &lt;input-file&gt;</i> searches input for content</li>
+<li>it prints out lines in input that match pattern</li>
+<li>try it: pick a pattern that's in <i>myfiles.txt</i></li>
+<li>again: pick a pattern that's not in <i>myfiles.txt</i></li>
+</ul>
+</div>
 </div>
 
 <div id="outline-container-orgheadline21" class="outline-4">
-<h4 id="orgheadline21"><span class="section-number-4">2.1.4</span> grep</h4>
-<div class="outline-text-4" id="text-2-1-4">
+<h4 id="orgheadline21"><span class="section-number-4">2.1.9</span> try it!</h4>
+<div class="outline-text-4" id="text-2-1-9">
 <ul class="org-ul">
-<li><i>grep &lt;pattern&gt; &lt;input&gt;</i> searches input for content</li>
-<li>it prints out lines in input that match pattern</li>
-<li>try it: pick a pattern that's in <i>myfiles.txt</i></li>
-<li>again: pick a pattern that's no in <i>myfiles.txt</i></li>
-<li>again: pick a pattern that's on more than one line</li>
+<li>download the text of Romeo and Juliette</li>
+<li><i>wget</i> downloads contents at given URLs</li>
+<li><a href="http://www.folgerdigitaltexts.org/download/txt/Rom.txt">http://www.folgerdigitaltexts.org/download/txt/Rom.txt</a></li>
+<li>on how many lines does the word love appear?</li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-orgheadline22" class="outline-4">
-<h4 id="orgheadline22"><span class="section-number-4">2.1.5</span> pipe-and-filter model</h4>
-<div class="outline-text-4" id="text-2-1-5">
+<h4 id="orgheadline22"><span class="section-number-4">2.1.10</span> pipe-and-filter model</h4>
+<div class="outline-text-4" id="text-2-1-10">
 <ul class="org-ul">
 <li>one program's output can be another's input</li>
 </ul>
@@ -564,23 +599,40 @@ almost certain to change before lab 2 happens.
 </div>
 <ul class="org-ul">
 <li>to <i>pipe</i> one's output to another's input, use |</li>
-<li>try it: <i>ls -l | grep &lt;pattern&gt;</i></li>
-<li>note that you don't have to give grep a filename!</li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-orgheadline23" class="outline-4">
-<h4 id="orgheadline23"><span class="section-number-4">2.1.6</span> </h4>
+<h4 id="orgheadline23"><span class="section-number-4">2.1.11</span> try it!</h4>
+<div class="outline-text-4" id="text-2-1-11">
+<ul class="org-ul">
+<li>try it: <i>ls -l | grep &lt;pattern&gt;</i></li>
+<li>note that you don't have to give grep a filename!</li>
+<li>now extend your pipe with <i>| sort</i></li>
+<li>type <i>man sort</i> at the command line</li>
+<li>modify pipeline to sort ignoring case and in reverse</li>
+</ul>
 </div>
 </div>
 
+<div id="outline-container-orgheadline24" class="outline-4">
+<h4 id="orgheadline24"><span class="section-number-4">2.1.12</span> The <i>wc</i> command</h4>
+<div class="outline-text-4" id="text-2-1-12">
+<ul class="org-ul">
+<li><i>wc</i> stands for <i>word count</i></li>
+<li><i>wc</i> counts lines, words, characters in input</li>
+<li>now can you answer the Shakespeare question?</li>
+</ul>
+</div>
+</div>
+</div>
 
-<div id="outline-container-orgheadline30" class="outline-3">
-<h3 id="orgheadline30"><span class="section-number-3">2.2</span> More Emacs</h3>
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">2.2</span> More Emacs</h3>
 <div class="outline-text-3" id="text-2-2">
-</div><div id="outline-container-orgheadline25" class="outline-4">
-<h4 id="orgheadline25"><span class="section-number-4">2.2.1</span> Emacs concepts</h4>
+</div><div id="outline-container-orgheadline26" class="outline-4">
+<h4 id="orgheadline26"><span class="section-number-4">2.2.1</span> Emacs concepts</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <ul class="org-ul">
 <li>file: data stored on computer</li>
@@ -591,8 +643,8 @@ almost certain to change before lab 2 happens.
 </ul>
 </div>
 </div>
-<div id="outline-container-orgheadline26" class="outline-4">
-<h4 id="orgheadline26"><span class="section-number-4">2.2.2</span> Buffers</h4>
+<div id="outline-container-orgheadline27" class="outline-4">
+<h4 id="orgheadline27"><span class="section-number-4">2.2.2</span> Buffers</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <ul class="org-ul">
 <li><i>C-x C-b</i> creates window and lists open emacs buffers</li>
@@ -603,8 +655,8 @@ almost certain to change before lab 2 happens.
 </div>
 </div>
 
-<div id="outline-container-orgheadline27" class="outline-4">
-<h4 id="orgheadline27"><span class="section-number-4">2.2.3</span> Exploring buffers</h4>
+<div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28"><span class="section-number-4">2.2.3</span> Exploring buffers</h4>
 <div class="outline-text-4" id="text-2-2-3">
 <ul class="org-ul">
 <li>now list all your buffers; identify the one for the file</li>
@@ -616,8 +668,8 @@ almost certain to change before lab 2 happens.
 </div>
 </div>
 
-<div id="outline-container-orgheadline28" class="outline-4">
-<h4 id="orgheadline28"><span class="section-number-4">2.2.4</span> Closing windows and buffers</h4>
+<div id="outline-container-orgheadline29" class="outline-4">
+<h4 id="orgheadline29"><span class="section-number-4">2.2.4</span> Closing windows and buffers</h4>
 <div class="outline-text-4" id="text-2-2-4">
 <ul class="org-ul">
 <li>C-x 1 closes all windows other than current</li>
@@ -630,8 +682,8 @@ almost certain to change before lab 2 happens.
 </div>
 </div>
 
-<div id="outline-container-orgheadline29" class="outline-4">
-<h4 id="orgheadline29"><span class="section-number-4">2.2.5</span> Running shell within emacs</h4>
+<div id="outline-container-orgheadline30" class="outline-4">
+<h4 id="orgheadline30"><span class="section-number-4">2.2.5</span> Running shell within emacs</h4>
 <div class="outline-text-4" id="text-2-2-5">
 <ul class="org-ul">
 <li>emacs can do a lot, including running programs in windows</li>
@@ -644,11 +696,11 @@ almost certain to change before lab 2 happens.
 </div>
 </div>
 
-<div id="outline-container-orgheadline35" class="outline-3">
-<h3 id="orgheadline35"><span class="section-number-3">2.3</span> REPLs</h3>
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39"><span class="section-number-3">2.3</span> REPLs</h3>
 <div class="outline-text-3" id="text-2-3">
-</div><div id="outline-container-orgheadline31" class="outline-4">
-<h4 id="orgheadline31"><span class="section-number-4">2.3.1</span> Python REPL</h4>
+</div><div id="outline-container-orgheadline32" class="outline-4">
+<h4 id="orgheadline32"><span class="section-number-4">2.3.1</span> Python REPL</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <ul class="org-ul">
 <li>run <i>python</i> (no arguments) in terminal</li>
@@ -659,22 +711,9 @@ almost certain to change before lab 2 happens.
 </ul>
 </div>
 </div>
-<div id="outline-container-orgheadline32" class="outline-4">
-<h4 id="orgheadline32"><span class="section-number-4">2.3.2</span> Idris REPL</h4>
-<div class="outline-text-4" id="text-2-3-2">
-<ul class="org-ul">
-<li>run <i>idris</i> (no arguments) in terminal</li>
-<li>kicks you into the <i>idris shell</i> (REPL)</li>
-<li>type code, REPL evaluates it, prints results</li>
-<li>expression <i>syntax</i> different in Idris</li>
-<li>function names come before arguments</li>
-<li>enter ^D (control-D) to exit from REPL</li>
-</ul>
-</div>
-</div>
 <div id="outline-container-orgheadline33" class="outline-4">
-<h4 id="orgheadline33"><span class="section-number-4">2.3.3</span> Python REPL inside emacs</h4>
-<div class="outline-text-4" id="text-2-3-3">
+<h4 id="orgheadline33"><span class="section-number-4">2.3.2</span> Python REPL inside emacs</h4>
+<div class="outline-text-4" id="text-2-3-2">
 <ul class="org-ul">
 <li>Create a simple Python program in emacs</li>
 <li>emacs activates <i>Python mode</i> for any *.py file</li>
@@ -688,71 +727,112 @@ almost certain to change before lab 2 happens.
 </div>
 </div>
 <div id="outline-container-orgheadline34" class="outline-4">
-<h4 id="orgheadline34"><span class="section-number-4">2.3.4</span> Idris REPL inside emacs</h4>
+<h4 id="orgheadline34"><span class="section-number-4">2.3.3</span> Write a little Idris program</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<ul class="org-ul">
+<li>cd my/stuff/cs1/lab2 (create directory as necessary)</li>
+<li>use emacs to create a new file called <i>Bit.idr</i></li>
+<li>remember: <i>emacs Bit.idr &amp;</i> to run it in background</li>
+<li>type this code in the buffer; save the file</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">Bit</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">zero</span> <span style="color: #BA36A5;">|</span> <span style="color: #333333; background-color: #FFFFFF;">one</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">change</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Bit</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Bit</span>
+<span style="color: #333333; background-color: #FFFFFF;">change</span> <span style="color: #333333; background-color: #FFFFFF;">zero</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">one</span>
+<span style="color: #333333; background-color: #FFFFFF;">change</span> <span style="color: #333333; background-color: #FFFFFF;">one</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">zero</span>
+</pre>
+</div>
+<ul class="org-ul">
+<li>program defines data type, its values, and a function</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline35" class="outline-4">
+<h4 id="orgheadline35"><span class="section-number-4">2.3.4</span> Idris REPL</h4>
 <div class="outline-text-4" id="text-2-3-4">
 <ul class="org-ul">
-<li>emacs activates <i>Idris mode</i> for any *.idr file</li>
-<li>carry out same procedure for an Idris file</li>
-<li>however, instead of <i>C-c C-c</i> it's <i>C-c C-l</i></li>
+<li>run <i>idris</i> (no arguments) in terminal</li>
+<li>kicks you into the <i>idris shell</i> (REPL)</li>
+<li>load the file your wrote with <i>:l Bit.idr</i></li>
+<li>enter ^D (control-D) to exit from REPL</li>
+<li>load the file again and go on to next step</li>
 </ul>
 </div>
 </div>
-</div>
-<div id="outline-container-orgheadline36" class="outline-3">
-<h3 id="orgheadline36"><span class="section-number-3">2.4</span> Questions?</h3>
-</div>
-<div id="outline-container-orgheadline37" class="outline-3">
-<h3 id="orgheadline37"><span class="section-number-3">2.5</span> Get counted</h3>
-<div class="outline-text-3" id="text-2-5">
+<div id="outline-container-orgheadline36" class="outline-4">
+<h4 id="orgheadline36"><span class="section-number-4">2.3.5</span> Idris REPL inside emacs</h4>
+<div class="outline-text-4" id="text-2-3-5">
 <ul class="org-ul">
-<li>Log into collab</li>
-<li>Go to assignments / Lab 2</li>
-<li>Submit the secret word for this lab to get credit</li>
+<li>emacs activates <i>Idris mode</i> for any *.idr file</li>
+<li>launch REPL and load code in buffer using <i>C-c C-l</i></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37"><span class="section-number-4">2.3.6</span> Explore your Code</h4>
+<div class="outline-text-4" id="text-2-3-6">
+<ul class="org-ul">
+<li>at Idris prompt, type <i>:t one</i> to ask what type is <i>one</i></li>
+<li>do the same for <i>zero</i></li>
+<li>before you do the same for <i>invert</i>, predict the result</li>
+<li>does it make sense to ask about the type of <i>Bit</i>?</li>
+<li>now ask the REPL to evaluate an expression: <i>invert one</i></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline38" class="outline-4">
+<h4 id="orgheadline38"><span class="section-number-4">2.3.7</span> Success!</h4>
+<div class="outline-text-4" id="text-2-3-7">
+<ul class="org-ul">
+<li>yeah, you're computing using Idris and its REPL!</li>
+<li>submit file and secret word for Lab2 on Collab</li>
 </ul>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgheadline39" class="outline-2">
-<h2 id="orgheadline39"><span class="section-number-2">3</span> 3</h2>
-</div>
-<div id="outline-container-orgheadline40" class="outline-2">
-<h2 id="orgheadline40"><span class="section-number-2">4</span> 4</h2>
 </div>
 <div id="outline-container-orgheadline41" class="outline-2">
-<h2 id="orgheadline41"><span class="section-number-2">5</span> 5</h2>
+<h2 id="orgheadline41"><span class="section-number-2">3</span> 3</h2>
 </div>
 <div id="outline-container-orgheadline42" class="outline-2">
-<h2 id="orgheadline42"><span class="section-number-2">6</span> 6</h2>
+<h2 id="orgheadline42"><span class="section-number-2">4</span> 4</h2>
 </div>
 <div id="outline-container-orgheadline43" class="outline-2">
-<h2 id="orgheadline43"><span class="section-number-2">7</span> 7</h2>
+<h2 id="orgheadline43"><span class="section-number-2">5</span> 5</h2>
 </div>
 <div id="outline-container-orgheadline44" class="outline-2">
-<h2 id="orgheadline44"><span class="section-number-2">8</span> 8</h2>
+<h2 id="orgheadline44"><span class="section-number-2">6</span> 6</h2>
 </div>
 <div id="outline-container-orgheadline45" class="outline-2">
-<h2 id="orgheadline45"><span class="section-number-2">9</span> 9</h2>
+<h2 id="orgheadline45"><span class="section-number-2">7</span> 7</h2>
 </div>
 <div id="outline-container-orgheadline46" class="outline-2">
-<h2 id="orgheadline46"><span class="section-number-2">10</span> 10</h2>
+<h2 id="orgheadline46"><span class="section-number-2">8</span> 8</h2>
 </div>
 <div id="outline-container-orgheadline47" class="outline-2">
-<h2 id="orgheadline47"><span class="section-number-2">11</span> 11</h2>
+<h2 id="orgheadline47"><span class="section-number-2">9</span> 9</h2>
 </div>
 <div id="outline-container-orgheadline48" class="outline-2">
-<h2 id="orgheadline48"><span class="section-number-2">12</span> 12</h2>
+<h2 id="orgheadline48"><span class="section-number-2">10</span> 10</h2>
 </div>
 <div id="outline-container-orgheadline49" class="outline-2">
-<h2 id="orgheadline49"><span class="section-number-2">13</span> 13</h2>
+<h2 id="orgheadline49"><span class="section-number-2">11</span> 11</h2>
 </div>
 <div id="outline-container-orgheadline50" class="outline-2">
-<h2 id="orgheadline50"><span class="section-number-2">14</span> 14</h2>
+<h2 id="orgheadline50"><span class="section-number-2">12</span> 12</h2>
+</div>
+<div id="outline-container-orgheadline51" class="outline-2">
+<h2 id="orgheadline51"><span class="section-number-2">13</span> 13</h2>
+</div>
+<div id="outline-container-orgheadline52" class="outline-2">
+<h2 id="orgheadline52"><span class="section-number-2">14</span> 14</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-01 Tue 15:39</p>
+<p class="date">Created: 2015-09-04 Fri 00:44</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
