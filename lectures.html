@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-07 Mon 23:41 -->
+<!-- 2015-09-08 Tue 01:10 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -374,7 +374,7 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#orgheadline89">5.1. bool</a>
 <ul>
-<li><a href="#orgheadline87">5.1.1. The concept of the abstract data type</a></li>
+<li><a href="#orgheadline87">5.1.1. Abstract data types</a></li>
 <li><a href="#orgheadline88">5.1.2. A few notes on Idris</a></li>
 </ul>
 </li>
@@ -1330,11 +1330,11 @@ this term.
 <h2 id="orgheadline93"><span class="section-number-2">5</span> Abstract data types</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-In this unit, we will make the informal ideas about pure computation,
-separate from effects, from last time, precise in the form of code. In
-particular, we will see how to define simple data types and functions
-in an programming language called Idris, giving rise to a modular form
-of code called an <i>abstract data type</i>.
+In this unit, we will make precise the informal ideas from last time,
+about pure computation separate from effects. We will make these ideas
+precise by casting them in the form of <i>code</i>. In particular, we will
+see how to define simple data types and functions in the programming
+language called Idris.
 </p>
 </div>
 
@@ -1342,17 +1342,17 @@ of code called an <i>abstract data type</i>.
 <h3 id="orgheadline89"><span class="section-number-3">5.1</span> bool</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
-Let's start with a type we've already talked about informally: the
+Let's start with material we've already talked about informally: the
 <i>bool</i> data type, and the function, <i>not</i>, of type \(bool \to bool\).
 </p>
 
 <p>
-You will recall several fats from the last section. First, the <i>bool</i>
-type has two values, namely <i>true</i> and <i>false</i>. Second, the <i>not</i>
-function has type \(bool \to bool\). Finally, the <i>not</i> function is
-defined by two equations: \(not\ true = false\) and \(not\ false = true\).
-Here's how we would say all of this in an exquisitely precise and 
-concise manner using the Idris programming language. 
+You will recall several facts from the last section. First, the <i>bool</i>
+type has two values, <i>true</i> and <i>false</i>. Second, the <i>not</i> function
+has type \(bool \to bool\). Finally, the <i>not</i> function is defined by
+two equations: \(not\ true = false\) and \(not\ false = true\).  Here's
+how we would say all of this in an exquisitely precise and concise
+form in the Idris programming language.
 </p>
 
 <div class="org-src-container">
@@ -1382,25 +1382,25 @@ type <i>bool</i>.
 </div>
 
 <div id="outline-container-orgheadline87" class="outline-4">
-<h4 id="orgheadline87"><span class="section-number-4">5.1.1</span> The concept of the abstract data type</h4>
+<h4 id="orgheadline87"><span class="section-number-4">5.1.1</span> Abstract data types</h4>
 <div class="outline-text-4" id="text-5-1-1">
 <p>
 This code clearly and concisely captures the intuition we developed in
 the last class: of a data type and a set of associated functions that
 operate on values of that type. We call such a combination&#x2014;of a type
-and associated functions&#x2013;an <i>abstract data type</i>. Here we are thus
+and associated functions&#x2013;an <i>abstract data type</i>. Here we are here
 defining what programmers would call a <i>Boolean abstract data type</i>.
 </p>
 
 <p>
 We can usually define more than one function for a given data type. It
-is interest to ask how many such functions can one define? Think about
-it for a moment. In how many different ways can map the values <i>true</i>
-and <i>false</i> to themselves? The answer is four: we can map each of the
-arguments to its opposite (the <i>not</i> function); we can map each one to
-itself (what we call the identify function); we can map both to <i>true</i>
-(the <i>constant true function</i>); and we can map both to false. Here's
-the code.
+is interesting to ask how many such functions can one define? Think
+about it for a moment. In how many different ways can map the values
+<i>true</i> and <i>false</i> to themselves? The answer is four: we can map each
+of the arguments to its opposite (the <i>not</i> function); we can map each
+one to itself (what we call the identify function); we can map both to
+<i>true</i> (the <i>constant true function</i>); and we can map both to <i>false</i>.
+Here's the code.
 </p>
 
 <div class="org-src-container">
@@ -1428,16 +1428,17 @@ the code.
 <h4 id="orgheadline88"><span class="section-number-4">5.1.2</span> A few notes on Idris</h4>
 <div class="outline-text-4" id="text-5-1-2">
 <p>
-The lines of code preceded by two dashes are <i>comments</i>. They are
-there only for the benefit of you, the human reader. They do not
-affect the computational meaning of the code.
+The lines starting with two dashes are <i>comments</i>. They are there for
+you, the human reader. They do not affect the computational meaning of
+the code.
 </p>
 
 <p>
-Separately, we note that in Idris, by convention type names are
-generally capitalized. What we mean when we say <i>by convention</i> is
-that this is rule that people generally follow but that Idris does not
-enforce. It is considered good form to follow the rule.
+We also note that in Idris, by convention type names are capitalized.
+What we mean when we say <i>by convention</i> is that this is rule that
+most good programmers follow but that Idris does not enforce. It is
+considered good form to follow the rule, and following it is believed
+to produce that is more <i>readable</i> that it would otherwise be.
 </p>
 
 <p>
@@ -1459,7 +1460,7 @@ the next sub-section, for the same reason.
 Having learned about the Boolean data type, <i>bool</i>, one might wonder
 whether there are even simpler types? The answer is yes. While <i>bool</i>
 has two values, the type we will call <i>unit</i> is even simpler: it has
-has one value, which we will call <i>mkUnit</i> (pronounced <i>make-unit</i>).
+has only one, which we will call <i>mkUnit</i> (pronounced <i>make-unit</i>).
 </p>
 
 <p>
@@ -1467,9 +1468,9 @@ An interesting question to contemplate is how many functions are there
 of type \(unit \to unit\). There is only one value that such a function
 can take as an argument (namely <i>mkUnit</i>) and only one value that it
 can return as a result (again <i>mkUnit</i>). So the answer is <i>just one</i>.
-The only function one can define on the <i>unit</i> type is the <i>identity</i>
-function on this type: the one that both takes and returns <i>mkUnit</i>.
-Here then is the entire <i>unit</i> abstract data type.
+The only function of type \(unit \to unit\) is the <i>identity</i> function
+for <i>unit</i>.  Here then is the code for the entire <i>unit</i> abstract data
+type.
 </p>
 
 <div class="org-src-container">
@@ -1867,7 +1868,7 @@ this idea.
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
 <li>Review our definition of the <i>idUnit</i> function. Can you shorten it using pattern matching?</li>
-<li>write a function <i>notUnBox</i> that takes a <i>Box</i> containing a <i>bool</i>
+<li>Write a function <i>notUnBox</i> that takes a <i>Box</i> containing a <i>bool</i>
 and that returns the <i>negation</i> of the contained value. If the
 argument to this function is <i>mkBox false</i>, for example, the function should
 return <i>true</i>, and <i>vice versa</i>.</li>
@@ -1878,7 +1879,7 @@ return <i>true</i>, and <i>vice versa</i>.</li>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-07 Mon 23:41</p>
+<p class="date">Created: 2015-09-08 Tue 01:10</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
