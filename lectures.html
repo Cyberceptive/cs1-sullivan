@@ -1,0 +1,2485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-09-14 Mon 16:37 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lectures</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Kevin Sullivan" />
+<meta  name="description" content="A book on the foundations and performance of computer programming."
+ />
+<meta  name="keywords" content="computation, programming, logic, software, recursion, data, processes, fun" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+
+<script type="text/javascript" src="org-info.js">
+/**
+ *
+ * @source: org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Lectures</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline12">1. Welcome</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Welcome</a></li>
+<li><a href="#orgheadline2">1.2. Software</a></li>
+<li><a href="#orgheadline3">1.3. Videos</a></li>
+<li><a href="#orgheadline4">1.4. Get to know each other</a></li>
+<li><a href="#orgheadline5">1.5. Crank up VMs</a></li>
+<li><a href="#orgheadline6">1.6. Introduce terminal</a></li>
+<li><a href="#orgheadline7">1.7. Crank up emacs</a></li>
+<li><a href="#orgheadline8">1.8. Write Python program</a></li>
+<li><a href="#orgheadline9">1.9. Run it in emacs</a></li>
+<li><a href="#orgheadline10">1.10. Close emacs</a></li>
+<li><a href="#orgheadline11">1.11. Brief Q/A</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline23">2. Software Tools</a>
+<ul>
+<li><a href="#orgheadline15">2.1. A tiny bit of Linux</a>
+<ul>
+<li><a href="#orgheadline13">2.1.1. foreground/background, running/stopped</a></li>
+<li><a href="#orgheadline14">2.1.2. what to do</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline22">2.2. Concept of software evolution</a>
+<ul>
+<li><a href="#orgheadline16">2.2.1. Change management</a></li>
+<li><a href="#orgheadline17">2.2.2. Git</a></li>
+<li><a href="#orgheadline18">2.2.3. GitHub</a></li>
+<li><a href="#orgheadline19">2.2.4. Get Set Up</a></li>
+<li><a href="#orgheadline20">2.2.5. Demo of adding to repo</a></li>
+<li><a href="#orgheadline21">2.2.6. More GitHub</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline24">3. Assisted Quiz</a></li>
+<li><a href="#orgheadline86">4. Computations and Effects</a>
+<ul>
+<li><a href="#orgheadline27">4.1. Sensors are cheap and amazing</a></li>
+<li><a href="#orgheadline29">4.2. Computation in the world</a>
+<ul>
+<li><a href="#orgheadline28">4.2.1. Computation in the physical world</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline34">4.3. Computation</a>
+<ul>
+<li><a href="#orgheadline30">4.3.1. Data have types</a></li>
+<li><a href="#orgheadline31">4.3.2. Data have interpretations</a></li>
+<li><a href="#orgheadline32">4.3.3. Functions transform data</a></li>
+<li><a href="#orgheadline33">4.3.4. Functions have types</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline39">4.4. Pure Functions</a>
+<ul>
+<li><a href="#orgheadline35">4.4.1. Focus on Pure Functions</a></li>
+<li><a href="#orgheadline36">4.4.2. Mostly Ignore Effects for Now</a></li>
+<li><a href="#orgheadline37">4.4.3. Let's Generalized our Picture</a></li>
+<li><a href="#orgheadline38">4.4.4. Function Application and Reduction</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline80">4.5. Examples</a>
+<ul>
+<li><a href="#orgheadline40">4.5.1. Example</a></li>
+<li><a href="#orgheadline41">4.5.2. Example</a></li>
+<li><a href="#orgheadline42">4.5.3. Example</a></li>
+<li><a href="#orgheadline43">4.5.4. Example</a></li>
+<li><a href="#orgheadline44">4.5.5. Example</a></li>
+<li><a href="#orgheadline45">4.5.6. Example</a></li>
+<li><a href="#orgheadline46">4.5.7. Example</a></li>
+<li><a href="#orgheadline47">4.5.8. Example</a></li>
+<li><a href="#orgheadline48">4.5.9. Example</a></li>
+<li><a href="#orgheadline49">4.5.10. Example</a></li>
+<li><a href="#orgheadline50">4.5.11. Example</a></li>
+<li><a href="#orgheadline51">4.5.12. Example</a></li>
+<li><a href="#orgheadline52">4.5.13. Example</a></li>
+<li><a href="#orgheadline53">4.5.14. Example</a></li>
+<li><a href="#orgheadline54">4.5.15. Example</a></li>
+<li><a href="#orgheadline55">4.5.16. Example</a></li>
+<li><a href="#orgheadline56">4.5.17. Example</a></li>
+<li><a href="#orgheadline57">4.5.18. Example</a></li>
+<li><a href="#orgheadline58">4.5.19. Example</a></li>
+<li><a href="#orgheadline59">4.5.20. Example</a></li>
+<li><a href="#orgheadline60">4.5.21. Example</a></li>
+<li><a href="#orgheadline61">4.5.22. Example</a></li>
+<li><a href="#orgheadline62">4.5.23. Example</a></li>
+<li><a href="#orgheadline63">4.5.24. Example</a></li>
+<li><a href="#orgheadline64">4.5.25. Example</a></li>
+<li><a href="#orgheadline65">4.5.26. Example</a></li>
+<li><a href="#orgheadline66">4.5.27. Example</a></li>
+<li><a href="#orgheadline67">4.5.28. Example</a></li>
+<li><a href="#orgheadline68">4.5.29. Example</a></li>
+<li><a href="#orgheadline69">4.5.30. Example</a></li>
+<li><a href="#orgheadline70">4.5.31. Example</a></li>
+<li><a href="#orgheadline71">4.5.32. Example</a></li>
+<li><a href="#orgheadline72">4.5.33. Example</a></li>
+<li><a href="#orgheadline73">4.5.34. Example</a></li>
+<li><a href="#orgheadline74">4.5.35. Example</a></li>
+<li><a href="#orgheadline75">4.5.36. Example</a></li>
+<li><a href="#orgheadline76">4.5.37. Example</a></li>
+<li><a href="#orgheadline77">4.5.38. Example</a></li>
+<li><a href="#orgheadline78">4.5.39. Example</a></li>
+<li><a href="#orgheadline79">4.5.40. Example</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline81">4.6. Summary</a></li>
+<li><a href="#orgheadline84">4.7. REPLs</a>
+<ul>
+<li><a href="#orgheadline82">4.7.1. The picture makes sense</a></li>
+<li><a href="#orgheadline83">4.7.2. Let's try Python REPL</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline85">4.8. A thought experiment</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline93">5. Abstract data types</a>
+<ul>
+<li><a href="#orgheadline89">5.1. bool</a>
+<ul>
+<li><a href="#orgheadline87">5.1.1. Abstract data types</a></li>
+<li><a href="#orgheadline88">5.1.2. A few notes on Idris</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline90">5.2. unit</a></li>
+<li><a href="#orgheadline91">5.3. Summary</a></li>
+<li><a href="#orgheadline92">5.4. Exercises</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline103">6. Pattern Matching</a>
+<ul>
+<li><a href="#orgheadline96">6.1. A more concise definition of bool</a>
+<ul>
+<li><a href="#orgheadline94">6.1.1. Pattern matching</a></li>
+<li><a href="#orgheadline95">6.1.2. Matching without naming</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline101">6.2. Destructuring of terms</a>
+<ul>
+<li><a href="#orgheadline97">6.2.1. module definition</a></li>
+<li><a href="#orgheadline98">6.2.2. module import</a></li>
+<li><a href="#orgheadline99">6.2.3. parameterized constructor</a></li>
+<li><a href="#orgheadline100">6.2.4. destructuring of values during pattern matching</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline102">6.3. Practice</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline104">7. Polymorphism</a></li>
+<li><a href="#orgheadline112">8. Interpretation</a>
+<ul>
+<li><a href="#orgheadline109">8.1. Boolean Algebra</a>
+<ul>
+<li><a href="#orgheadline105">8.1.1. An introduction to Boolean algebra</a></li>
+<li><a href="#orgheadline106">8.1.2. Logical representation</a></li>
+<li><a href="#orgheadline107">8.1.3. Programming as representation</a></li>
+<li><a href="#orgheadline108">8.1.4. Fluency in reading and writing code</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline110">8.2. What does the type <i>pair a b</i> represent?</a></li>
+<li><a href="#orgheadline111">8.3. Practice</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">1</span> Welcome</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Welcome</h3>
+</div>
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Software</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>interacts with world</li>
+<li>easy to write software</li>
+<li>hard to know it's right</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Videos</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>TED talk, inverted pendulum drone</li>
+<li>concept of feedback control</li>
+<li>concept of embedded computation</li>
+<li>Youtube video, Arianne 5 launch</li>
+<li>how bad computations can affect real world</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.4</span> Get to know each other</h3>
+</div>
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">1.5</span> Crank up VMs</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>Goal to make sure everyone's got a VM</li>
+<li>And to help remaining few who don't</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">1.6</span> Introduce terminal</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>how we interact with Linux kernel</li>
+<li>the <i>ls</i> command</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">1.7</span> Crank up emacs</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>how we create text files</li>
+<li>C-x C-f to open file (f is for file)</li>
+<li>type (using commands from emacs tutorial)</li>
+<li>C-x C-s to save changes (s is for save)</li>
+<li>C-x C-c to close emacs (c is for close)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">1.8</span> Write Python program</h3>
+<div class="outline-text-3" id="text-1-8">
+<ul class="org-ul">
+<li>print("Hello CS1!")</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">1.9</span> Run it in emacs</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>C-c C-c</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">1.10</span> Close emacs</h3>
+<div class="outline-text-3" id="text-1-10">
+<ul class="org-ul">
+<li>C-x C-c</li>
+<li>note running process (Python REPL)</li>
+<li>agree to "kill" it</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">1.11</span> Brief Q/A</h3>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-2">
+<h2 id="orgheadline23"><span class="section-number-2">2</span> Software Tools</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">2.1</span> A tiny bit of Linux</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">2.1.1</span> foreground/background, running/stopped</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li>some processes (like emacs) run for a while</li>
+<li>an example is emacs; it runs while you edit</li>
+<li>running it in your terminal <i>blocks</i> use of terminal</li>
+<li>you want emacs to keep running, but in <i>background</i></li>
+<li>so that you can continue to use your terminal</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">2.1.2</span> what to do</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>to run command in background, use &amp;</li>
+<li>try it with emacs: <i>emacs hello.py &amp;</i></li>
+<li>now you can edit <i>and</i> use your terminal</li>
+<li>the <i>jobs</i> command tells you what's in background</li>
+<li>type it at your terminal: <i>jobs</i></li>
+<li>you should see emacs <i>Running</i> in background</li>
+<li>if you close emacs, that <i>job</i> will go away</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">2.2</span> Concept of software evolution</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li>value of software is in changeability</li>
+<li>make machines do new things w/o hardware upgrades</li>
+<li>example - your cell phone and its apps</li>
+<li>example - Tesla cars update themselves continually</li>
+</ul>
+</div>
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">2.2.1</span> Change management</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>managing software change is really important</li>
+<li>e.g., how to back out of a bad update?</li>
+<li>doing so with multiple people involved is critical</li>
+<li>state of art is <i>distributed version control</i></li>
+<li>most common tool today is <i>git</i></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">2.2.2</span> Git</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>everyone has copy of entire project</li>
+<li>copy of project called <i>repository</i></li>
+<li>too many syllables, so we say <i>repo</i></li>
+<li>make changes to your own local repo</li>
+<li>send changes to, pull from, other repos</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">2.2.3</span> GitHub</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<ul class="org-ul">
+<li>team designates shared repo</li>
+<li>GitHub is web service for shared repos</li>
+<li><i>clone</i> existing GitHub repo to get local copy</li>
+<li>make and <i>commit</i> changes to local repo</li>
+<li><i>push</i> changes to shared GitHub repo, or &#x2026;</li>
+<li>&#x2026; request that your changes be <i>pulled</i></li>
+<li>pull changes that others have pushed</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">2.2.4</span> Get Set Up</h4>
+<div class="outline-text-4" id="text-2-2-4">
+<ul class="org-ul">
+<li>edit ~/.gitconfig</li>
+<li>cd ~/my/stuff</li>
+<li>remove existing files/directories</li>
+<li>browse to github.com</li>
+<li>search for cs1-sullivan repo</li>
+<li>select and copy repo https URL</li>
+<li>in terminal, do <i>git clone &lt;paste URL&gt;</i></li>
+<li>cd into ./cs1-sullivan</li>
+<li>list files</li>
+<li>browse to html file</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">2.2.5</span> Demo of adding to repo</h4>
+<div class="outline-text-4" id="text-2-2-5">
+<ul class="org-ul">
+<li>Do <i>not</i> copy my actions</li>
+<li>create new directories</li>
+<li>./code, ./code/lecture1</li>
+<li>edit hello.py</li>
+<li>test hello.py</li>
+<li><i>git add .</i></li>
+<li><i>git commit</i></li>
+<li><i>git push</i></li>
+<li>and now you! <i>git pull</i></li>
+<li>have fun changing hello.py</li>
+<li>you can't push to this repo</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">2.2.6</span> More GitHub</h4>
+<div class="outline-text-4" id="text-2-2-6">
+<ul class="org-ul">
+<li>we'll learn more git as we go</li>
+<li>business model: free for public repos ("open source")</li>
+<li>business model: charge for private repos</li>
+<li>personal repos as <i>portfolios, resumes</i></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">3</span> Assisted Quiz</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This period is mostly dedicated to testing everyone's ability to get
+around in Linux, edit files using emacs, and run simple programs using
+<i>command-line</i> commands. For a little extra fun, it requires a little
+bit of program debugging!
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline86" class="outline-2">
+<h2 id="orgheadline86"><span class="section-number-2">4</span> Computations and Effects</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">4.1</span> Sensors are cheap and amazing</h3>
+<div class="outline-text-3" id="text-4-1">
+</div><ol class="org-ol"><li><a id="orgheadline25"></a>Sensor Kinetics app for IPhone, Android (2.5MB)<br  /></li>
+<li><a id="orgheadline26"></a>Sensor Test app on Android (21KB)<br  /></li></ol>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">4.2</span> Computation in the world</h3>
+<div class="outline-text-3" id="text-4-2">
+
+<div id="orgparagraph1" class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (1 of 46).jpg" alt="DataAndFunctions (1 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Computation in the physical world</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-4">
+<h4 id="orgheadline28"><span class="section-number-4">4.2.1</span> Computation in the physical world</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li>A <i>sensor</i> converts a <i>physical</i> signal into logical <i>data</i></li>
+<li>An 8-bit <i>binary numeral</i> representing the number \(50\)</li>
+<li>This value, \(50\), is <i>interpreted</i> as a distance in meters</li>
+<li>The orange arrow represents a <i>function</i></li>
+<li>Functions transform given data into new data</li>
+<li>Given data representing a number, this function &#x2026;</li>
+<li>&#x2026; <i>returns</i> data representing a character <i>string</i></li>
+<li>This data is interpreted as a <i>roughly true</i> statement!</li>
+<li>An actuator displays the string on a physical screen</li>
+<li>Why is the statement probably only roughly true?</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-3">
+<h3 id="orgheadline34"><span class="section-number-3">4.3</span> Computation</h3>
+<div class="outline-text-3" id="text-4-3">
+</div><div id="outline-container-orgheadline30" class="outline-4">
+<h4 id="orgheadline30"><span class="section-number-4">4.3.1</span> Data have types</h4>
+<div class="outline-text-4" id="text-4-3-1">
+
+<div id="orgparagraph2" class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (2 of 46).jpg" alt="DataAndFunctions (2 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 2:</span> "Data types &#x2013; e.g., integer"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-4">
+<h4 id="orgheadline31"><span class="section-number-4">4.3.2</span> Data have interpretations</h4>
+<div class="outline-text-4" id="text-4-3-2">
+
+<div id="orgparagraph3" class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (2 of 46)-Interp.jpg" alt="DataAndFunctions (2 of 46)-Interp.jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 3:</span> "Interpretation &#x2013; e.g., physical distance"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-4">
+<h4 id="orgheadline32"><span class="section-number-4">4.3.3</span> Functions transform data</h4>
+<div class="outline-text-4" id="text-4-3-3">
+
+<div id="orgparagraph4" class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (3 of 46).jpg" alt="DataAndFunctions (3 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 4:</span> "Data types &#x2013; e.g., string"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-4">
+<h4 id="orgheadline33"><span class="section-number-4">4.3.4</span> Functions have types</h4>
+<div class="outline-text-4" id="text-4-3-4">
+
+<div id="orgparagraph5" class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (4 of 46).jpg" alt="DataAndFunctions (4 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 5:</span> "And we interpret function applications as producing meaningful results."</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline39" class="outline-3">
+<h3 id="orgheadline39"><span class="section-number-3">4.4</span> Pure Functions</h3>
+<div class="outline-text-3" id="text-4-4">
+</div><div id="outline-container-orgheadline35" class="outline-4">
+<h4 id="orgheadline35"><span class="section-number-4">4.4.1</span> Focus on Pure Functions</h4>
+<div class="outline-text-4" id="text-4-4-1">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (5 of 46).jpg" alt="DataAndFunctions (5 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 6:</span> "Pure functional computation"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline36" class="outline-4">
+<h4 id="orgheadline36"><span class="section-number-4">4.4.2</span> Mostly Ignore Effects for Now</h4>
+<div class="outline-text-4" id="text-4-4-2">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (6 of 46).jpg" alt="DataAndFunctions (6 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 7:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline37" class="outline-4">
+<h4 id="orgheadline37"><span class="section-number-4">4.4.3</span> Let's Generalized our Picture</h4>
+<div class="outline-text-4" id="text-4-4-3">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (7 of 46).jpg" alt="DataAndFunctions (7 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 8:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline38" class="outline-4">
+<h4 id="orgheadline38"><span class="section-number-4">4.4.4</span> Function Application and Reduction</h4>
+<div class="outline-text-4" id="text-4-4-4">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (8 of 46).jpg" alt="DataAndFunctions (8 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 9:</span> "An example"</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline80" class="outline-3">
+<h3 id="orgheadline80"><span class="section-number-3">4.5</span> Examples</h3>
+<div class="outline-text-3" id="text-4-5">
+<ul class="org-ul">
+<li>Let's look at a whole bunch of examples to build intuition</li>
+<li>For each one, identify both the data types and function types</li>
+<li>Talk about possible interpretations</li>
+<li>Watch out for "type errors" (round peg in square hole)</li>
+<li>Don't worry about using the right names for now</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline40" class="outline-4">
+<h4 id="orgheadline40"><span class="section-number-4">4.5.1</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-1">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (9 of 46).jpg" alt="DataAndFunctions (9 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 10:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline41" class="outline-4">
+<h4 id="orgheadline41"><span class="section-number-4">4.5.2</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-2">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (10 of 46).jpg" alt="DataAndFunctions (10 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 11:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline42" class="outline-4">
+<h4 id="orgheadline42"><span class="section-number-4">4.5.3</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-3">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (11 of 46).jpg" alt="DataAndFunctions (11 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 12:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-4">
+<h4 id="orgheadline43"><span class="section-number-4">4.5.4</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-4">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (12 of 46).jpg" alt="DataAndFunctions (12 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 13:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-4">
+<h4 id="orgheadline44"><span class="section-number-4">4.5.5</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-5">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (13 of 46).jpg" alt="DataAndFunctions (13 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 14:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-4">
+<h4 id="orgheadline45"><span class="section-number-4">4.5.6</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-6">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (14 of 46).jpg" alt="DataAndFunctions (14 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 15:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline46" class="outline-4">
+<h4 id="orgheadline46"><span class="section-number-4">4.5.7</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-7">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (15 of 46).jpg" alt="DataAndFunctions (15 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 16:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline47" class="outline-4">
+<h4 id="orgheadline47"><span class="section-number-4">4.5.8</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-8">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (16 of 46).jpg" alt="DataAndFunctions (16 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 17:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline48" class="outline-4">
+<h4 id="orgheadline48"><span class="section-number-4">4.5.9</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-9">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (17 of 46).jpg" alt="DataAndFunctions (17 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 18:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline49" class="outline-4">
+<h4 id="orgheadline49"><span class="section-number-4">4.5.10</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-10">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (18 of 46).jpg" alt="DataAndFunctions (18 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 19:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline50" class="outline-4">
+<h4 id="orgheadline50"><span class="section-number-4">4.5.11</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-11">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (19 of 46).jpg" alt="DataAndFunctions (19 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 20:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline51" class="outline-4">
+<h4 id="orgheadline51"><span class="section-number-4">4.5.12</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-12">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (20 of 46).jpg" alt="DataAndFunctions (20 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 21:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline52" class="outline-4">
+<h4 id="orgheadline52"><span class="section-number-4">4.5.13</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-13">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (21 of 46).jpg" alt="DataAndFunctions (21 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 22:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline53" class="outline-4">
+<h4 id="orgheadline53"><span class="section-number-4">4.5.14</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-14">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (22 of 46).jpg" alt="DataAndFunctions (22 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 23:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline54" class="outline-4">
+<h4 id="orgheadline54"><span class="section-number-4">4.5.15</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-15">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (23 of 46).jpg" alt="DataAndFunctions (23 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 24:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline55" class="outline-4">
+<h4 id="orgheadline55"><span class="section-number-4">4.5.16</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-16">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (24 of 46).jpg" alt="DataAndFunctions (24 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 25:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline56" class="outline-4">
+<h4 id="orgheadline56"><span class="section-number-4">4.5.17</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-17">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (25 of 46).jpg" alt="DataAndFunctions (25 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 26:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline57" class="outline-4">
+<h4 id="orgheadline57"><span class="section-number-4">4.5.18</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-18">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (26 of 46).jpg" alt="DataAndFunctions (26 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 27:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline58" class="outline-4">
+<h4 id="orgheadline58"><span class="section-number-4">4.5.19</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-19">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (27 of 46).jpg" alt="DataAndFunctions (27 of 46).jpg" width="600x" />
+</p>
+<p><span class="figure-number">Figure 28:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline59" class="outline-4">
+<h4 id="orgheadline59"><span class="section-number-4">4.5.20</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-20">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (28 of 46).jpg" alt="DataAndFunctions (28 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 29:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline60" class="outline-4">
+<h4 id="orgheadline60"><span class="section-number-4">4.5.21</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-21">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (29 of 46).jpg" alt="DataAndFunctions (29 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 30:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline61" class="outline-4">
+<h4 id="orgheadline61"><span class="section-number-4">4.5.22</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-22">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (30 of 46).jpg" alt="DataAndFunctions (30 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 31:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline62" class="outline-4">
+<h4 id="orgheadline62"><span class="section-number-4">4.5.23</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-23">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (31 of 46).jpg" alt="DataAndFunctions (31 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 32:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline63" class="outline-4">
+<h4 id="orgheadline63"><span class="section-number-4">4.5.24</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-24">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (32 of 46).jpg" alt="DataAndFunctions (32 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 33:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline64" class="outline-4">
+<h4 id="orgheadline64"><span class="section-number-4">4.5.25</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-25">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (33 of 46).jpg" alt="DataAndFunctions (33 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 34:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline65" class="outline-4">
+<h4 id="orgheadline65"><span class="section-number-4">4.5.26</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-26">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (34 of 46).jpg" alt="DataAndFunctions (34 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 35:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline66" class="outline-4">
+<h4 id="orgheadline66"><span class="section-number-4">4.5.27</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-27">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (35 of 46).jpg" alt="DataAndFunctions (35 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 36:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline67" class="outline-4">
+<h4 id="orgheadline67"><span class="section-number-4">4.5.28</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-28">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (36 of 46).jpg" alt="DataAndFunctions (36 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 37:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline68" class="outline-4">
+<h4 id="orgheadline68"><span class="section-number-4">4.5.29</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-29">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (37 of 46).jpg" alt="DataAndFunctions (37 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 38:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline69" class="outline-4">
+<h4 id="orgheadline69"><span class="section-number-4">4.5.30</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-30">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (38 of 46).jpg" alt="DataAndFunctions (38 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 39:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline70" class="outline-4">
+<h4 id="orgheadline70"><span class="section-number-4">4.5.31</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-31">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (30 of 46).jpg" alt="DataAndFunctions (30 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 40:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline71" class="outline-4">
+<h4 id="orgheadline71"><span class="section-number-4">4.5.32</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-32">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (39 of 46).jpg" alt="DataAndFunctions (39 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 41:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline72" class="outline-4">
+<h4 id="orgheadline72"><span class="section-number-4">4.5.33</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-33">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (40 of 46).jpg" alt="DataAndFunctions (40 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 42:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline73" class="outline-4">
+<h4 id="orgheadline73"><span class="section-number-4">4.5.34</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-34">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (41 of 46).jpg" alt="DataAndFunctions (41 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 43:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline74" class="outline-4">
+<h4 id="orgheadline74"><span class="section-number-4">4.5.35</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-35">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (42 of 46).jpg" alt="DataAndFunctions (42 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 44:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline75" class="outline-4">
+<h4 id="orgheadline75"><span class="section-number-4">4.5.36</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-36">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (43 of 46).jpg" alt="DataAndFunctions (43 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 45:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline76" class="outline-4">
+<h4 id="orgheadline76"><span class="section-number-4">4.5.37</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-37">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (44 of 46).jpg" alt="DataAndFunctions (44 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 46:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline77" class="outline-4">
+<h4 id="orgheadline77"><span class="section-number-4">4.5.38</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-38">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (44 of 46).jpg" alt="DataAndFunctions (44 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 47:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline78" class="outline-4">
+<h4 id="orgheadline78"><span class="section-number-4">4.5.39</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-39">
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (45 of 46).jpg" alt="DataAndFunctions (45 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 48:</span> "An example"</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline79" class="outline-4">
+<h4 id="orgheadline79"><span class="section-number-4">4.5.40</span> Example</h4>
+<div class="outline-text-4" id="text-4-5-40">
+<p>
+An alternative to viewing <i>increment list</i> as a type error
+would be to define a different function for lists but with 
+the same name as the one for numbers. We'll see later on that
+this is a very sensible thing to do. The technical term for
+this idea is  <i>overloading</i>. For now you don't need to know
+this term.
+</p>
+
+<div class="figure">
+<p><img src="./figures/FunctionsAndEffects/DataAndFunctions (46 of 46).jpg" alt="DataAndFunctions (46 of 46).jpg" width="900px" />
+</p>
+<p><span class="figure-number">Figure 49:</span> "An example"</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline81" class="outline-3">
+<h3 id="orgheadline81"><span class="section-number-3">4.6</span> Summary</h3>
+<div class="outline-text-3" id="text-4-6">
+<ul class="org-ul">
+<li><i>Types</i> define sets of <i>values</i></li>
+<li>Function <i>application</i> converts data of one type into another</li>
+<li>The type of a function is an <i>arrow</i> from <i>argument</i> to <i>result</i> type</li>
+<li>The <i>argument</i> and <i>result</i> types can be but needn't be the same</li>
+<li>We impose <i>interpretations</i> to give data and functions real meaning</li>
+<li>Function definitions, expressions, and programs are data too</li>
+<li>Functions that take/return other functions are called <i>higher order</i></li>
+<li><i>Semantics</i> reduce programs/expressions to the results they represent</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline84" class="outline-3">
+<h3 id="orgheadline84"><span class="section-number-3">4.7</span> REPLs</h3>
+<div class="outline-text-3" id="text-4-7">
+</div><div id="outline-container-orgheadline82" class="outline-4">
+<h4 id="orgheadline82"><span class="section-number-4">4.7.1</span> The picture makes sense</h4>
+<div class="outline-text-4" id="text-4-7-1">
+<ul class="org-ul">
+<li>Sensor: keyboard</li>
+<li>Argument: expression</li>
+<li>Function: semantics</li>
+<li>Result: reduced value</li>
+<li>Effect: display result</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgheadline83" class="outline-4">
+<h4 id="orgheadline83"><span class="section-number-4">4.7.2</span> Let's try Python REPL</h4>
+</div>
+</div>
+
+<div id="outline-container-orgheadline85" class="outline-3">
+<h3 id="orgheadline85"><span class="section-number-3">4.8</span> A thought experiment</h3>
+<div class="outline-text-3" id="text-4-8">
+<ul class="org-ul">
+<li>Remember that a type defines a set of values</li>
+<li>What is the simplest data types you can imagine defining?</li>
+<li>What functions can one define using only that type?</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline93" class="outline-2">
+<h2 id="orgheadline93"><span class="section-number-2">5</span> Abstract data types</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+In this unit, we will make precise the informal ideas from last time,
+about pure computation separate from effects. We will make these ideas
+precise by casting them in the form of <i>code</i>. In particular, we will
+see how to define simple data types and functions in the programming
+language called Idris.
+</p>
+</div>
+
+<div id="outline-container-orgheadline89" class="outline-3">
+<h3 id="orgheadline89"><span class="section-number-3">5.1</span> bool</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Let's start with material we've already talked about informally: the
+<i>bool</i> data type, and the function, <i>not</i>, of type \(bool \to bool\).
+</p>
+
+<p>
+You will recall several facts from the last section. First, the <i>bool</i>
+type has two values, <i>true</i> and <i>false</i>. Second, the <i>not</i> function
+has type \(bool \to bool\). Finally, the <i>not</i> function is defined by
+two equations: \(not\ true = false\) and \(not\ false = true\).  Here's
+how we would say all of this in an exquisitely precise and concise
+form in the Idris programming language.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #BA36A5;">|</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">not</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">not</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+<span style="color: #333333; background-color: #FFFFFF;">not</span> <span style="color: #333333; background-color: #FFFFFF;">false</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+</pre>
+</div>
+
+<p>
+The first line indicates that we are defining a <i>module</i> (a coherent
+unit of code) called <i>bool</i>. The second line defines a data type named
+<i>bool</i> and states that it has two values, <i>true</i> and <i>false</i>. The
+third line says that we're introducing a new function, <i>not</i>, of type
+\(bool \to bool\). The last two lines present the equations that define
+the behavior of this function. The first one says that the result of
+applying <i>not</i> to the value <i>true</i> is the value <i>false</i>.  The second
+says that applying <i>not</i> to <i>false</i> reduces to <i>true</i>. These equations
+together define the behavior of <i>not</i> when applied to <i>any</i> value of
+type <i>bool</i>.
+</p>
+</div>
+
+<div id="outline-container-orgheadline87" class="outline-4">
+<h4 id="orgheadline87"><span class="section-number-4">5.1.1</span> Abstract data types</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<p>
+This code clearly and concisely captures the intuition we developed in
+the last class: of a data type and a set of associated functions that
+operate on values of that type. We call such a combination&#x2014;of a type
+and associated functions&#x2013;an <i>abstract data type</i>. Here we are here
+defining what programmers would call a <i>Boolean abstract data type</i>.
+</p>
+
+<p>
+We can usually define more than one function for a given data type. It
+is interesting to ask how many such functions can one define? Think
+about it for a moment. In how many different ways can map the values
+<i>true</i> and <i>false</i> to themselves? The answer is four: we can map each
+of the arguments to its opposite (the <i>not</i> function); we can map each
+one to itself (what we call the identify function); we can map both to
+<i>true</i> (the <i>constant true function</i>); and we can map both to <i>false</i>.
+Here's the code.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- The identity function</span>
+<span style="color: #333333; background-color: #FFFFFF;">id_bool</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">id_bool</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+<span style="color: #333333; background-color: #FFFFFF;">id_bool</span> <span style="color: #333333; background-color: #FFFFFF;">false</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- The constant true function</span>
+<span style="color: #333333; background-color: #FFFFFF;">const_true</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">const_true</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+<span style="color: #333333; background-color: #FFFFFF;">const_true</span> <span style="color: #333333; background-color: #FFFFFF;">false</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- The constant false function</span>
+<span style="color: #333333; background-color: #FFFFFF;">const_false</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">const_false</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+<span style="color: #333333; background-color: #FFFFFF;">const_false</span> <span style="color: #333333; background-color: #FFFFFF;">false</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline88" class="outline-4">
+<h4 id="orgheadline88"><span class="section-number-4">5.1.2</span> A few notes on Idris</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<p>
+The lines starting with two dashes are <i>comments</i>. They are there for
+you, the human reader. They do not affect the computational meaning of
+the code.
+</p>
+
+<p>
+We also note that in Idris, by convention type names are capitalized.
+What we mean when we say <i>by convention</i> is that this is rule that
+most good programmers follow but that Idris does not enforce. It is
+considered good form to follow the rule, and following it is believed
+to produce that is more <i>readable</i> that it would otherwise be.
+</p>
+
+<p>
+As you can see, we have broken the convention in our definition of the
+<i>bool</i> type. The reason we have done this is that Idris already has a
+<i>Bool</i> type (with a capital <i>B</i>), and we don't want our definition to
+conflict with that of Idris. We thus break from convention here and
+use a lower-case <i>b</i>. We'll do the same thing for the <i>unit</i> type in
+the next sub-section, for the same reason.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline90" class="outline-3">
+<h3 id="orgheadline90"><span class="section-number-3">5.2</span> unit</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Having learned about the Boolean data type, <i>bool</i>, one might wonder
+whether there are even simpler types? The answer is yes. While <i>bool</i>
+has two values, the type we will call <i>unit</i> is even simpler: it has
+has only one, which we will call <i>mkUnit</i> (pronounced <i>make-unit</i>).
+</p>
+
+<p>
+An interesting question to contemplate is how many functions are there
+of type \(unit \to unit\). There is only one value that such a function
+can take as an argument (namely <i>mkUnit</i>) and only one value that it
+can return as a result (again <i>mkUnit</i>). So the answer is <i>just one</i>.
+The only function of type \(unit \to unit\) is the <i>identity</i> function
+for <i>unit</i>.  Here then is the code for the entire <i>unit</i> abstract data
+type.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">unit</span>
+
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">unit</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkUnit</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">idUnit</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">unit</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">unit</span>
+<span style="color: #333333; background-color: #FFFFFF;">idUnit</span> <span style="color: #333333; background-color: #FFFFFF;">mkUnit</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkUnit</span>
+</pre>
+</div>
+
+<p>
+The first line states that we're defining a new module, <i>unit</i>. The
+second line defines the <i>unit</i> data type, with one value, <i>mkUnit</i>.
+The third line declares (<i>idUnit</i>) to be a function of type (\(unit \to
+unit\)). The fourth line defines its behavior: given <i>mkUnit</i> as an
+argument, it returns <i>mkUnit</i> as a result. That is all that can be, or
+that needs to be, said about this function. This code thus gives the
+complete definition of a <i>unit</i> abstract data type.
+</p>
+
+<p>
+You are probably wondering whether there is any possible use for such
+a minimal type. The answer is yes. It plays an important role in many
+languages, from C and C++ to Java to Python and Idris. In particular,
+it is the type of value that is returned by a program that exists not
+to produce a useful value but only to have an effect on the world.
+</p>
+
+<p>
+In Python, for example, the <i>print</i> command exists only produce output
+on an output stream, not to compute and return a useful value. The
+command <i>print("Hello CS1!")</i> for example produces such an output. If
+you're really interested in seeing what value this command returns,
+you can actually print it using the print command, like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python"><span style="color: #0000FF;">print</span>(<span style="color: #0000FF;">print</span>(<span style="color: #008000;">"Hello CS1!"</span>))
+</pre>
+</div>
+
+<p>
+Try it in your REPL. You will first see the output, <i>Hello CS1!</i>.
+This output is the <i>effect</i> of the inner print command. The outer
+print command then prints the <i>result</i> returned by the inner print
+command. What is that result?  As you will see, it's called <i>None</i>.
+This is Python's equivalent of <i>mkUnit</i>, the only value of Python's
+unit type, which in Python is called <i>NoneType</i>.
+</p>
+
+<p>
+The unit type is actually ubiquitous in imperative programming. It is
+the type returned by functions that exist only for their effects, and
+not to compute useful values. In the programming languages C, C++, and
+Java, for example, the unit type is called <i>void</i>. You will often see
+functions in these languages declared to return value of type <i>void</i>.
+Here's the <i>Hello CS1!</i> program in Java, which exists only to have an
+effect (outputting the <i>Hello</i> message), for example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #0000FF;">class</span> <span style="color: #6434A3;">Hello</span> {
+  <span style="color: #0000FF;">public</span> <span style="color: #0000FF;">static</span> <span style="color: #6434A3;">void</span> <span style="color: #006699;">main</span>(<span style="color: #6434A3;">String</span>[] <span style="color: #BA36A5;">args</span>) { 
+    System.out.println(<span style="color: #008000;">"Hello CS1!"</span>) }
+}
+</pre>
+</div>
+
+<p>
+Here the <i>main</i> routine is declared to take a list of strings as an
+argument and to return a value of type <i>void</i>.  Many programmers never
+fully understand what that <i>void</i> means. Now you know! It just means
+the <i>unit</i> type.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline91" class="outline-3">
+<h3 id="orgheadline91"><span class="section-number-3">5.3</span> Summary</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+In this chapter you have learned how to modular units of code called
+abstract data types. An abstract data type combined a data type
+definition with a set of functions that operate on values of that data
+type. You have met the <i>unit</i> abstract data type, whose data type has
+only one value. You have seen that there is only one function of type
+\(unit \to unit\), namely the identity function on the unit type. 
+</p>
+
+<p>
+You have also met the Boolean abstract data type (here called <i>bool</i>).
+It is built on a data type with two values, <i>true</i> and <i>false</i>. You
+have seen that it is possible to define four functions of type \(bool
+\to bool\), namely negation, the identity function on this type, and
+two constant functions.
+</p>
+
+<p>
+Most important of all, you have seen that we can take the intuitive
+concepts of data and function types and values and make them precise.
+Moreover, making them precise in this way also makes it possible to
+automate computations involving these concepts.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline92" class="outline-3">
+<h3 id="orgheadline92"><span class="section-number-3">5.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-5-4">
+<ul class="org-ul">
+<li>Load and compile the <i>bool.idr</i> and <i>unit.idr</i> files in the Idris</li>
+</ul>
+<p>
+REPL. Use the <i>:t</i> query to ask about the types of all of the objects
+in each of the files: the values, the functions, and also the types.
+</p>
+
+<ul class="org-ul">
+<li>Use the REPL to evaluate function application expressions for each</li>
+</ul>
+<p>
+of these abstract data types. For example, evaluated <i>not true</i>, <i>not
+false</i>, <i>idUnit mkUnit</i>, and so forth. Check carefully to determine
+whether the computed results are correct given your definitions.
+</p>
+
+<ul class="org-ul">
+<li>Adapt the <i>bool</i> type to create a new type, called <i>days</i> with seven</li>
+</ul>
+<p>
+values, one for each day of the week. Then define two functions of
+type \(day \to day\), one that for any given day returns the next day,
+and one that for any given day returns the next weekday.
+</p>
+
+<ul class="org-ul">
+<li>Extra credit: How many functions of type \(day \to day\) are there?</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline103" class="outline-2">
+<h2 id="orgheadline103"><span class="section-number-2">6</span> Pattern Matching</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline96" class="outline-3">
+<h3 id="orgheadline96"><span class="section-number-3">6.1</span> A more concise definition of bool</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Here we present a more concise but computationally equivalent
+definition of the <i>bool</i> ADT.  We present it in parts in order to
+discuss the mechanisms that we use to make a more compact
+representation.
+</p>
+
+<p>
+First, we start as before, by defining a <i>bool</i> module and the
+usual <i>bool</i> data type.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #BA36A5;">|</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+</pre>
+</div>
+
+<p>
+As before, this code starts by declaring that the following
+definitions are grouped in module called <i>bool</i>. The second line
+defines a data type called <i>bool</i>. On the right hand side of the
+equals sign in a list of <i>constructors</i> that, together, define the
+<i>values</i> (or <i>terms</i>) of this type.  Here they are just <i>true</i> and
+<i>false</i>. In the next subsection, we will see that it is possible for
+one constructor to define more than one term of a given type.
+</p>
+
+<p>
+Now let's return to the issue at hand: writing the functions in the
+<i>bool</i> ADT more concisely. Let's start with the <i>id</i> function. As you
+recall, this is the function that just returns its argument unchanged
+as a result.
+</p>
+
+<p>
+Previously we presented two rules to define the result of applying
+this function to a value of type <i>bool</i>. That is, we presented rules
+defining the values of the expressions, <i>id true</i> and <i>id false</i>. We
+wrote <i>id true = true</i> and <i>id false = false</i>. 
+</p>
+</div>
+
+<div id="outline-container-orgheadline94" class="outline-4">
+<h4 id="orgheadline94"><span class="section-number-4">6.1.1</span> Pattern matching</h4>
+<div class="outline-text-4" id="text-6-1-1">
+<p>
+The observation that leads to a simplification is that <i>id</i> returns
+<i>whatever</i> value it is given. The idea is to give that value a <i>name</i>,
+such as <i>b</i> or <i>x</i>, that <i>covers both cases</i> and then to use that name
+in defining the result. One rule can then cover many cases. Suppose we
+pick <i>b</i> as the name. Then we can write the <i>id</i> function as follows:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">id</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">id</span> <span style="color: #333333; background-color: #FFFFFF;">b</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>
+</pre>
+</div>
+
+<p>
+The first line is as before: it declares the identifier <i>id</i> to be
+bound to a value of type \(bool \to bool\). I.e., <i>id</i> is a <i>function</i>
+that when applied to a value of type <i>bool</i> returns (reduces to) a
+value of type <i>bool</i>. 
+</p>
+
+<p>
+The second line is where we see a difference. It defines how the <i>id</i>
+function behaves for all (both) possible values of the argument. It
+says that <i>id</i> applied to <i>any</i> value, call it <i>b</i>, reduced to <i>b</i>.
+One rule covers both cases.
+</p>
+
+<p>
+This rule illustrates the concept of <i>pattern matching</i>, also called
+<i>unification</i>. Unification is at the heart of how Idris <i>evaluates</i>
+function application expressions in which functions are applied to
+values to produce results. Examples of such expressions include, such
+as <i>id true</i> and <i>id false</i>. We expect that the expression <i>id true</i>
+reduces to <i>true</i> and <i>id false</i>, to <i>false</i>. How does this work?
+</p>
+
+<p>
+In effect, when Idris sees a function application expression, such as
+<i>id false</i>, it starts by looking up the definition of <i>id</i>. It finds a
+sequence of rules. Each rule has a <i>pattern</i>, possibly with variables,
+to the left of an equals sign, and an expression that can use those
+variables, defining the corresponding result, on the right. Idris goes
+down the list of rules, trying to <i>match</i> the function application
+against the <i>patterns</i>. When it finds a pattern that <i>matches</i>, it
+<i>returns</i> the value given by the expression on the right.
+</p>
+
+<p>
+Let's trace how this would work for the expression, <i>id false</i>. Let's
+look at our first definition of this function first (the one with two
+rules). The function application expression to be matched is <i>id
+false</i>. The first rule has <i>id true</i> on the left of the equals sign,
+so it doesn't match. The second rule has <i>id false</i> on the left. It
+does match.  The value to which the expression <i>id false</i> is reduced
+is thus given on the right side of this rule.  The result is thus just
+<i>false</i>.
+</p>
+
+<p>
+Now consider how the expression <i>id false</i> gets evaluated with our new
+definition. Idris tries to match the expression <i>id false</i> with the
+pattern <i>id b</i>. Here <i>b</i> is a variable: a name that can be bound to
+any value of type <i>bool</i>. The pattern matches in this case as long as
+<i>b</i> is <i>bound</i> to the value <i>false</i>. With this match made on the left,
+the value on the right, <i>namely the value of b, as bound on the left</i>
+is returned as the result. The result in this case is thus <i>false</i>.
+</p>
+
+<p>
+The process of trying to match a pattern, containing variables, to a
+term, such as <i>id false</i>, by binding those variables to parts of the
+term (here by binding <i>b</i> to <i>false</i>), is called <i>unification</i>. This
+concept is at the heart of function evaluation in Idris and many other
+functional programming languages.
+</p>
+
+<p>
+When Idris is asked to evaluate an application of a function <i>f</i> to an
+argument <i>a</i>, it looks up the rules for <i>f</i>. It then tries to <i>unify</i>
+the expression <i>f a</i> with the patterns on the left sides of the rules,
+starting with the first rule and going down the list, in order, until
+a match is found. When a pattern matches, it results in a temporary
+binding of the variables in the pattern to the matching parts of the
+given term.  Those variables can then be used on the right side of the
+rule to define the result to which the function application is reduced.
+</p>
+
+<p>
+In this case, Idris evaluates <i>id false</i> by looking up the one rule,
+<i>id b = b</i>. The pattern <i>id b</i> matches (unifies with) the term <i>id
+false</i>, namely with <i>b</i> bound to <i>false</i>. The right side of the rule
+then states that the result is <i>b</i>. In this case, <i>b</i> means <i>false</i>.
+The pattern <i>id b</i> would also unify with the term <i>id true</i>, but with
+<i>b</i> bound to <i>true</i>, yielding <i>true</i> as the value to which <i>id true</i>
+reduces.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline95" class="outline-4">
+<h4 id="orgheadline95"><span class="section-number-4">6.1.2</span> Matching without naming</h4>
+<div class="outline-text-4" id="text-6-1-2">
+<p>
+In some cases we want to write a rule that matches on part of a term
+but where we don't need to give a name to that part because we don't
+use it in defining the result. 
+</p>
+
+<p>
+Consider the function <i>constFalse</i>, as an example. We could write two
+rules to define this function, one for the term, <i>constFalse true</i>,
+and one for <i>constFalse false</i>, but the answer is the same in either
+case: <i>false</i>. It doesn't matter whether we apply <i>constFalse</i> to
+<i>true</i> or to <i>false</i>. We can thus write one rule that matches both
+cases. In particular, <i>constFalse b = false</i> would work, but there's
+really no need to introduce the name <i>b</i> in this case, as it's not
+used to define the result. When we want to match on part of a term but
+we don't need to <i>remember</i> it for use on the right side of a rule, we
+can use an underscore, <i>_</i>, in a pattern to match and value of the
+designated type.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">constFalse</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">constFalse</span> <span style="color: #333333; background-color: #FFFFFF;">_</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">constTrue</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">constTrue</span> <span style="color: #333333; background-color: #FFFFFF;">_</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+</pre>
+</div>
+
+<p>
+We note that we can use this mechanism to slightly shorten the
+definition of <i>not</i>, as well. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">not</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">not</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+<span style="color: #333333; background-color: #FFFFFF;">not</span> <span style="color: #333333; background-color: #FFFFFF;">_</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+</pre>
+</div>
+
+<p>
+The key to understanding why this code works is that Idris tries to
+match terms with patterns <i>in the order in which the rules are
+listed.</i> It's important that the first rule comes first. If we put the
+second rule first, it would match both <i>not false</i> and <i>not true</i>,
+yielding a result of true in either case.  
+</p>
+
+<p>
+Writing the first rule first ensures that the term, <i>not true</i>, will
+match the first rule, producing <i>false</i> as a result. The term <i>not
+false</i> does <b>not</b> match the first rule, so Idris <i>falls through</i> to
+the second rule. The pattern <i>not _ = true</i> does then match the term
+<i>not false</i>, yielding <i>true</i> as a result. The underscore matches the
+<i>false</i>, but no name needs to be (or is) bound to this value, as it
+is not needed to define the result, <i>true</i>.
+</p>
+
+<p>
+If we wrote the second rule first, the pattern in the first rule would
+match both <i>not true</i> and <i>not false</i> and so both expressions would be
+defined as reducing to <i>false</i>. The thing to remember is that Idris
+tries to match function application terms to the patterns in the rules
+that a define a function <i>in the order in which they are written</i> in
+the function definition.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline101" class="outline-3">
+<h3 id="orgheadline101"><span class="section-number-3">6.2</span> Destructuring of terms</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Pattern matching can be used in deeper ways. In particular, when the
+argument to a function is not just a simple value, such as <i>true</i> or
+<i>false</i>, but a more complicated <i>object</i>, pattern matching can be used
+to <i>look into</i> that object, and to unify with its parts. The names
+that are bound to those parts can then be used in defining the result
+of the function.
+</p>
+
+<p>
+To illustrate, we now present a new abstract data type, which we will
+call <i>Box</i>. The idea is that a value, <i>b</i>, of type Box, is like a box
+that itself <i>contains</i> a value of type <i>bool</i>. Now such a Box would
+not be very interesting or useful if we couldn't recover the <i>bool</i>
+that it incorporates. So in addition to being able to <i>construct</i> Box
+objects with <i>bool</i> values inside, we need a function, which we will
+call <i>unbox</i>, that, given a <i>Box</i> returns the <i>bool</i> inside.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span>
+
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkBox</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">unbox</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">unbox</span> (<span style="color: #333333; background-color: #FFFFFF;">mkBox</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline97" class="outline-4">
+<h4 id="orgheadline97"><span class="section-number-4">6.2.1</span> module definition</h4>
+<div class="outline-text-4" id="text-6-2-1">
+<p>
+The first line opens the definition of a module called <i>Box</i>. The
+second line incorporates into this module all of the definitions in
+the <i>bool</i> module (provided that the file bool.idr defining the <i>bool</i>
+module is in the same directory as the current directory).  We need to
+import these definitions because we want to define <i>Box</i> objects as 
+incorporating <i>bool</i> values. So far, we haven't seen anything very
+deep.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline98" class="outline-4">
+<h4 id="orgheadline98"><span class="section-number-4">6.2.2</span> module import</h4>
+<div class="outline-text-4" id="text-6-2-2">
+<p>
+The second line tells Idris to incorporate into this module all the
+definitions given in the <i>bool</i> module. To find the <i>bool</i> module,
+Idris looks for a file named <i>bool.idr</i>, which it assumes will contain
+the required definitions. The definitions of the <i>bool</i> type, its two
+values, and the various <i>bool</i> functions, such as <i>not</i> and <i>id</i>, are
+thus incorporated into this module.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline99" class="outline-4">
+<h4 id="orgheadline99"><span class="section-number-4">6.2.3</span> parameterized constructor</h4>
+<div class="outline-text-4" id="text-6-2-3">
+<p>
+The real action starts in the third line. Here we see a new kind of
+constructor. The constructor is <i>mkBox bool</i>. The way to read this is
+that <i>mkBox</i> is the <i>name</i> of a constructor that can be used to create
+values of type <i>Box</i>, but that, when used, it must be given an argument
+of type <i>bool</i> as an argument.
+</p>
+
+<p>
+The <i>mkBox</i> constructor is like a function: it takes an argument and
+it returns a result. It takes an argument of type <i>bool</i>, and returns
+a value of type <i>Box</i>. Constructors just "package up" their arguments
+into terms labelled with the constructor names. There are two values
+of type <i>bool</i>, so only two <i>terms</i> can be constructed using <i>mkBox</i>,
+namely <i>mkBox true</i> and <i>mkBox false</i>.  These terms are considered as
+values of type <i>mkBox.. Because there are no other constructors for
+the /Box</i> type, these are also the <i>only</i> values of type <i>Box</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline100" class="outline-4">
+<h4 id="orgheadline100"><span class="section-number-4">6.2.4</span> destructuring of values during pattern matching</h4>
+<div class="outline-text-4" id="text-6-2-4">
+<p>
+The fourth and last lines of this module declare and define a function
+called <i>unbox</i>. The fourth line declared that the name <i>unbox</i> will be
+bound to a function of type \(Box \to bool\). Given any <i>Box</i> containing
+a <i>bool</i> (remember there are only two possibilities), this function
+must return a <i>bool</i>.
+</p>
+
+<p>
+Here's the key idea. We want to <i>unbox</i> to do is not to return any
+<i>bool</i> but to return the one inside the <i>Box</i> that is given as an
+argument. In other words, we want the application of <i>unbox</i> to the
+argument <i>mkBox true</i> to return true, and its application to <i>mkBox
+false</i> to return false.
+</p>
+
+<p>
+We could give two separate rules to define this function:
+</p>
+<ul class="org-ul">
+<li>unbox (mkBox true) = true</li>
+<li>unbox (mkBox false) = false</li>
+</ul>
+
+<p>
+However, we observe that in both cases what is being returned is the
+argument that was given to <i>mkBox</i> when hte argummment to <i>unbox</i> was
+constructed. If we had a way, within a rule, to name that argument,
+whatever it is, then we could replace this pair of rules with a single
+rule that would work in both cases.
+</p>
+
+<p>
+Put another way, an application of <i>unbox</i> to a <i>Box</i> has the general
+form,  <i>unbox (mkBox b)</i>, where <i>b</i> is the <i>bool</i> inside the box; and
+what we want <i>unbox</i> to return in this case is just (the value of) <i>b</i>.
+In the code, as written above, you can see that we can use unification
+(pattern matching) to define <i>unbox</i> using a single rule based on this
+idea.
+</p>
+
+<ul class="org-ul">
+<li>The pattern <i>unbox (mkBox b)</i> unifies with <i>unbox (mkBox true)</i> with  <i>b</i> bound to <i>true</i></li>
+<li>The pattern <i>unbox (mkBox b)</i> unifies with <i>unbox (mkBox false)</i> with <i>b</i> bound to <i>false</i></li>
+</ul>
+
+<p>
+In a sense, we are using pattern matching to <i>take apart</i> the argument
+to <i>unbox</i> based on the manner in which it must have been constructed,
+giving an arbitrary name (here <i>b</i> but we could have used <i>x</i> or <i>qq</i>)
+to the <i>bool</i> that must have been passed to the <i>mkBox</i> constructor.
+Given this binding, we can now use the name in an expression on the
+<i>right</i> side of the equals sign to specify that it is <i>b</i>, the <i>bool</i>
+inside the box, that is to be returned.
+</p>
+
+<p>
+While pattern matching enabled us to reduce two rules to one in this
+case, in general it enables the reduction of many cases to one rule.
+It is particular important when there is an infinite number of values
+to consider, because it is then not possible to <i>enumerate</i> separate
+rules for each case.
+</p>
+
+<p>
+To program effectively, we need to be able to formulate concise,
+general-purpose rules that apply to many cases. Pattern matching makes
+this possible. Pattern matching is fundamental in modern functional
+programming. Be sure you are comfortable with this concept and that
+you thoroughly understand the <i>Box</i> example before you go forward.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline102" class="outline-3">
+<h3 id="orgheadline102"><span class="section-number-3">6.3</span> Practice</h3>
+<div class="outline-text-3" id="text-6-3">
+<ul class="org-ul">
+<li>Review our definition of the \(id\_unit\) function. Can you shorten it using pattern matching?</li>
+<li>Write a function <i>notUnBox</i> that takes a <i>Box</i> containing a <i>bool</i>
+and that returns the <i>negation</i> of the contained value. If the
+argument to this function is <i>mkBox false</i>, for example, the
+function should return <i>true</i>, and <i>vice versa</i>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline104" class="outline-2">
+<h2 id="orgheadline104"><span class="section-number-2">7</span> Polymorphism</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+We have at this point defined the type <i>Box</i> as a type of value that
+is like a box that contains a <i>bool</i>, and <i>pair</i> as being like a box
+that contains two <i>bool</i> values. As one can imagine, it is useful to
+generalize our <i>Box</i> and <i>pair</i> types from being containers only for
+<i>bool</i> values to containers for values of <i>any</i> type, <i>a</i>. We might,
+for example, want to have boxes that contain values of type <i>unit</i>,
+or numbers, or names. 
+</p>
+
+<p>
+One way to reach this goal would be first to rename our <i>Box</i> type to
+<i>Box<sub>bool</sub></i>, to clarify that it's a box that can contain only a <i>bool</i>
+value, and then make copies of and modifications to this type to
+produce new types such as <i>Box<sub>unit</sub></i> and (assuming that we have a type
+called <i>nat</i> to represent natural numbers) <i>Box<sub>nat</sub></i>.
+</p>
+
+<p>
+We would need as many modified copies of our original <i>Box</i> type as we
+had types that we wanted to put in boxes. This would lead to a lot of
+repetition in our code. Such repetition creates lots of problems.  For
+example, if we wanted to add one new function to our <i>Box a</i> type, we
+would have to edit every file containing a copy of the original
+code. Such modifications are costly, also error prone, and genuinely
+impractical at scale.
+</p>
+
+<p>
+What we want instead is a single module, <i>Box</i>, that <i>parameterized by
+the type of value it is to contain</i>.  This generalization leads to the
+types that we call <i>Box a</i>, where <i>a</i> isa <i>type parameter</i>. We call a
+type such as this <i>Box a</i> type <i>polymorphic</i>. The word means "having
+many forms." Now if we want a box with a bool inside, we make a box of
+type <i>Box bool</i>. If we want a box with a unit inside, we make a box of
+type <i>Box unit</i>. In general, given any type <i>a</i> we can construct a new
+type, <i>Box a</i>: the type of boxes that contain values of type <i>a</i>.
+</p>
+
+<p>
+Here's the code for a polymorphic version of our <i>Box</i> type. 
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span>
+
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span> <span style="color: #333333; background-color: #FFFFFF;">t</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkBox</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">unbox</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span> <span style="color: #333333; background-color: #FFFFFF;">t</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>
+<span style="color: #333333; background-color: #FFFFFF;">unbox</span> (<span style="color: #333333; background-color: #FFFFFF;">mkBox</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>
+</pre>
+</div>
+
+<p>
+Compare this code carefully with the previous version of <i>Box</i>, which
+was specialized to contain only values of type <i>bool</i>.  In the second
+line, we see that not <i>Box</i> but <i>Box t</i> is declared to be a data type.
+The <i>t</i> (which could have been any name) is understood to be a <i>type
+parameter</i>, and <i>Box</i> is now understood to be a <i>type constructor</i>.
+In other words, <i>Box</i> is now something like a function, but one that
+takes a <i>type</i> rather than a value of a type as a parameter, and one
+that returns a type, rather than a value of a type, as a result. 
+</p>
+
+<p>
+On the right side of the equals sign, we see that the type <i>Box t</i> has
+constructor, <i>mkBox t</i> that takes as a parameter a value not only of
+type <i>bool</i>, but of the type <i>t</i>, whatever it was. For example, the
+type <i>Box bool</i> has a constructor <i>mkBox bool</i> that takes a <i>bool</i> as
+an argument, while the type <i>Box unit</i> has a constructor <i>mkBox unit</i>
+that takes a value of type <i>unit</i> as an argument.
+</p>
+
+<p>
+It is important to see that our polymorphic <i>Box</i> is no longer a type
+all by itself. <i>Box bool</i> on the other hand is a type, as is <i>Box
+unit</i>. We can think of these as types of boxes that contain <i>bool</i> and
+<i>unit</i> values, respectively.  If we had a natural number type, <i>nat</i>,
+then <i>Box nat</i> would be a type the values of which are likes boxes 
+that contain numbers. 
+</p>
+
+<p>
+We can similarly make our previous <i>pair</i> type polymorphic, changing
+it from a type good only for storing pairs of <i>bool</i> values into one
+good for storing pairs of values of <i>any</i> two types. Here's the new
+version. Now <i>pair</i> is no longer a type, but <i>pair bool bool</i> is, and
+so are <i>pair bool unit</i>, and <i>pair nat bool</i>. Values of these three
+types would include <i>mkPair true false</i>, <i>mkPair false mkUnit</i>, and
+<i>mkPair 5 false</i>. 
+</p>
+
+<p>
+Here's the code for a polymorphic pair type. Comparing it to our
+earlier bool-only version, we see two changes. First, we added two
+type parameters to the left of the equals sigh in the data type
+declaration.  Second we replaced every occurrence of <i>bool</i> with the
+parameters <i>a</i> and <i>b</i> instead.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">pair</span>
+
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">b</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPair</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">fst</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">b</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+<span style="color: #333333; background-color: #FFFFFF;">fst</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPair</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">s</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">f</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">snd</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">b</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>
+<span style="color: #333333; background-color: #FFFFFF;">snd</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPair</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">s</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">s</span>
+</pre>
+</div>
+
+
+<p>
+We have already said that <i>Box</i> and <i>pair</i> are no longer types, per
+se. What we now see is that they are actually a lot like functions,
+except now they take <i>types</i>, such as <i>bool</i>, <i>unit</i>, and <i>nat</i>, as
+parameters, and they also return <i>types</i> as results. We refer to such
+things not as types but rather as <i>type constructors</i>. So <i>Box</i> and
+<i>zpair</i> are now types constructor. You give them types as parameters
+(such as <i>bool</i> and <i>unit</i>) and they give you back types, such as <i>Box
+bool</i> and <i>pair bool unit</i>. These types, in turn, have constructors
+(such as <i>mkBox t</i>) and other functions (such as <i>unbox</i>) specialized
+to operate on values of the specified types.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline112" class="outline-2">
+<h2 id="orgheadline112"><span class="section-number-2">8</span> Interpretation</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+We now take a diversion to make explicit an important point that has
+been implicit until now. The terms that encode Idris values (and in
+general the values that computer programs manipulate) are like the
+symbols of any language: they do not carry any meanings by themselves.
+Rather, we impose <i>interpretations</i> on such symbols. We agree on what
+they <i>represent</i>.
+</p>
+
+<p>
+For example, when we see the sequence of letters, <i>b.u.n.n.y</i> (in
+English), we understand it to <i>mean</i> a <i>furry animal</i>.  Logicians use
+the word <i>interpretation</i> to refer to associations between <i>symbols</i>
+and <i>meanings</i>, and so will we.
+</p>
+</div>
+
+<div id="outline-container-orgheadline109" class="outline-3">
+<h3 id="orgheadline109"><span class="section-number-3">8.1</span> Boolean Algebra</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+So how do these ideas relate to what we're doing? Well consider our
+<i>bool</i> type. We have been quietly interpreting the <i>bool</i> type as
+representing <i>Boolean algebra</i>, a simple algebra that George Boole
+invented to reason about logical relationships among statements (<i>An
+Investigation of the Laws of Thought</i> (1854)).
+</p>
+</div>
+
+<div id="outline-container-orgheadline105" class="outline-4">
+<h4 id="orgheadline105"><span class="section-number-4">8.1.1</span> An introduction to Boolean algebra</h4>
+<div class="outline-text-4" id="text-8-1-1">
+<p>
+Mathematically speaking, Boolean algebra comprises a set of values,
+<i>true</i> and <i>false</i>, often denoted as <i>1</i> and <i>0</i>, respectively, and a
+set of operations these values. The operations include <i>negation</i>,
+often called <i>not</i>; <i>conjunction</i>, often called <i>and</i>, and denoted by
+<i>*</i>; <i>exclusive or</i>, often denoted by <i>+</i>; and <i>disjunction</i>, often
+called <i>or</i>.
+</p>
+
+<p>
+We can easily enumerate the rules that these operations follow. For
+example, <i>not 0 = 1</i> and <i>not 1 = 0</i>. We can write one rule instead:
+<i>not b = 1 - b</i>. By substituting \(1\) and then \(0\) for <i>b</i> you easily
+see that this rule works.
+</p>
+
+<p>
+In Boolean algebra, the conjunction of two propositions is deemed to
+be true if and only if both propositions are true. The rules for <i>and</i>
+encode this concept: \(0 * 0 = 0\), \(1 * 0 = 0\), \(0 * 1 = 0\), and \(1 * 1
+= 1\). We can again write one rule for and, namely <i>and a b = a * b</i>.
+Here the <i>*</i> is ordinary integer multiplication. Once again you should
+confirm manually that the rule works in all four cases.
+</p>
+
+<p>
+The <i>exclusive or</i> operation in Boolean algebra captures the idea that
+a statement is true if one, but not both, of its parts are true. This
+sense is often that which is meant when we say <i>or</i> in English. "You
+may have a cookie <i>or</i> a candy." There is in this statement an implied
+"but not both." We would thus say that the statement, "She ate a candy
+<i>exclusive or</i> she ate a cookie" is true if she ate one or the other
+but not both.
+</p>
+
+<p>
+Exclusive or follows these rules: \(0 + 0 = 0\), \(0 + 1 = 1\), \(1 + 0 =
+1\), and \(1 + 1 = 0\). That is, <i>a xor b</i> is true if and only if one but
+not both of <i>a</i> and <i>b</i> are true.
+</p>
+
+<p>
+This looks like a strange version of <i>+</i>. Since when is \(1 + 1 = 0\)?
+The answer is that \(1 + 1 = 0\) in the arithmetic system known as the
+<i>integers modulo 2</i>. This is a very simple example of what is often
+called clock arithmetic. Here we have a clock with just two hours,
+with \(0\) at the noon position and \(1\) at the bottom. On such a clock,
+starting at \(1\) and adding one hour takes us back to \(0\) at the top of
+the clock.
+</p>
+
+<p>
+Boolean algebra as George Boole defined it does have some additional
+operations, including disjunction (<i>or</i>). A proposition involving <i>or</i>
+is deemed to be true if either one <i>or both</i> of its arguments is true.
+The four possible cases are <i>or 0 0 = 0</i>, <i>or 0 1 = 1</i>, <i>or 1 0 = 1</i>,
+and <i>or 1 1 = 1</i>. While it's not immediately obvious, a simple check
+will confirm that in general, <i>or a b = /a + b - (a * b)</i>.
+</p>
+
+<p>
+What we have so far is that Boolean algebra is a little mathematical
+system comprising the set of Boolean truth values, \(\{ 0, 1 \}\) and
+the operations, <i>*</i>, <i>+</i>, <i>or</i>, and <i>not</i>. There are other operations
+as well. These include the identity function, the negation of the
+conjunction of two values (often called <i>nand</i>), and more. There are
+actually four <i>unary</i> operations taking one Boolean value (like <i>not</i>)
+and sixteen <i>binary</i> operations taking two values (like <i>and</i>). 
+</p>
+
+<p>
+At this point, we can now define Boolean algebra quite concisely.
+Boolean algebra is the mathematical object, an <i>algebra</i>, comprising
+the set of Boolean values and the set of unary and binary operations
+on these values: \(\{ \{ 0, 1 \}, \{ *, +, id, not, or, nand, \ldots
+\}\).
+</p>
+
+<p>
+This simple little algebra <i>is</i> the Boolean <i>abstract data type</i> (ADT)
+that we have started to design and <i>implement</i> in Idris.  It exists,
+and has has been understood, for over a hundred and fifty years.  It
+is independent of Idris and of programming in any other language, yet
+<i>every</i> general-purpose programming language implements this ADT. It
+is the basis for making <i>decisions</i> in code: if the battery is charged
+<i>and</i> the button is pushed then turn on the phone.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline106" class="outline-4">
+<h4 id="orgheadline106"><span class="section-number-4">8.1.2</span> Logical representation</h4>
+<div class="outline-text-4" id="text-8-1-2">
+<p>
+So we now arrive at the two main points of this chapter. First, when
+we program, we start in a real or mathematical world outside the realm
+of programming. We find a system (such as Boolean algebra, or friends
+in a social network) that we want to represent and manipulate in a
+computer (a <i>machine</i>).  Next we <i>design</i> a set of logical symbols and
+definitions that we intend to use to <i>represent</i> that world. We then
+<i>interpret</i> those symbols as representing things (such as objects and
+functions and activities) in that world.  Moreover, when we use the
+machine to compute with these symbols, if we have been careful, then
+we can legitimately interpret the results as having intended meanings
+back in the real world. 
+</p>
+
+<p>
+This is the real "magic" of computing. We map from the real world to
+logical symbols; we carry out computations involving this logic; and
+then we can interpret the results as valid in the world. To compute
+\(764 * 1933\), for example, we first represent these numbers as logical
+terms in a machine, then we apply a machine function to those terms to
+produce a new term; and finally we interpret this term as a <i>correct</i>
+answer for the given problem.
+</p>
+
+<p>
+This is essentially what we are doing with Boolean algebra and Idris.
+What we have done so far in Idris is to <i>design</i> and <i>implement</i> a
+module that represents, and that we <i>interpret</i> as <i>representing</i>, the
+values and functions of Boolean algebra. What we have ended up with is
+a machine with which we can carry out what amount to computations in
+Boolean algebra. In a deep sense, the machine <i>faithfully simulates</i>
+real-world Boolean algebra, and so we are justified in mapping back
+and forth between the real and the machine worlds.
+</p>
+
+<p>
+To further clarify these ideas, let's consider another
+example. Suppose we want to compute the value of \(not 1\) in Boolean
+algebra. We first translate the Boolean value \(1\) to its machine
+representation, i.e., to the Idris term, <i>true</i>. Having previously
+represented the Boolean operation of negation as the Idris function,
+<i>not</i>, we next apply this machine-level function to the machine-level
+data item, <i>true</i>, yielding the machine-level result, <i>false</i>.
+Finally, we <i>interpret</i> this machine-level result as having <i>meaning</i>,
+namely \(0\), and indeed as giving us the right answer to the original
+question, "back in the real world of Boolean algebra." 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline107" class="outline-4">
+<h4 id="orgheadline107"><span class="section-number-4">8.1.3</span> Programming as representation</h4>
+<div class="outline-text-4" id="text-8-1-3">
+<p>
+The art of programming is the art of representing "real" worlds in
+terms of logical data and functions so that computations that are done
+on logical <i>symbols</i> are still meaningful in the world outside of the
+computing machine. Programming is not only a way to solve problems but
+also a way to <i>see and represent the world</i> so that one can reason
+logically about it. To write software for a domain such as healthcare,
+you have to see how to represent it in the logical terms provided by a
+programming system such as Idris or Python, in a way that will ensure
+that results produced by symbolic logic computations are meaningful in
+that that world.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline108" class="outline-4">
+<h4 id="orgheadline108"><span class="section-number-4">8.1.4</span> Fluency in reading and writing code</h4>
+<div class="outline-text-4" id="text-8-1-4">
+<p>
+We also see arising a notion of fluent reading and writing of code. As
+intelligent humans, we learn to <i>internalize</i> interpretations. When we
+read a word, phrase, or sentence, i.e., a symbolic marcking, we tend
+to interpret it with almost no conscious effort, mentally substituting
+real-world meanings for the otherwise arbitrary symbolic markings on
+the page. Similarly, as programmers, when we see an Idris term, such
+as <i>true</i>, with practice we see <i>instead</i> the intended meaning. We
+read the Idris term, <i>true</i>, <b>as</b> a Boolean truth value, namely \(1\).
+</p>
+
+<p>
+In general this kind of fluent reading and writing of code is a "good
+thing." Getting to this point is one of the main goals of this class.
+On the other hand, it can be problematical if we assume incorrectly
+that a simple interpretation is valid when it's not. Later in the
+course we will see examples of cases where machine-level terms do not
+necessarily have exactly the meaning that they would seem to have. In
+such cases, one must take great care not to misinterpret such terms.
+Doing so can lead to disasters.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline110" class="outline-3">
+<h3 id="orgheadline110"><span class="section-number-3">8.2</span> What does the type <i>pair a b</i> represent?</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+What is our intended interpretation of the type <i>pair a b</i>? As we
+stated when we introduced it, we mean to interpret this type as the
+set of <i>ordered pairs</i> of values of types <i>a</i> and <i>b</i>, respectively.
+In mathematical language, we call such a set of ordered pairs the
+<i>product</i> of the sets (represented by the types) <i>a</i> and <i>b</i>. 
+</p>
+
+<p>
+If, for example, <i>a</i> is a data type that we interpret as representing
+the set, \(\{ dog, cat, bird \}\) and <i>b</i> as representing the set \(\{ x,
+y \}\) then then we interpret the type <i>pair a b</i> as representing the
+<i>set product</i> of <i>a</i> and <i>b</i>: namely, the set containing all ordered
+pairs of elements drawn from <i>a</i> and <i>b</i> respectively as its elements:
+namely, \(\{ (dog, x), (dog, y), (cat, x), (cat, y), (bird, x), (bird,
+y) \}\).
+</p>
+
+<p>
+As a program designer, we choose to represent the mathematical pair,
+\((dog, y)\) as the Idris term <i>mkPair dog x</i>. But as a fluent reader
+and writer of code, what we think when we see this logical term is the
+mathematical concept, \((dog, x)\). The ability to think computationally
+rests on the the ability to mentally cross back and forth between the
+real world that is being represented and the world of logical terms
+being used to represent it.
+</p>
+
+<p>
+One cannot expect to be fluent in this way right away. It takes many
+examples and a good deal of practice. One of the key challenges it to
+know when to see terms conceretely, and when to see them for what they
+represent. While it is often useful to "read through" concrete terms
+to their intended meanings, there are situations where one must treat
+them as concrete, logical objects. One such place is when writing
+functions that operate on terms. The reason is that pattern matching
+involves matching on the logical structures of terms. We don't match
+on interpreted meanings but on the actual concrete logical structures
+of arguments.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline111" class="outline-3">
+<h3 id="orgheadline111"><span class="section-number-3">8.3</span> Practice</h3>
+<div class="outline-text-3" id="text-8-3">
+<ol class="org-ol">
+<li>Define a type the values of which are days paired with Boolean  values.</li>
+
+<li>Design and implement an abstract data type with one data type and
+one function. The data type represents the set of people, $\{ mary,
+maurice \}.$ You should name your constructors accordingly. The one
+function tells us who loves whom. Sadly, while mary loves maurice,
+maurice loves only himself.</li>
+
+<li>Pick a simple, real-world example. Keep it very simple. Design and
+implement an abstract data type to represent it. Your ADT should
+define both a data type and at least one function.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kevin Sullivan</p>
+<p class="date">Created: 2015-09-14 Mon 16:37</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
