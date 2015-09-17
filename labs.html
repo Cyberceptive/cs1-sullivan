@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-04 Fri 00:44 -->
+<!-- 2015-09-17 Thu 15:14 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>CS1-Sullivan: Lab 1</title>
@@ -226,6 +226,28 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
@@ -292,18 +314,26 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline41">3. 3</a></li>
-<li><a href="#orgheadline42">4. 4</a></li>
-<li><a href="#orgheadline43">5. 5</a></li>
-<li><a href="#orgheadline44">6. 6</a></li>
-<li><a href="#orgheadline45">7. 7</a></li>
-<li><a href="#orgheadline46">8. 8</a></li>
-<li><a href="#orgheadline47">9. 9</a></li>
-<li><a href="#orgheadline48">10. 10</a></li>
-<li><a href="#orgheadline49">11. 11</a></li>
-<li><a href="#orgheadline50">12. 12</a></li>
-<li><a href="#orgheadline51">13. 13</a></li>
-<li><a href="#orgheadline52">14. 14</a></li>
+<li><a href="#orgheadline41">3. Quiz</a></li>
+<li><a href="#orgheadline47">4. Color</a>
+<ul>
+<li><a href="#orgheadline42">4.1. What to Turn in</a></li>
+<li><a href="#orgheadline43">4.2. Organization</a></li>
+<li><a href="#orgheadline44">4.3. A little color theory</a></li>
+<li><a href="#orgheadline45">4.4. Additive colors</a></li>
+<li><a href="#orgheadline46">4.5. Subtractive colors</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline48">5. 5</a></li>
+<li><a href="#orgheadline49">6. 6</a></li>
+<li><a href="#orgheadline50">7. 7</a></li>
+<li><a href="#orgheadline51">8. 8</a></li>
+<li><a href="#orgheadline52">9. 9</a></li>
+<li><a href="#orgheadline53">10. 10</a></li>
+<li><a href="#orgheadline54">11. 11</a></li>
+<li><a href="#orgheadline55">12. 12</a></li>
+<li><a href="#orgheadline56">13. 13</a></li>
+<li><a href="#orgheadline57">14. 14</a></li>
 </ul>
 </div>
 </div>
@@ -696,6 +726,7 @@ program in a Linux environment by teaching you:
 </div>
 </div>
 
+
 <div id="outline-container-orgheadline39" class="outline-3">
 <h3 id="orgheadline39"><span class="section-number-3">2.3</span> REPLs</h3>
 <div class="outline-text-3" id="text-2-3">
@@ -794,45 +825,237 @@ program in a Linux environment by teaching you:
 </div>
 </div>
 <div id="outline-container-orgheadline41" class="outline-2">
-<h2 id="orgheadline41"><span class="section-number-2">3</span> 3</h2>
-</div>
-<div id="outline-container-orgheadline42" class="outline-2">
-<h2 id="orgheadline42"><span class="section-number-2">4</span> 4</h2>
-</div>
-<div id="outline-container-orgheadline43" class="outline-2">
-<h2 id="orgheadline43"><span class="section-number-2">5</span> 5</h2>
-</div>
-<div id="outline-container-orgheadline44" class="outline-2">
-<h2 id="orgheadline44"><span class="section-number-2">6</span> 6</h2>
-</div>
-<div id="outline-container-orgheadline45" class="outline-2">
-<h2 id="orgheadline45"><span class="section-number-2">7</span> 7</h2>
-</div>
-<div id="outline-container-orgheadline46" class="outline-2">
-<h2 id="orgheadline46"><span class="section-number-2">8</span> 8</h2>
+<h2 id="orgheadline41"><span class="section-number-2">3</span> Quiz</h2>
 </div>
 <div id="outline-container-orgheadline47" class="outline-2">
-<h2 id="orgheadline47"><span class="section-number-2">9</span> 9</h2>
+<h2 id="orgheadline47"><span class="section-number-2">4</span> Color</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The purpose of this lab is to give you an opportunity to start with a
+set of requirements in English, to analyze them, and to implement and
+test an abstract data type to satisfy these requirements. Solutions
+can be produced straightforwardly using concepts and techniques that
+you have already learned. Work hard and quickly. If you get too stuck,
+ask for help.
+</p>
 </div>
+
+<div id="outline-container-orgheadline42" class="outline-3">
+<h3 id="orgheadline42"><span class="section-number-3">4.1</span> What to Turn in</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Show your work and give your names and email ids to a TA before you
+leave the lab. If you are unable to finish this work in the lab,
+complete it before class tomorrow (Friday) and be prepared to turn it
+in at the start of class.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline43" class="outline-3">
+<h3 id="orgheadline43"><span class="section-number-3">4.2</span> Organization</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+You are to work with a partner on this lab. Find a partner now. There 
+should be at most one group of three in any given lab session, and all
+others should be working in pairs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline44" class="outline-3">
+<h3 id="orgheadline44"><span class="section-number-3">4.3</span> A little color theory</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Color is an aspect of the perception of electromagnetic spectra by the
+human visual system. The retina is the component of the system that
+diretly senses light. While natural light is generally a mixture of
+many different wavelengths of light, the retina responds most strongly
+to three, which we call red, green, and blue. These are called the
+primary <i>additive</i> colors.
+</p>
+
+<p>
+This response is based on the retina's comrising just three kinds of
+color-sensing elements called cones. The human retina thus in effect
+reduces complex spectra to triples of red, green, and blue intensity
+values. All human-perceivable colors are representable as additive
+combinations of these primary colors. (There are rare individuals who
+have a fourth kind of sensor. We will ignore them here.)
+</p>
+
+<p>
+In this lab, you will practice programming by devising, implementing,
+and testing several programs that represent and support computations
+involving these and certain other related colors.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline45" class="outline-3">
+<h3 id="orgheadline45"><span class="section-number-3">4.4</span> Additive colors</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+When two <i>primary</i> colors of <i>light</i> (as opposed to <i>paint</i>) are
+mixed, the colors <i>add</i> to produce new colors. Here is what happens
+in reality.
+</p>
+
+<ul class="org-ul">
+<li>mixing <i>red</i> and <i>green</i> (light) produces <i>yellow</i> (light)</li>
+<li>mixing <i>green</i> and <i>blue</i> produces <i>cyan</i></li>
+<li>mixing <i>blue</i> and <i>red</i> produces <i>magenta</i></li>
+</ul>
+
+<p>
+This is the complete set of colors that we will represent in this lab:
+\(color = \{ red, green, blue, cyan, mangenta, yellow \}\)
+</p>
+
+<p>
+We call red, green, and blue the <i>additive</i> primaries. If you label
+the vertices of an equilateral triangle with the primary colors (red,
+green, blue), then you can represent pairwise mixtures of these colors
+the mid-points of the edges that connect them. Between red and green,
+for example, is a label for yellow, which is not an additive primary.
+</p>
+
+<p>
+We note that white is obtained when all three of the primary colors of
+light are mixed. We will not try to represent white light in this lab.
+</p>
+
+<p>
+TASK #1: Draw and complete the picture.
+</p>
+
+<p>
+Now connect each color to the label across from it in this diagram.
+Green is across from magenta, for example. For purposes of this lab,
+we will call these pairs of colors <i>complements</i>. So the complement
+of green is magenta, for example. The relationship is <i>symmetrical</i>
+so it's also the case that the complement of magenta is green. 
+</p>
+
+<p>
+TASK #2: Draw and complete the diagram of these relationships.
+</p>
+
+<p>
+TASK #3: Working within the directory that contains your pair.idr
+module (probably ~/my/stuff/cs1/code/idris), in a new Idris file
+called <i>colors.idr</i>, design and implement an <i>abstract data type</i>
+module, called <i>colors</i>, that (a) defines a <i>type</i> called <i>color</i> that
+represents the <i>set</i> of colors relevant to this lab, and that (b)
+defines the following set of <i>functions</i>:
+</p>
+
+<ul class="org-ul">
+<li><i>complement</i> - given a color, return its complement</li>
+<li><i>additive</i> - given a color, return true if it's a primary, otherwise false</li>
+<li><i>subtractive</i> - give a color, return true if it's a primary, otherwise false</li>
+<li><i>complements</i> - given a pair of colors, return true if they are complements, otherwise false</li>
+</ul>
+
+<p>
+Test your code in the Idris REPL to be sure that it works as required.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline46" class="outline-3">
+<h3 id="orgheadline46"><span class="section-number-3">4.5</span> Subtractive colors</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+By contrast, paint <i>absorbs</i> light. If you shine white light on paint,
+it absorbs certain colors and reflects back the rest. It appears to be
+the color of the light that it reflects. Paint <i>subtracts</i> colors from
+incident light. When paints of different colors are mixed, the mixture
+subtracts more colors from the incident light than either paint alone.
+Adding colors of paint (crayon, etc.) thus produces different results
+than adding the same colors of light.
+</p>
+
+<p>
+Consider cyan paint (or inkjet printer ink). It absorbs red light (an
+additive primary) and reflects blue and green (additive primaries).
+Those colors of light mix to produce cyan. Yellow ink absorbs blue and
+reflects red and green.  Magenta ink absorbs green and reflects red
+and blue.
+</p>
+
+<p>
+Now consider what happens when one mixes these <i>subtractive primary</i>
+colors. Magenta absorbs green (and reflects red and blue) and yellow 
+absorbs blue (and reflects red and and green). A mixture of magenta
+and yellow with therefore absorb a good deal of both green and blue,
+but will reflect all the red. This mixture of inks thus produces red!
+</p>
+
+<p>
+TASK #4 Make a table associating pairs of subtractive primaries with
+the additive primary produced when the additive primaries are mixed.
+</p>
+
+<p>
+TASK #5 Add a function to your module called <i>mixink</i>. Given any pair
+of subtractive primaries, it returns the additive primary color
+obtained by mixing those secondaries. The function should be left
+undefined for parameter values other than pairs of subtractive
+secondaries.
+</p>
+
+<p>
+TASK #6 What warning does Idris produce for the <i>mixink</i> function?
+What value does it produce if applied to a parameter value not in its
+domain? Briefly (in at most a few sentences) explain what seems to be
+happening.
+</p>
+
+<p>
+Hold your hands up when you are done with this exercise. If you do
+not finish, wait to be counted and show the TA how far you got. If
+you do not finish, finish the work before class Friday.
+</p>
+</div>
+</div>
+</div>
+
 <div id="outline-container-orgheadline48" class="outline-2">
-<h2 id="orgheadline48"><span class="section-number-2">10</span> 10</h2>
+<h2 id="orgheadline48"><span class="section-number-2">5</span> 5</h2>
 </div>
 <div id="outline-container-orgheadline49" class="outline-2">
-<h2 id="orgheadline49"><span class="section-number-2">11</span> 11</h2>
+<h2 id="orgheadline49"><span class="section-number-2">6</span> 6</h2>
 </div>
 <div id="outline-container-orgheadline50" class="outline-2">
-<h2 id="orgheadline50"><span class="section-number-2">12</span> 12</h2>
+<h2 id="orgheadline50"><span class="section-number-2">7</span> 7</h2>
 </div>
 <div id="outline-container-orgheadline51" class="outline-2">
-<h2 id="orgheadline51"><span class="section-number-2">13</span> 13</h2>
+<h2 id="orgheadline51"><span class="section-number-2">8</span> 8</h2>
 </div>
 <div id="outline-container-orgheadline52" class="outline-2">
-<h2 id="orgheadline52"><span class="section-number-2">14</span> 14</h2>
+<h2 id="orgheadline52"><span class="section-number-2">9</span> 9</h2>
+</div>
+<div id="outline-container-orgheadline53" class="outline-2">
+<h2 id="orgheadline53"><span class="section-number-2">10</span> 10</h2>
+</div>
+<div id="outline-container-orgheadline54" class="outline-2">
+<h2 id="orgheadline54"><span class="section-number-2">11</span> 11</h2>
+</div>
+<div id="outline-container-orgheadline55" class="outline-2">
+<h2 id="orgheadline55"><span class="section-number-2">12</span> 12</h2>
+</div>
+<div id="outline-container-orgheadline56" class="outline-2">
+<h2 id="orgheadline56"><span class="section-number-2">13</span> 13</h2>
+</div>
+<div id="outline-container-orgheadline57" class="outline-2">
+<h2 id="orgheadline57"><span class="section-number-2">14</span> 14</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-04 Fri 00:44</p>
+<p class="date">Created: 2015-09-17 Thu 15:14</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
