@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-17 Thu 15:14 -->
+<!-- 2015-09-17 Thu 18:23 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>CS1-Sullivan: Lab 1</title>
@@ -856,7 +856,7 @@ in at the start of class.
 <h3 id="orgheadline43"><span class="section-number-3">4.2</span> Organization</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
-You are to work with a partner on this lab. Find a partner now. There 
+You are to work with one partner on this lab. Find a partner now. There 
 should be at most one group of three in any given lab session, and all
 others should be working in pairs.
 </p>
@@ -869,19 +869,20 @@ others should be working in pairs.
 <p>
 Color is an aspect of the perception of electromagnetic spectra by the
 human visual system. The retina is the component of the system that
-diretly senses light. While natural light is generally a mixture of
+directly senses light. While natural light is generally a mixture of
 many different wavelengths of light, the retina responds most strongly
-to three, which we call red, green, and blue. These are called the
-primary <i>additive</i> colors.
+to three, which we call red, green, and blue. These are the primary
+<i>additive</i> colors.
 </p>
 
 <p>
-This response is based on the retina's comrising just three kinds of
-color-sensing elements called cones. The human retina thus in effect
-reduces complex spectra to triples of red, green, and blue intensity
-values. All human-perceivable colors are representable as additive
-combinations of these primary colors. (There are rare individuals who
-have a fourth kind of sensor. We will ignore them here.)
+This response is based on the retina's comprising just three kinds of
+color-sensing elements called cones. The retina in effect reduces
+complex spectra to triples of red, green, and blue intensity
+values. All human-perceivable colors are thus representable as
+additive combinations of the three primary colors. (There are rare
+individuals who have a fourth kind of sensor. We will ignore them
+here.)
 </p>
 
 <p>
@@ -916,8 +917,9 @@ This is the complete set of colors that we will represent in this lab:
 We call red, green, and blue the <i>additive</i> primaries. If you label
 the vertices of an equilateral triangle with the primary colors (red,
 green, blue), then you can represent pairwise mixtures of these colors
-the mid-points of the edges that connect them. Between red and green,
-for example, is a label for yellow, which is not an additive primary.
+at the mid-points of the edges that connect them. Between red and
+green, for example, is a label for yellow, which is not an additive
+primary.
 </p>
 
 <p>
@@ -931,10 +933,9 @@ TASK #1: Draw and complete the picture.
 
 <p>
 Now connect each color to the label across from it in this diagram.
-Green is across from magenta, for example. For purposes of this lab,
-we will call these pairs of colors <i>complements</i>. So the complement
-of green is magenta, for example. The relationship is <i>symmetrical</i>
-so it's also the case that the complement of magenta is green. 
+We'll call these pairs of colors <i>complements</i>. So the complement of
+green is magenta, for example. The relationship is <i>symmetrical</i> so
+it's also the case that the complement of magenta is green.
 </p>
 
 <p>
@@ -953,9 +954,14 @@ defines the following set of <i>functions</i>:
 <ul class="org-ul">
 <li><i>complement</i> - given a color, return its complement</li>
 <li><i>additive</i> - given a color, return true if it's a primary, otherwise false</li>
-<li><i>subtractive</i> - give a color, return true if it's a primary, otherwise false</li>
+<li><i>subtractive</i> - give a color, return true if it's <i>not</i> a primary, otherwise false</li>
 <li><i>complements</i> - given a pair of colors, return true if they are complements, otherwise false</li>
 </ul>
+
+<p>
+Use pattern matching as possible to make your function definitions as
+short as possible.
+</p>
 
 <p>
 Test your code in the Idris REPL to be sure that it works as required.
@@ -968,13 +974,13 @@ Test your code in the Idris REPL to be sure that it works as required.
 <h3 id="orgheadline46"><span class="section-number-3">4.5</span> Subtractive colors</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
-By contrast, paint <i>absorbs</i> light. If you shine white light on paint,
-it absorbs certain colors and reflects back the rest. It appears to be
-the color of the light that it reflects. Paint <i>subtracts</i> colors from
-incident light. When paints of different colors are mixed, the mixture
-subtracts more colors from the incident light than either paint alone.
-Adding colors of paint (crayon, etc.) thus produces different results
-than adding the same colors of light.
+Whereas lightbulbs emit light, paints <i>absorb</i> light. If you shine
+white light on paint, it absorbs certain colors and reflects back the
+rest. It appears to be the color of the light that it reflects. Paint
+<i>subtracts</i> colors from incident light. When paints of different
+colors are mixed, the mixture subtracts more colors from the incident
+light than either paint alone.  Adding colors of paint (crayon, etc.)
+thus produces different results than adding the same colors of light.
 </p>
 
 <p>
@@ -986,23 +992,23 @@ and blue.
 </p>
 
 <p>
-Now consider what happens when one mixes these <i>subtractive primary</i>
-colors. Magenta absorbs green (and reflects red and blue) and yellow 
+Now consider what happens when one mixes these <i>subtractive</i> primary
+colors. Magenta absorbs green (and reflects red and blue) and yellow
 absorbs blue (and reflects red and and green). A mixture of magenta
 and yellow with therefore absorb a good deal of both green and blue,
-but will reflect all the red. This mixture of inks thus produces red!
+but will still reflect all the red. This mixture thus produces red!
 </p>
 
 <p>
 TASK #4 Make a table associating pairs of subtractive primaries with
-the additive primary produced when the additive primaries are mixed.
+the additive primary produced when the subtractive primaries are mixed.
 </p>
 
 <p>
 TASK #5 Add a function to your module called <i>mixink</i>. Given any pair
 of subtractive primaries, it returns the additive primary color
-obtained by mixing those secondaries. The function should be left
-undefined for parameter values other than pairs of subtractive
+obtained by mixing those subtractive primaries. The function should be
+left undefined for parameter values other than pairs of subtractive
 secondaries.
 </p>
 
@@ -1055,7 +1061,7 @@ you do not finish, finish the work before class Friday.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-17 Thu 15:14</p>
+<p class="date">Created: 2015-09-17 Thu 18:23</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
