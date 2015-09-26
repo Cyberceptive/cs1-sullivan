@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-14 Mon 16:37 -->
+<!-- 2015-09-26 Sat 08:40 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -415,6 +415,34 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#orgheadline110">8.2. What does the type <i>pair a b</i> represent?</a></li>
 <li><a href="#orgheadline111">8.3. Practice</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline113">9. Modeling, Abstractions, Code</a></li>
+<li><a href="#orgheadline114">10. Inductive Data Types</a></li>
+<li><a href="#orgheadline126">11. Recursive Functions</a>
+<ul>
+<li><a href="#orgheadline115">11.1. An example: the factorial function</a></li>
+<li><a href="#orgheadline125">11.2. next</a>
+<ul>
+<li><a href="#orgheadline116">11.2.1. successor</a></li>
+<li><a href="#orgheadline117">11.2.2. isZero</a></li>
+<li><a href="#orgheadline118">11.2.3. predecessor</a></li>
+<li><a href="#orgheadline122">11.2.4. addition</a></li>
+<li><a href="#orgheadline123">11.2.5. equality</a></li>
+<li><a href="#orgheadline124">11.2.6. Exercises</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline130">12. A little bit of Linux</a>
+<ul>
+<li>
+<ul>
+<li><a href="#orgheadline127">12.0.1. apt-get (tree)</a></li>
+<li><a href="#orgheadline128">12.0.2. sudo</a></li>
+<li><a href="#orgheadline129">12.0.3. dpkg (atom)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2041,7 +2069,7 @@ you thoroughly understand the <i>Box</i> example before you go forward.
 <h3 id="orgheadline102"><span class="section-number-3">6.3</span> Practice</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
-<li>Review our definition of the \(id\_unit\) function. Can you shorten it using pattern matching?</li>
+<li>Review our definition of the <i>id<sub>unit</sub></i> function. Can you shorten it using pattern matching?</li>
 <li>Write a function <i>notUnBox</i> that takes a <i>Box</i> containing a <i>bool</i>
 and that returns the <i>negation</i> of the contained value. If the
 argument to this function is <i>mkBox false</i>, for example, the
@@ -2475,10 +2503,688 @@ define both a data type and at least one function.</li>
 </div>
 </div>
 </div>
+<div id="outline-container-orgheadline113" class="outline-2">
+<h2 id="orgheadline113"><span class="section-number-2">9</span> Modeling, Abstractions, Code</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Software is ultimately about the real world, but it's connection to
+the real world is made through multiple levels of representation. To
+understand programming, one must first understand that it's not only
+(or arguably even mainly) about writing code
+</p>
+
+<p>
+So if programming isn't only about code,then what is it about? In this
+chapter, we present a tri-partite model of programming. Programming is
+about reality, abstractions, and implementations (code).
+</p>
+
+<p>
+First, programming is about reality. You begin by deciding what it is
+in the real world that you want to represent and manipulate.  Second,
+you choose or design <i>logical-mathematical abstractions</i> to represent
+the relevant real-world things and processes. Finally, you write code
+to implement those abstractions. 
+</p>
+
+<p>
+You can often use pre-existing implementations of general abstractions
+to avoid the need to write most of the required code from scratch. In
+today's class, we will go through the process of first thinking about
+reality, then identifying some fundamental abstractions to use in the
+process of representing it. Finally we will write supporting code to
+implement these abstractions.
+</p>
+
+<p>
+In the lab this week, we will continue this exercise in the domain of
+color spaces for digital imaging and printing.
+</p>
+
+<p>
+Perhaps the most important message of this chapter is that programming
+starts with a careful and rigorous analysis of the real-world <i>domain</i>
+for which code is to be written.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline114" class="outline-2">
+<h2 id="orgheadline114"><span class="section-number-2">10</span> Inductive Data Types</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+In this chapter we ask and answer the question, how can we define
+types that comprise infinite sets of values?
+</p>
+
+<p>
+The elementary school concept of the counting numbers, also called the
+<i>natural numbers</i>, is a great example. The natural numbers start at
+zero and go up by ones from there, ad infinitum.  In other words,
+using <i>nat</i> as a shorthand name for the natural numbers, \(nat = \{ 0,
+1, 2, \ldots \}\). The elipsis here means <i>and so on, ad infinitum</i>.
+</p>
+
+<p>
+So how can we write a data type definition that expresses this set of
+values?  We know how specify types with a finite number of values. The
+<i>unit</i>, <i>bool</i>, and <i>color</i> types are great examples. We <i>enumerated</i>
+the elements of these sets. E.g., <i>data bool = true | false</i>.  
+</p>
+
+<p>
+Clearly this won't work for <i>nat</i>.  <i>data nat = zero | one | two |
+three | &#x2026;</i> We could never finish the enumeration. The challenge is
+to find a finite-length representations for types with infinite sets
+of values.
+</p>
+
+<p>
+The solution is found in what we call <i>inductive definitions</i>. By
+<i>inductive</i>, we mean a definition of a type of values that includes
+one or mode rules that explains how bigger values of the type can be
+constructed from smaller values of the same type. Such a definition is
+completed by giving at least one <i>small</i> value directly. 
+</p>
+
+<p>
+Again, the natural numbers provide a great example. The inductive
+rules says that if you have any natural number, \(n\), you can construct
+a one-larger natural number called <i>the successor of n</i> (or \(S n\) for
+short). The starting point for the induction is the second rule, which
+simply says that <i>zero</i> (let's denote is as \(O\)) is a natural number.
+Because \(O\) is, so is \(S O\). Now because \(S O\) is, so is \(S (S O)\).
+And so on, <i>ad infinitum.</i>
+</p>
+
+<p>
+Inductive types have several important properties First, the process
+of constructing larger values from smaller ones can be carried any
+<i>finite</i> number of times. From this restriction, we can deduce that
+every value of an inductive type is finite. For example, every natural
+number is finite. 
+</p>
+
+<p>
+Second, a larger value actually embeds the smaller values from which
+it was constructed, much as a larger Russian doll actually contains
+the smaller doll from which it was "constructed." For example, the
+natural number \(7\) can be understood as <i>the successor of the natural
+number 6</i>. That is, \(7\) <i>is</i> really just \((S 6)\). The \(6\) is in a
+strong sense <i>nested</i> inside the term, <i>S 6</i>, that constitutes the
+number \(7\).
+</p>
+
+<p>
+So, third, what this means is that whenver one is given a larger value
+of an inductive type, one can take it apart (or <i>deconstruct</i>) it, in
+order to obtain the parts from which it was constructed. In our small
+example, the natural number \(7\) is deconstructed into the application
+of <i>S</i> to the value \(6\). The value \(6\) is similarly constructed, so we
+can take it apart. Crucially, one can repeat such a <i>deconstruction</i>
+process only a finite number of times before reaching the starting
+point of the induction. In this example, that will be zero.
+</p>
+
+
+<p>
+Technically speaking, the set of values of the data type is then
+defined as the smallest set of values that can be constructed by any
+<i>finite</i> number of applications of the constructors of the type. All
+that this means is (1) all such finitely constructed values <i>are</i> in
+the set, and (2) no other values are allowed to <i>creep in</i>.
+</p>
+
+<p>
+We can now more precisely define the natural numbers inductively, The
+rules are known as Peano's axioms. (1) if \(n\) is any natural number,
+then the successor of \(n\), denoted \(S n\), is also a natural number;
+(2) \(O\) is a natural number; (3) \(O\) is not the successor of any
+natural number; and (4) for any natural numbers, \(n\) and \(m\), \(n = m\)
+if and only if \(S n = S m\). 
+</p>
+
+<p>
+Rules (1) and (2) allow one to build natural numbers by applying \(S\)
+to \(O\) any number of times. Rule (3) says that the successor operation
+never <i>loops around to \(O\)</i>. Finally, rule (4) basically says that the
+successors of different numbers are themselves different numbers, as
+are the predecessors of different non-zero natural numbers.
+</p>
+
+<p>
+So here, finally, is the one line of code that captures all of these 
+ideas. It's a remarkably short definition that really says a lot!
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">O</span> <span style="color: #BA36A5;">|</span> <span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+</pre>
+</div>
+
+<p>
+This definition introduces a new data type called <i>nat</i> with two
+constructors. The first constructor makes \(O\) a value of type <i>nat</i>,
+taking care of rule (2) above, and giving us a starting point for
+induction.
+</p>
+
+<p>
+The second constructor, <i>S nat</i>, defines what amounts to a <i>function</i>
+for constructing larger <i>nat</i> values from smaller ones. (We already
+have one, namely \(O\), to start with.) That is if \(n\) is any value of
+type <i>nat</i>, this <i>S</i> constructor can be applied, using the expression
+<i>S n</i>, to construct a one-larger value <i>of type nat</i>.  <i>S</i> takes care
+of rule (1) above, and gives us the ability to construct arbitrarily
+large values of type <i>nat</i> by <i>iterating the application of S to O</i>.
+</p>
+
+<p>
+The resulting terms are \(O, S O, S (S O), S (S (S O)), \ldots\). It is
+also easy to see that a term for \(S n\) incorporates the term for \(n\).
+By destructuring \(S n\) and stripping one \(S\) we obtain the embedded
+term \(n\), from which \(S n\) was constructed.  Taking apart inductively
+defined values into their parts is critically important when it comes
+to defining functions that operate on values of such types.
+</p>
+
+<p>
+Finally, it should be clear that given any natural number \(n\), either
+it is \(O\) or it can be destructured into smaller terms, but this can
+be done only a finite number of times before reaching \(O\) (because
+only a finite number of iterations of S could have occurred). Thus any
+process of destructuring an inductively defined value must terminate
+after some possibly large but alwasy finite number of steps.
+</p>
+
+<p>
+The concept of inductive definitions is truly fundamental in computer
+science. Many, many crucial data types, including the Peano natural
+numbers, lists, trees, file systems, etc., are defined inductively.
+For that matter, so is the syntax of most programming languages. In
+other words, programs themselves are values of inductively defined
+types! We will run into this idea again shortly.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline126" class="outline-2">
+<h2 id="orgheadline126"><span class="section-number-2">11</span> Recursive Functions</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Having introduced the <i>nat</i> data type, we now need to define a set of
+common functions taking <i>nat</i> arguments in order to complete a simple
+abstract data type for natural number arithmetic. Examples include
+natural number addition, multiplication, exponentiation, subtraction,
+and Boolean-valued comparison operators, such as less-than-or-equal,
+greater-than, equals, greater than, and less than.
+</p>
+
+<p>
+The problem we face is that our <i>nat</i> data type defines an infinite
+set of values of type <i>nat</i>, and we can't possibly write function
+definitions (e.g., for addition) by giving rulesfor every possible
+value or pair of vaues of of type <i>nat</i>. We once again need to find a
+concise way to give one rule or a small set of rules that cover an
+infinity of special cases.
+</p>
+
+<p>
+A solution is found in the concept of recursive function definitions.
+By a <i>recursive function</i> we mean a function that is defined, directly
+or indirectly, in terms of itself. An good example is the <i>factorial</i>
+function. For any natural number, \(n\) such that \(n>0\), \(factorial(n) =
+n * factorial(n-1)\).  The function is defined by an expression that
+uses the function itself! Completing the definition is a <i>base case</i>:
+\(factorial(0) = 1\).
+</p>
+
+<p>
+Try it: compute \(factorial(5)\) by repeatedly substituting the right
+hand side of the definition of the left hand side until a value is
+obtained.  Here it goes: \(factorial(5) = \\ 5 * factorial(4) = \\ 5 *
+(4 * factorial(3)) = \\ 5 * (4 * (3 * factorial(2))) = \\ 5 * (4 *
+(3 * (2 * factorial(1)))) = \\ 5 * (4 * (3 * (2 * (1 *
+factorial(0))))) = \\ 5 * (4 * (3 * (2 * (1 * 1)))) = \\ 5 * 4 * 3 *
+2 * 1 = 120\).
+</p>
+
+<p>
+Just as many familiar data types, such as <i>nat</i>, are defined
+inductively, so many familiar functions are defined recursively. This
+chapter providesboth concrete examples of, and general approaches to
+designing and implementing, recursive functions. You will learn that
+most ordinary functions of arithmetic have recursive definitions, and
+that we can translate them straightforwardly into recursive functions
+in Idris. Doing so will enable us to compute with these functions.
+</p>
+
+<p>
+Among other things, we will see how recursive function definitions can
+follow closely from the inductive structures of the values that they
+take as arguments. It makes sense! Performing an operation a larger
+value of an inductively defined object often involves performing the
+same operation on the smaller values embedded inside of it! Examples
+below will make this point clear.
+</p>
+</div>
+
+<div id="outline-container-orgheadline115" class="outline-3">
+<h3 id="orgheadline115"><span class="section-number-3">11.1</span> An example: the factorial function</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+We begin this chapter on recursive functions with a simple example:
+that of the the factorial function. It is often written as \(!\). This
+function takes a natural number, \(n\), as an argument and returns a
+natural number, namely \(n!\), as a result. In particular, \(n!\) is the
+product of all the natural numbers from \(1\) to \(n\). The factorial of
+\(5\), for example, or \(5!\), is \(5 * 4 * 3 * 2 * 1 = 120\).
+</p>
+
+<p>
+A careful examination of that sequence of multiplications reveals a
+beautiful recursive structuring. One just needs to place parenthesis
+around the expression after the \(5\). The re-written equation looks
+like this: \(5!  = 5 * (4 * 3 * 2 * 1)\). At this point, you should emit
+a large "ah ha." We can rewrite \((4 * 3 * 2 * 1)\) as \(4!\). We can thus
+write the whole equation as \(5! = 5 * 4!\). Moreover, you can see that
+the same trick will work for any \(n > 0\).  That is, for \(n > 0, n! =
+n * (n-1)!\). When \(n = 0\) we already have an answer: \(0! = 1\).
+</p>
+
+<p>
+We thus arrive at a recursive definition of the function.  For <i>any</i>
+natural number, \(n\), if \(n = 0\) then \(n! = 1\) otherwise \(n!  = n *
+(n-1)!\). That's it. The hard part of programming recursive functions
+is simply knowing how to formulate a recursive definition, as we've
+done here. Once you have such a definition, translating it into code
+is relatively straightforward. The intellectual hard work is in first
+seeing the recursion and then using the insight to write a recursive
+mathematical definition of the function at hand.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline125" class="outline-3">
+<h3 id="orgheadline125"><span class="section-number-3">11.2</span> next</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+To write a recursive function for factorial in Idris, we need a
+function for multiplication. As you might suspect, we can define
+multiplication using recursion and addition. Moreover, we can define
+addition using recursion and incrementing. We're going to see that
+most ordinary arithmetic operation on natural numbers have recursive
+definitions, that we can translate directly into code.
+</p>
+
+<p>
+So now the <i>bigger picture</i> becomes clear. Our task is to design and
+implement a natural number abstract data type, including a <i>nat</i> data
+type and a set of functions as listed above; and we will use recursion
+implement several of these functions.
+</p>
+
+<p>
+The functions include both <i>unary</i> and <i>binary</i> functions. Unary
+functions take one natural number as an argument. These functions
+include successor, predecessor, a test for being zero (returning a
+Boolean value), the factorial function, and a function for computing
+the \(n'th\) Fibonacci number. Binary functions take two natural numbers
+as arguments. They include addition, subtraction, multiplication,
+exponentiation, and Boolean comparison operators, less-than-or-equals,
+greater than, and so forth (which return Boolean values).
+</p>
+
+<p>
+So let's get started. The first few functions don't require any use
+of recursion.
+</p>
+</div>
+
+<div id="outline-container-orgheadline116" class="outline-4">
+<h4 id="orgheadline116"><span class="section-number-4">11.2.1</span> successor</h4>
+<div class="outline-text-4" id="text-11-2-1">
+<p>
+Given any value of type <i>nat</i>, our successor function, \(succ: nat \to
+nat\), computes and returns its successor. To do so it just applies the
+<i>S</i> constructor to \(n\).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">succ</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">succ</span> <span style="color: #333333; background-color: #FFFFFF;">n</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">n</span>
+</pre>
+</div>
+
+<p>
+The one rule in this case allows us to evaluate any application of
+<i>succ</i> to any natural number, call it <i>n</i>.  The rule indicates that in
+any such case, the result to be returned is obtained by evaluating the
+expressions <i>S n</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline117" class="outline-4">
+<h4 id="orgheadline117"><span class="section-number-4">11.2.2</span> isZero</h4>
+<div class="outline-text-4" id="text-11-2-2">
+<p>
+Given any natural number, <i>n</i>, the <i>isZero</i> function returns <i>true</i> if
+\(n=O\) and <i>false</i> otherwise. No recursion is needed or used here.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">isZero</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">isZero</span> <span style="color: #333333; background-color: #FFFFFF;">O</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+<span style="color: #333333; background-color: #FFFFFF;">isZero</span> <span style="color: #333333; background-color: #FFFFFF;">_</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">false</span>
+</pre>
+</div>
+
+<p>
+This function implementation has two rules, one for each possible
+<i>form</i> of the argument: either zero (\(O\)) or <i>other</i>. The first rule
+assures than any function application of the form <i>isZero O</i> reduces
+to <i>true</i>. The second rule matches an application of <i>isZero</i> to any
+other value, and assures the result is <i>false</i>. No recursion is either
+needed or used here.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline118" class="outline-4">
+<h4 id="orgheadline118"><span class="section-number-4">11.2.3</span> predecessor</h4>
+<div class="outline-text-4" id="text-11-2-3">
+<p>
+Given any natural number, \(n\), <i>pred n</i> returns its predecessor.  For
+the time being, we define <i>pred O</i> to be <i>O</i>. The interesting case is
+when the argument, \(n\), is non-zero. Because \(n\) is non-zero in this
+case, \(n\) must be the successor of some one-smaller number. Lets call
+it \(n'\). Thus <i>n = S n'.</i> In this case, we define the predecessor of
+\(n\) to be \(n'\).  
+</p>
+
+<p>
+For example, to compute the <i>predecessor of 7</i>, we view it as the
+<i>predecessor of (the successor of 6)</i>, and \(6\) is then the desired
+result. Here's the code.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">pred</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">pred</span> <span style="color: #333333; background-color: #FFFFFF;">O</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>
+<span style="color: #333333; background-color: #FFFFFF;">pred</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">n</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">n</span>
+</pre>
+</div>
+
+<p>
+The crucial point to take away from this example is that the pattern
+matching on the left side of the second rule has the effect of, in
+some sense, <i>tearing apart</i> the argument to the function. It breaks
+off the leading <i>S</i> and binds the name <i>n</i> the value to which <i>S</i> was
+applied to contruct the original argument/. That smaller <i>nat</i> that
+was embedded in the argument is then returned as the result of the
+function.  We say that pattern matching <i>destructures</i> the argument,
+giving us both access to and names for the values (in this case just
+one value) from which it was constructed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline122" class="outline-4">
+<h4 id="orgheadline122"><span class="section-number-4">11.2.4</span> addition</h4>
+<div class="outline-text-4" id="text-11-2-4">
+<p>
+We now come to a new kind of function: natural number addition. First,
+it is at a mathematical level a <i>binary</i> function: one that takes two
+natural number arguments and that returns a third as a result. Second,
+it is defined recursively.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline119"></a>Implementing binary functions using the pair type<br  /><div class="outline-text-5" id="text-11-2-4-1">
+<p>
+Before we get to recursion, we need to address the problem that this
+is a binary function, but to date we have only learned how to write
+unary functions: functions that take one argument. Here we will not
+continue with this pattern by defining an Idris function that takes a
+<i>pair</i> of natural numbers (values of type <i>nat</i>) as a single argument.
+</p>
+
+<p>
+It is here that now find a genuine use for our polymorphic pair type!
+We will use the same trick with the rest of the binary functions in
+this chapter. To remind ourselves that this function takes a pair, we
+will call it <i>addp</i> (where <i>p</i> indicates <i>pair</i>). We can now specify
+the name and type of our function:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">addp</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline121"></a>Designing and implementing our first recursive function<br  /><div class="outline-text-5" id="text-11-2-4-2">
+<p>
+Recursion is a tricky concept at first. It is not always easy to see
+how to write recursive functions. We strongly recommend adopting a
+structured problem solving approach. Use several steps to arrive at a
+set of rules for evaluating function applications.
+</p>
+
+<p>
+First, come up with a set of possible forms that the argument to the
+function could take. Each case becomes a rule in the definition of the
+function. Second, understand the mathematics of the recursion before
+trying to write detailed code for the individual cases. Finally, write
+the code.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline120"></a>Case analysis<br  /><div class="outline-text-6" id="text-11-2-4-2-1">
+<p>
+We are considering the addition of pairs of numbers; let's call them
+\(n\) and \(m\). So the general form of an application of <i>addp</i> will look
+like this: <i>addp (mkPair n m)</i>. The question is how can we break this
+up into cases, with at least one base case and one recursive case. 
+</p>
+
+<p>
+It takes practice. For now we will just give a good answer: we will
+decompose the general case into two sub-cases, one for each of the two
+<i>constructors</i> by which \(n\) could have been built. That is, we will
+consider the case where where \(n\) is zero (\(O\)), and the case where
+\(n\) is /S n'/ for some one-smaller natural number, \(n'\). 
+</p>
+
+<p>
+In other words, we're considering one case where \(n\) is zero and one
+case where \(n\) is positive. Iin the second case we are also giving a
+name to the one-smaller value, \(n'\), from which the positive value,
+\(n\), must have been constructed (by an application of <i>S</i>). 
+</p>
+
+<p>
+Let's look at some concrete cases. Read these examples carefully, and
+notice how solutions to the <i>larger</i> problems rely on solutions to the
+<i>next smaller problems down</i>. 
+</p>
+
+<p>
+\( O + m          = m \\
+ (S O) + m       = S (O + m)  = S m \\
+ (S (S O)) + m   = S ((S O) + m) = S (S m) \\ 
+ (S (S (S O) + m = S ((S (S O)) + m) = S (S (S m))\)
+</p>
+
+<p>
+Look at the last example, in particular.
+It says that we can compute the result of adding \(3\) to \(m\) by taking
+the successor of the result of adding \(2\) to \(m\). The preceding line
+similarly gives a way of computing the result of adding \(2\) to \(m\).
+This process continues all the way down to the base case.
+</p>
+
+<p>
+From these concrete examples we can now infer the general case of the
+recursive rule: <i>S n + m = S (n + m).</i> The crucial idea is that we
+have converted the big problem of adding a larger number, <i>S n</i>, to
+\(m\) into two smaller problems: first, adding the smaller value \(n\), to
+\(m\), and second, taking the successor of the result of that operation.
+</p>
+
+<p>
+So now, without having even <i>considered</i> writing code, we have the
+two rules that we need. It is now straightforward to represent them
+in Idris.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">addp</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPair</span>   <span style="color: #333333; background-color: #FFFFFF;">O</span>   <span style="color: #333333; background-color: #FFFFFF;">m</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">m</span>
+<span style="color: #333333; background-color: #FFFFFF;">addp</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPair</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">n</span>) <span style="color: #333333; background-color: #FFFFFF;">m</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">addp</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPair</span> <span style="color: #333333; background-color: #FFFFFF;">n</span> <span style="color: #333333; background-color: #FFFFFF;">m</span>))
+</pre>
+</div>
+
+<p>
+The first rule says that we can evaluate any expression of the form
+<i>addp O m</i> by returning the result of evaluating the expression, \(m\).
+That's the base case. An answer can be given directly, without solving
+any subproblems recursively.
+</p>
+
+<p>
+The second rule is a little more complicated, but can also be
+understood in the same way. Let's see how it gives us a result for
+the problem, \(2 + 3\). To compute an answer we evaluate the function
+application expression, <i>addp (mkPair (S (S O)) (S (S (S O))))</i>.
+Let's trace exactly what happens.
+</p>
+
+<p>
+The expression does not match the left hand side of the first rule,
+but it does match with the second, and the process of matching binds
+\(n\) to <i>(S O)</i> (one smaller than \(n\)) and \(m\) to <i>S (S (S O))</i>. The
+result of the function application is then obtained by evaluating the
+right hand side of the rule <i>in the context of these bindings</i>.
+</p>
+
+<p>
+The right hand side thus becomes <i>S (addp (mkPair (S O) (S (S (S
+O)))))</i>.  Again, the overall result is obtained by evaluating this
+expression.  But evaluating this expressions requires evaluation of
+<i>addp</i> funtion applied to an argument pair with a one-smaller first
+element. You can see that this process will continue, and that it will
+stop only if a base case is reached. Here's the complete sequence of
+intermediate steps.
+</p>
+
+<ul class="org-ul">
+<li><i>addp (mkPair (S (S O)) (S (S (S O))))</i>    [function application]</li>
+<li><i>S (addp (mkPair (S O)  (S (S (S O)))))</i>   [recursive case]</li>
+<li><i>S (S (addp (mkPair O   (S (S (S O))))))</i>  [recursive case]</li>
+<li><i>S (S                  (S (S (S O))))</i>   [base case; answer!]</li>
+</ul>
+</div></li></ol></li></ol>
+</div>
+
+<div id="outline-container-orgheadline123" class="outline-4">
+<h4 id="orgheadline123"><span class="section-number-4">11.2.5</span> equality</h4>
+<div class="outline-text-4" id="text-11-2-5">
+<p>
+We will find it important to be able to compare natural numbers to see
+whether one is less than, less than or equal to, equal to, greater
+than or equal to, or greather than another. Each of these comparison
+operations in a binary operator, taking two natural numbers and
+returning a Boolean value indicating whether or not the given property
+holds for that pair of numbers. 
+</p>
+
+<p>
+Here we develop a function for comparing natural numbers for equality.
+This function provides a model for developing functions for the less 
+than or equal operator. With these two operators in hand, along with 
+Boolean operators, the remaining comparison operators can be defined.
+</p>
+
+<p>
+Being a binary operator, equality comparison takes two natural numbers
+as arguments. Each number can be either zero or the successor of some
+other natural number. There are thus four cases to consider: both
+zero, zero and non-zero, non-zero and zero, and two non-zero numbers
+that, in general, are not the same.
+</p>
+
+<p>
+The first three cases are easy. If both numbers are zero, the result
+is true. If one is zero and the other is the successor of some other
+number, then the result is false, as zero is not the successor of any
+number. 
+</p>
+
+<p>
+Finally we get to the fourth case, of two numbers, each the successor
+of some other number. Let's call these numbers <i>(S n)</i> and <i>(S m)</i>.
+The critical observation is that these numbers are equal if and only
+if \(m\) and \(n\) are themselves equal! We can thus get an answer to the
+original question by resolving this simpler question.
+</p>
+
+<p>
+We thus now have our set of <i>recursive</i> rules, which we can direclty
+translate to Idris.
+</p>
+
+<p>
+#+BEGIN<sub>SRC</sub> idris :exports code
+eqp: pair nat nat -&gt; bool
+eqp O O = true
+eqp O (S n) = false
+eqp (S n) O = false
+eqp (S n) (S m) = eqp n m
+#END<sub>SRC</sub>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline124" class="outline-4">
+<h4 id="orgheadline124"><span class="section-number-4">11.2.6</span> Exercises</h4>
+<div class="outline-text-4" id="text-11-2-6">
+<ul class="org-ul">
+<li>Design and implement an Idris function, <i>multp: pair nat nat -&gt; nat</i> that multiplies pairs of natural numbers. Hint: \(O * m = O\) and \((1+n) * m = m + (n * m)\).</li>
+<li>Design and implement an Idris function, <i>expp: pair nat nat -&gt; nat</i>  that when given a pair, \((x, n)\) returns \(x^n\).</li>
+<li>Design and implement a function for subtraction.</li>
+<li>Design and implement a function to compute the n'th Fibonacci number, where (fib O) = O and (fib 1) = 1.</li>
+<li>Design and implement the rest of the standard Boolean comparison operators on natural numbers.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline130" class="outline-2">
+<h2 id="orgheadline130"><span class="section-number-2">12</span> A little bit of Linux</h2>
+<div class="outline-text-2" id="text-12">
+</div><div id="outline-container-orgheadline127" class="outline-4">
+<h4 id="orgheadline127"><span class="section-number-4">12.0.1</span> apt-get (tree)</h4>
+</div>
+<div id="outline-container-orgheadline128" class="outline-4">
+<h4 id="orgheadline128"><span class="section-number-4">12.0.2</span> sudo</h4>
+</div>
+<div id="outline-container-orgheadline129" class="outline-4">
+<h4 id="orgheadline129"><span class="section-number-4">12.0.3</span> dpkg (atom)</h4>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-14 Mon 16:37</p>
+<p class="date">Created: 2015-09-26 Sat 08:40</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
