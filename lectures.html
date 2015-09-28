@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-26 Sat 08:52 -->
+<!-- 2015-09-28 Mon 10:53 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -434,13 +434,42 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
-<li><a href="#orgheadline130">12. A little bit of Linux</a>
+<li><a href="#orgheadline132">12. A little more Linux</a>
 <ul>
-<li>
+<li><a href="#orgheadline128">12.1. running commands as super-user</a>
 <ul>
-<li><a href="#orgheadline127">12.0.1. apt-get (tree)</a></li>
-<li><a href="#orgheadline128">12.0.2. sudo</a></li>
-<li><a href="#orgheadline129">12.0.3. dpkg (atom)</a></li>
+<li><a href="#orgheadline127">12.1.1. sudo</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline131">12.2. installing and managing Linix packages</a>
+<ul>
+<li><a href="#orgheadline129">12.2.1. apt-get</a></li>
+<li><a href="#orgheadline130">12.2.2. dpkg</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline187">13. Exam 1 Study Guide</a>
+<ul>
+<li><a href="#orgheadline133">13.1. Basic Linux Commands</a></li>
+<li><a href="#orgheadline162">13.2. ADTs</a>
+<ul>
+<li><a href="#orgheadline136">13.2.1. unit</a></li>
+<li><a href="#orgheadline141">13.2.2. bool</a></li>
+<li><a href="#orgheadline144">13.2.3. Box a</a></li>
+<li><a href="#orgheadline146">13.2.4. option a</a></li>
+<li><a href="#orgheadline151">13.2.5. pair a b</a></li>
+<li><a href="#orgheadline156">13.2.6. nat</a></li>
+<li><a href="#orgheadline161">13.2.7. list a</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline186">13.3. Mechanisms</a>
+<ul>
+<li><a href="#orgheadline165">13.3.1. types and values</a></li>
+<li><a href="#orgheadline174">13.3.2. inductive data type definitions</a></li>
+<li><a href="#orgheadline177">13.3.3. binding of names to values</a></li>
+<li><a href="#orgheadline180">13.3.4. pattern matching &amp; unification</a></li>
+<li><a href="#orgheadline185">13.3.5. expression evaluation</a></li>
 </ul>
 </li>
 </ul>
@@ -2069,7 +2098,7 @@ you thoroughly understand the <i>Box</i> example before you go forward.
 <h3 id="orgheadline102"><span class="section-number-3">6.3</span> Practice</h3>
 <div class="outline-text-3" id="text-6-3">
 <ul class="org-ul">
-<li>Review our definition of the <i>id<sub>unit</sub></i> function. Can you shorten it using pattern matching?</li>
+<li>Review our definition of the <i>id_unit</i> function. Can you shorten it using pattern matching?</li>
 <li>Write a function <i>notUnBox</i> that takes a <i>Box</i> containing a <i>bool</i>
 and that returns the <i>negation</i> of the contained value. If the
 argument to this function is <i>mkBox false</i>, for example, the
@@ -2094,10 +2123,10 @@ or numbers, or names.
 
 <p>
 One way to reach this goal would be first to rename our <i>Box</i> type to
-<i>Box<sub>bool</sub></i>, to clarify that it's a box that can contain only a <i>bool</i>
+<i>Box_bool</i>, to clarify that it's a box that can contain only a <i>bool</i>
 value, and then make copies of and modifications to this type to
-produce new types such as <i>Box<sub>unit</sub></i> and (assuming that we have a type
-called <i>nat</i> to represent natural numbers) <i>Box<sub>nat</sub></i>.
+produce new types such as <i>Box_unit</i> and (assuming that we have a type
+called <i>nat</i> to represent natural numbers) <i>Box_nat</i>.
 </p>
 
 <p>
@@ -3141,13 +3170,13 @@ translate to Idris.
 </p>
 
 <p>
-#+BEGIN<sub>SRC</sub> idris :exports code
+#+BEGIN_SRC idris :exports code
 eqp: pair nat nat -&gt; bool
 eqp O O = true
 eqp O (S n) = false
 eqp (S n) O = false
 eqp (S n) (S m) = eqp n m
-#END<sub>SRC</sub>
+#END_SRC
 </p>
 </div>
 </div>
@@ -3167,24 +3196,230 @@ eqp (S n) (S m) = eqp n m
 </div>
 </div>
 
-
-<div id="outline-container-orgheadline130" class="outline-2">
-<h2 id="orgheadline130"><span class="section-number-2">12</span> A little bit of Linux</h2>
+<div id="outline-container-orgheadline132" class="outline-2">
+<h2 id="orgheadline132"><span class="section-number-2">12</span> A little more Linux</h2>
 <div class="outline-text-2" id="text-12">
+</div><div id="outline-container-orgheadline128" class="outline-3">
+<h3 id="orgheadline128"><span class="section-number-3">12.1</span> running commands as super-user</h3>
+<div class="outline-text-3" id="text-12-1">
 </div><div id="outline-container-orgheadline127" class="outline-4">
-<h4 id="orgheadline127"><span class="section-number-4">12.0.1</span> apt-get (tree)</h4>
+<h4 id="orgheadline127"><span class="section-number-4">12.1.1</span> sudo</h4>
 </div>
-<div id="outline-container-orgheadline128" class="outline-4">
-<h4 id="orgheadline128"><span class="section-number-4">12.0.2</span> sudo</h4>
 </div>
-<div id="outline-container-orgheadline129" class="outline-4">
-<h4 id="orgheadline129"><span class="section-number-4">12.0.3</span> dpkg (atom)</h4>
+<div id="outline-container-orgheadline131" class="outline-3">
+<h3 id="orgheadline131"><span class="section-number-3">12.2</span> installing and managing Linix packages</h3>
+<div class="outline-text-3" id="text-12-2">
+</div><div id="outline-container-orgheadline129" class="outline-4">
+<h4 id="orgheadline129"><span class="section-number-4">12.2.1</span> apt-get</h4>
+</div>
+<div id="outline-container-orgheadline130" class="outline-4">
+<h4 id="orgheadline130"><span class="section-number-4">12.2.2</span> dpkg</h4>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline187" class="outline-2">
+<h2 id="orgheadline187"><span class="section-number-2">13</span> Exam 1 Study Guide</h2>
+<div class="outline-text-2" id="text-13">
+</div><div id="outline-container-orgheadline133" class="outline-3">
+<h3 id="orgheadline133"><span class="section-number-3">13.1</span> Basic Linux Commands</h3>
+<div class="outline-text-3" id="text-13-1">
+<ul class="org-ul">
+<li>pwd</li>
+<li>mkdir</li>
+<li>rmdir</li>
+<li>cd</li>
+<li>ls</li>
+<li>rm</li>
+<li>mv</li>
+<li>git pull</li>
+<li>cat</li>
+<li>less</li>
+<li>sudo</li>
+<li>apt-get install</li>
+<li>pipes and filters</li>
+<li>I/O redirection</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline162" class="outline-3">
+<h3 id="orgheadline162"><span class="section-number-3">13.2</span> ADTs</h3>
+<div class="outline-text-3" id="text-13-2">
+</div><div id="outline-container-orgheadline136" class="outline-4">
+<h4 id="orgheadline136"><span class="section-number-4">13.2.1</span> unit</h4>
+<div class="outline-text-4" id="text-13-2-1">
+</div><ol class="org-ol"><li><a id="orgheadline134"></a>data type<br  /><div class="outline-text-5" id="text-13-2-1-1">
+<p>
+data unit = mkUnit
+</p>
+</div></li>
+<li><a id="orgheadline135"></a>functions<br  /><div class="outline-text-5" id="text-13-2-1-2">
+<ul class="org-ul">
+<li>id_unit: unit -&gt; unit</li>
+</ul>
+</div></li></ol>
+</div>
+<div id="outline-container-orgheadline141" class="outline-4">
+<h4 id="orgheadline141"><span class="section-number-4">13.2.2</span> bool</h4>
+<div class="outline-text-4" id="text-13-2-2">
+</div><ol class="org-ol"><li><a id="orgheadline137"></a>data type<br  /><div class="outline-text-5" id="text-13-2-2-1">
+<p>
+data bool = true | false
+</p>
+</div></li>
+<li><a id="orgheadline140"></a>functions<br  /><ol class="org-ol"><li><a id="orgheadline138"></a>unary<br  /><div class="outline-text-6" id="text-13-2-2-2-1">
+<ul class="org-ul">
+<li>id_bool: bool -&gt; bool</li>
+<li>not: bool -&gt; bool</li>
+<li>constFalse: bool -&gt; bool</li>
+<li>constTrue: bool -&gt; bool</li>
+</ul>
+</div></li>
+<li><a id="orgheadline139"></a>binary<br  /><div class="outline-text-6" id="text-13-2-2-2-2">
+<ul class="org-ul">
+<li>andp: pair bool bool -&gt; bool</li>
+<li>orp: pair bool bool -&gt; bool</li>
+<li>xorp: pair bool bool -&gt; bool</li>
+<li>nandp: pair bool bool -&gt; bool</li>
+</ul>
+</div></li></ol></li></ol>
+</div>
+<div id="outline-container-orgheadline144" class="outline-4">
+<h4 id="orgheadline144"><span class="section-number-4">13.2.3</span> Box a</h4>
+<div class="outline-text-4" id="text-13-2-3">
+</div><ol class="org-ol"><li><a id="orgheadline142"></a>data type<br  /><div class="outline-text-5" id="text-13-2-3-1">
+<p>
+data Box a = mkBox a
+</p>
+</div></li>
+<li><a id="orgheadline143"></a>functions<br  /><div class="outline-text-5" id="text-13-2-3-2">
+<ul class="org-ul">
+<li>unBox: Box a -&gt; a</li>
+</ul>
+</div></li></ol>
+</div>
+<div id="outline-container-orgheadline146" class="outline-4">
+<h4 id="orgheadline146"><span class="section-number-4">13.2.4</span> option a</h4>
+<div class="outline-text-4" id="text-13-2-4">
+</div><ol class="org-ol"><li><a id="orgheadline145"></a>data type<br  /><div class="outline-text-5" id="text-13-2-4-1">
+<p>
+data option a = some a | none
+</p>
+</div></li></ol>
+</div>
+<div id="outline-container-orgheadline151" class="outline-4">
+<h4 id="orgheadline151"><span class="section-number-4">13.2.5</span> pair a b</h4>
+<div class="outline-text-4" id="text-13-2-5">
+</div><ol class="org-ol"><li><a id="orgheadline147"></a>data type<br  /><div class="outline-text-5" id="text-13-2-5-1">
+<p>
+data pair a b = mkPair a b
+</p>
+</div></li>
+<li><a id="orgheadline150"></a>functions<br  /><ol class="org-ol"><li><a id="orgheadline148"></a>fst: pair a b -&gt; a<br  /></li>
+<li><a id="orgheadline149"></a>snd: pair a b -&gt; b<br  /></li></ol></li></ol>
+</div>
+<div id="outline-container-orgheadline156" class="outline-4">
+<h4 id="orgheadline156"><span class="section-number-4">13.2.6</span> nat</h4>
+<div class="outline-text-4" id="text-13-2-6">
+</div><ol class="org-ol"><li><a id="orgheadline152"></a>data type<br  /><div class="outline-text-5" id="text-13-2-6-1">
+<p>
+data nat = O | S nat
+</p>
+</div></li>
+<li><a id="orgheadline155"></a>functions<br  /><ol class="org-ol"><li><a id="orgheadline153"></a>unary<br  /><div class="outline-text-6" id="text-13-2-6-2-1">
+<ul class="org-ul">
+<li>isZero: nat -&gt; bool</li>
+<li>succ: nat -&gt; nat</li>
+<li>pred: nat -&gt; nat</li>
+<li>evenb: nat -&gt; bool</li>
+<li>oddb: nat -&gt; bool</li>
+<li>factorial: nat -&gt; nat</li>
+<li>fibonacci: nat -&gt; nat</li>
+</ul>
+</div></li>
+<li><a id="orgheadline154"></a>binary<br  /><div class="outline-text-6" id="text-13-2-6-2-2">
+<ul class="org-ul">
+<li>addp: pair nat nat -&gt; nat</li>
+<li>multp: pair nat nat -&gt; nat</li>
+<li>expp: pair nat nat -&gt; nat</li>
+</ul>
+</div></li></ol></li></ol>
+</div>
+<div id="outline-container-orgheadline161" class="outline-4">
+<h4 id="orgheadline161"><span class="section-number-4">13.2.7</span> list a</h4>
+<div class="outline-text-4" id="text-13-2-7">
+</div><ol class="org-ol"><li><a id="orgheadline157"></a>data type<br  /><div class="outline-text-5" id="text-13-2-7-1">
+<p>
+data list_nat = nil | cons nat list_nat
+</p>
+</div></li>
+<li><a id="orgheadline160"></a>functions<br  /><ol class="org-ol"><li><a id="orgheadline158"></a>unary<br  /><div class="outline-text-6" id="text-13-2-7-2-1">
+<ul class="org-ul">
+<li>isEmpty: list_nat -&gt; bool</li>
+<li>length: list_nat -&gt; nat</li>
+</ul>
+</div></li>
+<li><a id="orgheadline159"></a>binary<br  /><div class="outline-text-6" id="text-13-2-7-2-2">
+<ul class="org-ul">
+<li>append: pair list_nat list_nat -&gt; list_nat</li>
+</ul>
+</div></li></ol></li></ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline186" class="outline-3">
+<h3 id="orgheadline186"><span class="section-number-3">13.3</span> Mechanisms</h3>
+<div class="outline-text-3" id="text-13-3">
+</div><div id="outline-container-orgheadline165" class="outline-4">
+<h4 id="orgheadline165"><span class="section-number-4">13.3.1</span> types and values</h4>
+<div class="outline-text-4" id="text-13-3-1">
+</div><ol class="org-ol"><li><a id="orgheadline163"></a>data types and values<br  /></li>
+<li><a id="orgheadline164"></a>function types and values<br  /></li></ol>
+</div>
+<div id="outline-container-orgheadline174" class="outline-4">
+<h4 id="orgheadline174"><span class="section-number-4">13.3.2</span> inductive data type definitions</h4>
+<div class="outline-text-4" id="text-13-3-2">
+</div><ol class="org-ol"><li><a id="orgheadline166"></a>declaring data types<br  /></li>
+<li><a id="orgheadline169"></a>defining value constructors<br  /><ol class="org-ol"><li><a id="orgheadline167"></a>without parameters<br  /></li>
+<li><a id="orgheadline168"></a>with parameters<br  /></li></ol></li>
+<li><a id="orgheadline173"></a>polymorphic data type definitions<br  /><ol class="org-ol"><li><a id="orgheadline170"></a>declaring type parameters<br  /></li>
+<li><a id="orgheadline171"></a>defining polymorphic value constructors<br  /></li>
+<li><a id="orgheadline172"></a>the concept of "type constructors"<br  /></li></ol></li></ol>
+</div>
+<div id="outline-container-orgheadline177" class="outline-4">
+<h4 id="orgheadline177"><span class="section-number-4">13.3.3</span> binding of names to values</h4>
+<div class="outline-text-4" id="text-13-3-3">
+</div><ol class="org-ol"><li><a id="orgheadline175"></a>type declarations<br  /><div class="outline-text-5" id="text-13-3-3-1">
+<ul class="org-ul">
+<li>e.g., x: nat</li>
+</ul>
+</div></li>
+<li><a id="orgheadline176"></a>value definitions<br  /><div class="outline-text-5" id="text-13-3-3-2">
+<ul class="org-ul">
+<li>e.g., x = (S O)</li>
+</ul>
+</div></li></ol>
+</div>
+<div id="outline-container-orgheadline180" class="outline-4">
+<h4 id="orgheadline180"><span class="section-number-4">13.3.4</span> pattern matching &amp; unification</h4>
+<div class="outline-text-4" id="text-13-3-4">
+</div><ol class="org-ol"><li><a id="orgheadline178"></a>non-recursive function definitions<br  /></li>
+<li><a id="orgheadline179"></a>recursive function definitions<br  /></li></ol>
+</div>
+<div id="outline-container-orgheadline185" class="outline-4">
+<h4 id="orgheadline185"><span class="section-number-4">13.3.5</span> expression evaluation</h4>
+<div class="outline-text-4" id="text-13-3-5">
+</div><ol class="org-ol"><li><a id="orgheadline181"></a>literal expressions<br  /></li>
+<li><a id="orgheadline182"></a>variable expressions<br  /></li>
+<li><a id="orgheadline183"></a>function application expressions<br  /></li>
+<li><a id="orgheadline184"></a>recursive function evaluation, in particular<br  /></li></ol>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-26 Sat 08:52</p>
+<p class="date">Created: 2015-09-28 Mon 10:53</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
