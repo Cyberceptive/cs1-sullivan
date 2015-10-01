@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-01 Thu 15:21 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>CS1113 Exam 1 of 3</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Kevin Sullivan" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">CS1113 Exam 1 of 3</h1>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Read this: Collaboration policy</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<b>Read to the end of this policy statement and sign that you have read and understood it. You may not collaborate on this exam in any way. This is a strictly individual evaluation.</b>
+</p>
+
+<p>
+Do not discuss this exam with <i>anyone</i> who has not yet completed it
+and turned it in. In particular, do not discuss this test with
+students in the later lab. Be sure that you know that another student
+has completed the exam and turned it in before discussing it with him
+or her.
+</p>
+
+<p>
+<i>Turn off</i> and <i>put away</i> all electronic devices other than the laptop
+computer that you will use to complete this exam. 
+</p>
+
+<p>
+<i>Turn off</i> the WiFi networking capability of your laptop. Do not turn
+it back on until you are ready to submit your work.
+</p>
+
+<p>
+Separate yourself from friends and other students. Do not look at
+other students' code. Do not allow other students to see your code.
+</p>
+
+<p>
+Statement: I have read and understood these conditions. I understand
+that any violations will be treated seriously, leading to failure on
+the exam, failure of the course, and/or a possible Honor referral.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> #1. Verify names and correctness of unary Boolean functions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+A unary operator takes one argument of a given type, computes with it,
+and returns a result. When the argument type is Boolean, there are
+only two possible argument values: true and false. To completely
+specify a unary Boolean function, it therefore suffices to specify
+what value is returned for each of these two argument values. 
+</p>
+
+<p>
+One can depict Boolean functions graphically as two-by-two <i>truth
+tables</i>. The two possible argument values, <i>true</i> and <i>false</i>, are
+listed in the first column (labelled <i>b1</i> here).  The results are
+listed to the right. 
+</p>
+
+<p>
+When the result type is also Boolean, there are only four possible
+ways to fill in the result column: 
+</p>
+<ul class="org-ul">
+<li><i>true true</i></li>
+<li><i>true false</i></li>
+<li><i>false true</i></li>
+<li><i>false false</i></li>
+</ul>
+
+<p>
+We have implemented these functions with the names, <i>constTrue</i>,
+<i>id_bool</i>, <i>not</i>, and <i>constFalse</i>, respectively. Here's a truth table
+for the <i>not</i> function, for example, with the argument values in the
+<i>b1</i> column and the corresponding results to the right.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+<b>Problem #1:</b> Open your bool.idr file in an editor and verify the
+names, and the correctness, of your unary Boolean functions. Verify
+correctness by carefully inspecting your code. You may test it as
+well, if you wish, in the REPL.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> #2: Determine the number of binary Boolean functions</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+A binary function takes two arguments and returns a result. We have
+implemented some, but not all, of the binary Boolean functions. 
+</p>
+
+<p>
+As with unary functions, the binary Boolean functions can also be
+depicted graphically using truth tables. In the first column are the
+two possible values for the first argument. In the second column are
+the possible values of the second argument, repeated for each possible
+value of the first argument. The four rows thus give all four possible
+pairs of values for the two arguments. The right column gives results.
+Here, for example, is the <i>truth table</i> for the <i>and</i> function.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+One such table specifies a single binary Boolean function. How many
+different ways are there to fill in the four Boolean values in the
+result column in the truth table for a Boolean function?
+</p>
+
+<p>
+<b>Problem #2:</b> Add a statement in a comment block in your bool.idr 
+file stating, "Exam Problem #2: There are <span class="underline">__</span> possible ways to fill
+in the result column for a truth table for a binary Boolean function,
+and there are thus exactly <span class="underline">__</span> such functions, and no more." Fill in
+the right answer(s) in the blanks, of course.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">4</span> #3: Verify names and correctness of your binary Boolean functions</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<b>Problem #3:</b> Carefully verify the correctness of your implementations
+of the binary Boolean functions that we've implemented. Correct your
+code if necessary. We've given the truth table for <i>add</i> above. The
+remainder of this page gives correct truth tables for <i>or</i>, <i>xor</i>, and
+<i>nand</i>. Be sure to save your work.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline4"></a>or<br  /><div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+</div></li>
+
+<li><a id="orgheadline5"></a>xor (exclusive or)<br  /><div class="outline-text-3" id="text-4-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+</div></li>
+
+<li><a id="orgheadline6"></a><i>nand</i> (not and)<br  /><div class="outline-text-3" id="text-4-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+</table>
+</div></li></ol>
+</div>
+
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">5</span> #4: See the binary operations in a new way</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Write the truth table for the <i>add</i> operation on a piece of paper.
+Note how it breaks in half horizontally. The top half indicates the
+behavior of the function when the first argument, <i>b1</i>, is <i>true</i>.
+Make a dark line to separate the top and bottom halves to better see
+what's going on. The bottom half indicates the behavior of the
+function when <i>b1</i> argument is <i>false</i>.
+</p>
+
+<p>
+Now look at the top half only. You can now break it into two parts
+vertically. The first column indicates the choice of <i>true</i> for the
+first parameter. The rest of the table to the right&#x2014;the <i>b2</i> and
+<i>result</i> columns&#x2014;can now be seen as a truth table for one of the
+<i>unary</i> functions! Make a dark line indicating this separation. Now
+look at the smaller truth table in the upper right! Can you see what
+unary function it is? That's right, it's the <i>id</i> function! Here's
+the truth table you should be seeing. 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+In other words, when the first argument is to the binary <i>and</i> is
+<i>true</i> you can apply the unary <i>id_bool</i> function to the second
+argument to compute the correct result for <i>and</i>.
+</p>
+
+<p>
+Similarly, if you look at the bottom half of the truth table for
+<i>and</i>, you will find that it splits in the same way. In the <i>b1</i>
+column, we have a choice of <i>false</i> for the first parameter, and to
+the right&#x2014;in the <i>b2</i> and <i>result</i> columns&#x2014;we see a truth table
+for a different <i>unary</i> function. Which on is it? Right: <i>constFalse</i>!
+In other words, when the first argument is to the binary <i>and</i> is
+<i>false</i> you can apply the unary <i>constFalse</i> function to the second
+argument to compute the correct result for <i>and</i>.
+</p>
+
+<p>
+This observation leads to a new way of seeing the binary functions: as
+<i>unary</i> functions that take a Boolean value, <i>b1</i>, as an argument and
+that return an associated unary function, of type \(bool \to bool\), as
+a result! For the <i>and</i> function, when <i>b1</i> is <i>true</i>, the result is
+<i>id_bool</i>, and when <i>b1</i> is false, the result is <i>constFalse</i>. Here's
+a table representing the <i>and</i> function represented in this way. We'll
+call this function <i>pand</i> (short for <i>partial and</i>, in that it gets us
+only part way to an answer).
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">id_bool</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">constFalse</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note again, <i>pand</i> does not return a Boolean, but rather a function
+from Boolean to Boolean. The signature of <i>pand</i> is thus \(bool \to
+(bool \to bool)\). That is, it takes a <i>bool</i> and returns a (unary)
+function of type <i>bool -&gt; bool</i>.  In Idris and most similar languages,
+the \(\to\) operator (on types) is what we call <i>right associative</i>, so
+\(bool \to (bool \to bool)\) can be written as \(bool \to bool \to bool\).
+</p>
+
+<p>
+<b>Problem #4a:</b> At the end of your bool.idr file, implement this <i>pand</i>
+function as specified in the preceding table. What, you ask? Can a
+function really return another function as a result? The answer is
+yes.  Just return the required unary operations by name.
+</p>
+
+<p>
+Again, make sure that you see it: applying <i>pand</i> to, say, <i>true</i>,
+returns a <i>function</i>. So, for example, the expression <i>pand true</i>
+returns the \(id_bool\) function.  This returned function can then be
+applied to another Boolean value to compute a final Boolean result.
+This expression, <i>(pand true) false</i>, would thus evaluate <i>pand true</i>
+to obtain <i>id_bool</i> which would then be applied to <i>false</i> to yield
+<i>false</i>, which is the right answer.
+</p>
+
+<p>
+Try it out in your REPL. Note also that in Idris and most similar
+languages, function application is <i>left</i> associative, so <i>(pand true)
+false</i> can be written more simply as <i>pand true false</i>. It beats
+having to type in all those <i>mkPairs</i>!
+</p>
+
+<p>
+<b>Problem #4b,c,d:</b> Analyze the <i>or</i>, <i>xor</i>, and <i>nand</i> functions in the
+same way, and provide Idris implementations of these functions in this
+style, as well. Call the new functions <i>por</i>, <i>pxor</i>, and <i>pnand</i>.
+Note: the types of these functions will all be \(bool \to bool \to
+bool\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">6</span> #5: Verify correctness of your new functions</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+<b>Problem #5:</b> Edit your boolTest.idr file. Add four tests for each new
+function, one test for each pair of Boolean values.  In your REPL
+verify that you are getting results consistent with those that you
+should be getting from your previous (and possibly corrected)
+implementations of <i>andp</i>, <i>orp</i>, <i>xorp</i>, and <i>nandp</i>.
+</p>
+
+<p>
+Each test should look like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #000000; background-color: #ffffff;">pand_t_t</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">bool</span>
+<span style="color: #000000; background-color: #ffffff;">pand_t_t</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">pand</span> <span style="color: #000000; background-color: #ffffff;">true</span> <span style="color: #000000; background-color: #ffffff;">true</span>
+<span style="color: #b22222;">-- expect true</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">7</span> What to submit, and deadline</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Submit your revised bool.idr and boolTest.idr files. The deadline is
+before class tomorrow. That said, you should be able to finish this
+work in lab.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kevin Sullivan</p>
+<p class="date">Created: 2015-10-01 Thu 15:21</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
