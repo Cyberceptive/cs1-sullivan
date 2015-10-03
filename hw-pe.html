@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-03 Sat 00:23 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Partial Evaluation Homework</title>
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Kevin Sullivan" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+
+<script type="text/javascript" src="org-info.js">
+/**
+ *
+ * @source: org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in org-info.js.
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Partial Evaluation Homework</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Binary Function Review</a></li>
+<li><a href="#orgheadline2">2. Higher-Order Functions</a></li>
+<li><a href="#orgheadline3">3. Partial Evaluation</a></li>
+<li><a href="#orgheadline4">4. The Concepts Generalize</a></li>
+<li><a href="#orgheadline5">5. Your assignment</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Binary Function Review</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Until this week, we have implemented binary functions as unary
+functions from <i>pairs</i> of values to results. The simplest example of
+this approach is found in our first implementation, <i>andp</i>, of the
+Boolean <i>and</i> function. As the type declaration indicates, <i>andp</i>
+takes a single argument comprising a <i>pair</i> of Boolean values,
+represented as a value of type <i>pair bool bool</i>. It then computes and
+returns the desired result.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #000000; background-color: #ffffff;">andp</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">pair</span> <span style="color: #000000; background-color: #ffffff;">bool</span> <span style="color: #000000; background-color: #ffffff;">bool</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">bool</span>
+<span style="color: #000000; background-color: #ffffff;">andp</span> (<span style="color: #000000; background-color: #ffffff;">mkPair</span> <span style="color: #000000; background-color: #ffffff;">true</span> <span style="color: #000000; background-color: #ffffff;">true</span> ) <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">true</span>
+<span style="color: #000000; background-color: #ffffff;">andp</span> <span style="color: #000000; background-color: #ffffff;">_</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">false</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Higher-Order Functions</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+This week we saw that we can view binary functions in a new way: as
+unary functions (taking one argument) that return <i>functions</i>, which
+in turn take another argument and compute and return a final result. A
+simple example is found in our second implementation, <i>pand</i>, of the
+Boolean <i>and</i> function. The type of <i>pand</i> explains that the function
+takes <i>one</i> value of type <i>bool</i> and then returns a unary <i>function</i>
+of type \(bool \to bool\).  The function definition rules explain which
+unary function is returned for each value of the first argument. We
+already have named functions for all four possible unary functions
+from <i>bool</i> to <i>bool</i>, so we just return the right ones by name.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #000000; background-color: #ffffff;">pand</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">bool</span> <span style="color: #a0522d;">-&gt;</span> (<span style="color: #000000; background-color: #ffffff;">bool</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">bool</span>)
+<span style="color: #000000; background-color: #ffffff;">pand</span> <span style="color: #000000; background-color: #ffffff;">true</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">id_bool</span>
+<span style="color: #000000; background-color: #ffffff;">pand</span> <span style="color: #000000; background-color: #ffffff;">false</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">constFalse</span>
+</pre>
+</div>
+
+<p>
+We have thus met our first <i>higher order function</i>. We use this term
+to refer to any function that returns a function as a result (as in
+this example), or that takes a function as an argument, or both.
+</p>
+
+<p>
+Given this definition of <i>pand</i>, we can now write function application
+expressions such as this: <i>(pand true) false</i>. The expression within
+parentheses evalutes to the <i>function</i>, <i>id_bool</i>. It is then applied
+to <i>false</i>, returning <i>false</i> as the final result.  Because function
+application is <i>left associative</i>, we can omit the parentheses and
+simply write <i>pand true false</i>. 
+</p>
+
+<p>
+Defining Idris functions in this manner simplifies our code. First, we
+no longer need to use the <i>pair</i> type constructor in the type of our
+implementation of Boolean <i>and</i>. Second, we no longer need to <i>package
+up</i> two arguments into a single pair when we want to apply a Boolean
+<i>and</i> function. Third, the rules for computing values of the function
+no longer need to destructure expressions using <i>pair</i>. Every aspect
+of the code is simpler.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> Partial Evaluation</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+So how should we think about the expression <i>pand true</i> in the code
+just introduced?  Clearly it is the function <i>id_bool</i>. But an even
+better way to understand it, in this context, is as what we will call
+a <i>partially evaluated application</i> of a Boolean <i>and</i> function.  That
+is, it's sort of like an <i>and</i> function with the first argument value
+already <i>baked in</i>. The binary function has been <i>partially evaluated</i>
+yielding a unary function that can now convert a second argument into
+a final result.
+</p>
+
+<p>
+Now we're ready to see an even better implementation of our binary
+<i>and</i> function. This is implementation is based on the fact that Idris
+and other languages like it automatically partially evaluate  function
+applications!
+</p>
+
+<p>
+The type of our next function is the same as that of the the
+high-order function that we just implemented: \(bool \to bool \to
+bool\).  The difference is that rather than writing rules that pattern
+match on just one argument and that return a function explicitly, we
+write we pattern match on <i>both</i> arguments. Our rules explain how to
+reduce <i>both</i> arguments to a final result. What's remarkable, however,
+is that if we then apply such a function to just one argument, Idris
+does the partial evaluation for us!
+</p>
+
+<p>
+Here's the code. We now call our function <i>and</i>. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #000000; background-color: #ffffff;">and</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">bool</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">bool</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">bool</span> 
+<span style="color: #000000; background-color: #ffffff;">and</span> <span style="color: #000000; background-color: #ffffff;">true</span> <span style="color: #000000; background-color: #ffffff;">true</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">true</span>
+<span style="color: #000000; background-color: #ffffff;">and</span> <span style="color: #000000; background-color: #ffffff;">_</span> <span style="color: #000000; background-color: #ffffff;">_</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">false</span>
+</pre>
+</div>
+
+<p>
+Given this definition, we can continue to write function application
+expressions such as <i>and true false</i>. This expression does not match
+the first rule, but does match the second rule, which returns <i>false</i>.
+</p>
+
+<p>
+Now here's the really interesting question: Does the expression, <i>and
+true</i>&#x2014;the application of a binary function to one argument&#x2014;have a
+meaning, and if so, what? The type of the <i>and</i> function explains that
+the result should be of type \(bool \to bool\). So does it work? Can we
+write the following code, and if so, what does it mean?
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #000000; background-color: #ffffff;">uf</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">bool</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">bool</span>
+<span style="color: #000000; background-color: #ffffff;">uf</span> <span style="color: #a0522d;">=</span> (<span style="color: #000000; background-color: #ffffff;">and</span> <span style="color: #000000; background-color: #ffffff;">true</span>)
+</pre>
+</div>
+
+<p>
+In fact, it works and produces exactly the result expected: a
+partially evaluated result in the form of a unary function that is
+<i>equivalent to</i> our <i>id_bool</i> function. Idris and similar languages
+have the remarkable capability to partially evaluate multi-argument
+function definitions. We do not have to actually write the partially
+evaluating functions ourselves, as we did above. 
+</p>
+
+<p>
+One can now see how Idris evaluates function application expressions
+such as <i>and true false</i>. First it left associates terms, grouping the
+expression like this: <i>(and true) false</i>. Then it evaluates the <i>(and
+true)</i> function application expression, yielding a partially evaluated
+function which it then applies to <i>false</i> to compute the final result.
+</p>
+
+<p>
+You can even capture and store the partially evaluated function, which
+is exacty what we did with the code above. Give it a try in your REPL.
+You can apply <i>uf</i> to single Boolean values to obtain final results.
+</p>
+
+<p>
+We have now reached a milestone in this course: the standard pattern
+for implementing logical and mathematical functions that take multiple
+arguments as function definitions in Idris and in similar languages.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">4</span> The Concepts Generalize</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+As you would hope, the same approach works not ony for <i>bool</i> but for
+multi-argument functions involving any types. Here for example is the
+code we wrote a while ago for natural number addition.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #b22222;">|||</span><span style="color: #8b2252;"> given a pair of natural numbers, return its sum</span>
+<span style="color: #000000; background-color: #ffffff;">addp</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">pair</span> <span style="color: #000000; background-color: #ffffff;">nat</span> <span style="color: #000000; background-color: #ffffff;">nat</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">nat</span>
+<span style="color: #000000; background-color: #ffffff;">addp</span> (<span style="color: #000000; background-color: #ffffff;">mkPair</span> <span style="color: #000000; background-color: #ffffff;">O</span> <span style="color: #000000; background-color: #ffffff;">m</span>) <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">m</span>
+<span style="color: #000000; background-color: #ffffff;">addp</span> (<span style="color: #000000; background-color: #ffffff;">mkPair</span> (<span style="color: #000000; background-color: #ffffff;">S</span> <span style="color: #000000; background-color: #ffffff;">n</span>) <span style="color: #000000; background-color: #ffffff;">m</span>) <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">S</span> (<span style="color: #000000; background-color: #ffffff;">addp</span> (<span style="color: #000000; background-color: #ffffff;">mkPair</span> <span style="color: #000000; background-color: #ffffff;">n</span> <span style="color: #000000; background-color: #ffffff;">m</span>))
+</pre>
+</div>
+
+<p>
+Here is code that also implements natural number addition, but written
+in the style we just developed. The code is not only much simplified
+in comparison to the code above, but also supports partial evaluation
+with respect to just one of the Boolean arguments. The code above does
+not.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #b22222;">|||</span><span style="color: #8b2252;"> given two natural numbers, return their sum</span>
+<span style="color: #000000; background-color: #ffffff;">add</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">nat</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">nat</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">nat</span>
+<span style="color: #000000; background-color: #ffffff;">add</span> <span style="color: #000000; background-color: #ffffff;">O</span> <span style="color: #000000; background-color: #ffffff;">m</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">m</span>
+<span style="color: #000000; background-color: #ffffff;">add</span> (<span style="color: #000000; background-color: #ffffff;">S</span> <span style="color: #000000; background-color: #ffffff;">n</span>) <span style="color: #000000; background-color: #ffffff;">m</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">S</span> (<span style="color: #000000; background-color: #ffffff;">add</span> <span style="color: #000000; background-color: #ffffff;">n</span> <span style="color: #000000; background-color: #ffffff;">m</span>)
+</pre>
+</div>
+
+<p>
+Suppose I want a function to add \(2\) points to any given homework
+score. I could produce such a function by applying <i>add</i> to \(2\)! The
+result is a partially evaluated unary <i>function</i> that takes any score
+and return that score plus \(2\).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #000000; background-color: #ffffff;">addTwo</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">nat</span> <span style="color: #a0522d;">-&gt;</span> <span style="color: #000000; background-color: #ffffff;">nat</span>
+<span style="color: #000000; background-color: #ffffff;">addTwo</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">add</span> (<span style="color: #000000; background-color: #ffffff;">S</span> (<span style="color: #000000; background-color: #ffffff;">S</span> <span style="color: #000000; background-color: #ffffff;">O</span>))
+
+<span style="color: #000000; background-color: #ffffff;">result</span><span style="color: #a0522d;">:</span> <span style="color: #000000; background-color: #ffffff;">nat</span>
+<span style="color: #000000; background-color: #ffffff;">result</span> <span style="color: #a0522d;">=</span> <span style="color: #000000; background-color: #ffffff;">addTwo</span> (<span style="color: #000000; background-color: #ffffff;">S</span> (<span style="color: #000000; background-color: #ffffff;">S</span> (<span style="color: #000000; background-color: #ffffff;">S</span> <span style="color: #000000; background-color: #ffffff;">O</span>))) <span style="color: #b22222;">--yields five!</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">5</span> Your assignment</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Copy your existing nat.idr file to the file nat.idr.old, and bool.idr
+to bool.idr.old. You should now have two copies of each file. Now in
+your nat.idr and bool.idr files, write new implementations all of the
+binary functions in both bool.idr and nat.idr in this style. Write new
+versions of functions such as factorial to use the new functions (such
+as mult). Once you're finished, remove the code for the old versions
+of your functions (such as <i>addp</i> and <i>padd</i>). What you should end up
+are bool.idr and nat.idr files that are clean, clear, and implemented
+in the fully developed style we have finally settled on.
+</p>
+
+<p>
+For extra credit, do the same thing with your list.idr file.
+</p>
+
+<p>
+Submit extended versions of boolTest.idr and natTest.idr (and if you
+do the extra credit, list.idr) with test cases for your new code.
+</p>
+
+<p>
+In your bool.idr file, call the new functions <i>and</i>, <i>or</i>, <i>xor</i>, and
+<i>nand</i>. In your nat.idr file, call the new functions <i>add</i>, <i>mult</i>,
+<i>exp</i> (rename the current <i>exp</i> to <i>expp</i>), <i>fact</i>, <i>fib</i> etc. Again,
+rename any existing functions by adding a <i>p</i> (for <i>pair</i>) if needed
+to avoid duplicate definitions.
+</p>
+
+<p>
+You code is due before class on Wednesday after fall break.
+</p>
+
+<p>
+Collaboration policy: You may work together to clarify the concepts
+and implementation techniques, but you must write your own code. Use
+the examples provided here if you need to discuss the concepts and
+implementation methods. It is very important that you now be able to
+code independently. You are on your honor. Do not accept or give help
+on this coding part of this assignment.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Kevin Sullivan</p>
+<p class="date">Created: 2015-10-03 Sat 00:23</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
