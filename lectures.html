@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-28 Mon 10:53 -->
+<!-- 2015-10-11 Sun 14:01 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -474,6 +474,42 @@ for the JavaScript code in this tag.
 </li>
 </ul>
 </li>
+<li><a href="#orgheadline197">14. Partial Evaluation</a>
+<ul>
+<li><a href="#orgheadline188">14.1. Review of unary Boolean functions</a></li>
+<li><a href="#orgheadline194">14.2. Review of binary Boolean functions</a>
+<ul>
+<li><a href="#orgheadline189">14.2.1. Number of binary Boolean functions</a></li>
+<li><a href="#orgheadline193">14.2.2. Truth tables for most important ones</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline196">14.3. Formulating binary operations in a new way</a>
+<ul>
+<li><a href="#orgheadline195">14.3.1. Exercises</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline206">15. Type Inference</a>
+<ul>
+<li><a href="#orgheadline198">15.1. Inferring implicit types</a></li>
+<li><a href="#orgheadline204">15.2. When type inference fails</a>
+<ul>
+<li><a href="#orgheadline201">15.2.1. A polymorphic list abstract data type</a></li>
+<li><a href="#orgheadline202">15.2.2. Insufficient context for type inference</a></li>
+<li><a href="#orgheadline203">15.2.3. The solution to the problem: making implicit arguments explicit</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline205">15.3. Summary</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline209">16. Notations</a>
+<ul>
+<li><a href="#orgheadline207">16.1. Operators</a></li>
+<li><a href="#orgheadline208">16.2. Records</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline210">17. Higher-Order Functions</a></li>
 </ul>
 </div>
 </div>
@@ -3412,14 +3448,905 @@ data list_nat = nil | cons nat list_nat
 </div><ol class="org-ol"><li><a id="orgheadline181"></a>literal expressions<br  /></li>
 <li><a id="orgheadline182"></a>variable expressions<br  /></li>
 <li><a id="orgheadline183"></a>function application expressions<br  /></li>
-<li><a id="orgheadline184"></a>recursive function evaluation, in particular<br  /></li></ol>
+<li><a id="orgheadline184"></a>recursive function evaluation, in particular<br  /><div class="outline-text-5" id="text-13-3-5-4">
+<p>
+O
+</p>
+
+
+<p>
+<code>==</code>
+</p>
+</div></li></ol>
 </div>
 </div>
+</div>
+<div id="outline-container-orgheadline197" class="outline-2">
+<h2 id="orgheadline197"><span class="section-number-2">14</span> Partial Evaluation</h2>
+<div class="outline-text-2" id="text-14">
+</div><div id="outline-container-orgheadline188" class="outline-3">
+<h3 id="orgheadline188"><span class="section-number-3">14.1</span> Review of unary Boolean functions</h3>
+<div class="outline-text-3" id="text-14-1">
+<p>
+A unary operator takes one argument of a given type, computes with it,
+and returns a result. When the argument type is Boolean, there are
+only two possible argument values: true and false. To completely
+specify a unary Boolean function, it therefore suffices to specify
+what value is returned for each of these two argument values. 
+</p>
+
+<p>
+One can depict Boolean functions graphically as two-by-two <i>truth
+tables</i>. The two possible argument values, <i>true</i> and <i>false</i>, are
+listed in the first column (labelled <i>b1</i> here).  The results are
+listed to the right. 
+</p>
+
+<p>
+When the result type is also Boolean, there are only four possible
+ways to fill in the result column: 
+</p>
+<ul class="org-ul">
+<li><i>true true</i></li>
+<li><i>true false</i></li>
+<li><i>false true</i></li>
+<li><i>false false</i></li>
+</ul>
+
+<p>
+We have implemented these functions with the names, <i>constTrue</i>,
+<i>id_bool</i>, <i>not</i>, and <i>constFalse</i>, respectively. Here's a truth table
+for the <i>not</i> function, for example, with the argument values in the
+<i>b1</i> column and the corresponding results to the right.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline194" class="outline-3">
+<h3 id="orgheadline194"><span class="section-number-3">14.2</span> Review of binary Boolean functions</h3>
+<div class="outline-text-3" id="text-14-2">
+</div><div id="outline-container-orgheadline189" class="outline-4">
+<h4 id="orgheadline189"><span class="section-number-4">14.2.1</span> Number of binary Boolean functions</h4>
+<div class="outline-text-4" id="text-14-2-1">
+<p>
+A binary function takes two arguments and returns a result. We have
+implemented some, but not all, of the binary Boolean functions. 
+</p>
+
+<p>
+As with unary functions, the binary Boolean functions can also be
+depicted graphically using truth tables. In the first column are the
+two possible values for the first argument. In the second column are
+the possible values of the second argument, repeated for each possible
+value of the first argument. The four rows thus give all four possible
+pairs of values for the two arguments. The right column gives results.
+Here, for example, is the <i>truth table</i> for the <i>and</i> function.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+One such table specifies a single binary Boolean function. How many
+different ways are there to fill in the four Boolean values in the
+result column in the truth table for a Boolean function?
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline193" class="outline-4">
+<h4 id="orgheadline193"><span class="section-number-4">14.2.2</span> Truth tables for most important ones</h4>
+<div class="outline-text-4" id="text-14-2-2">
+<p>
+The
+remainder of this page gives correct truth tables for <i>or</i>, <i>xor</i>, and
+<i>nand</i>. Be sure to save your work.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline190"></a>or<br  /><div class="outline-text-5" id="text-14-2-2-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+</div></li>
+
+<li><a id="orgheadline191"></a>xor (exclusive or)<br  /><div class="outline-text-5" id="text-14-2-2-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+</div></li>
+
+<li><a id="orgheadline192"></a><i>nand</i> (not and)<br  /><div class="outline-text-5" id="text-14-2-2-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+</table>
+</div></li></ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline196" class="outline-3">
+<h3 id="orgheadline196"><span class="section-number-3">14.3</span> Formulating binary operations in a new way</h3>
+<div class="outline-text-3" id="text-14-3">
+<p>
+Write the truth table for the <i>and</i> operation on a piece of paper.
+Note how it breaks in half horizontally. The top half indicates the
+behavior of the function when the first argument, <i>b1</i>, is <i>true</i>.
+Make a dark line to separate the top and bottom halves to better see
+what's going on. The bottom half indicates the behavior of the
+function when <i>b1</i> argument is <i>false</i>.
+</p>
+
+<p>
+Now look at the top half only. You can now break it into two parts
+vertically. The first column indicates the choice of <i>true</i> for the
+first parameter. The rest of the table to the right&#x2014;the <i>b2</i> and
+<i>result</i> columns&#x2014;can now be seen as a truth table for one of the
+<i>unary</i> functions! Make a dark line indicating this separation. Now
+look at the smaller truth table in the upper right! Can you see what
+unary function it is? That's right, it's the <i>id</i> function! Here's
+the truth table you should be seeing. 
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b2</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">T</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">F</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+In other words, when the first argument is to the binary <i>and</i> is
+<i>true</i> you can apply the unary <i>id_bool</i> function to the second
+argument to compute the correct result for <i>and</i>.
+</p>
+
+<p>
+Similarly, if you look at the bottom half of the truth table for
+<i>and</i>, you will find that it splits in the same way. In the <i>b1</i>
+column, we have a choice of <i>false</i> for the first parameter, and to
+the right&#x2014;in the <i>b2</i> and <i>result</i> columns&#x2014;we see a truth table
+for a different <i>unary</i> function. Which one is it? Right:
+<i>constFalse</i>!  In other words, when the first argument to <i>and</i> is
+<i>false</i> you can apply the unary <i>constFalse</i> function to the second
+argument to compute the correct result for <i>and</i>.
+</p>
+
+<p>
+This observation leads to a new way of seeing the binary functions: as
+<i>unary</i> functions that take a Boolean value, <i>b1</i>, as an argument and
+that return an associated unary function, of type \(bool \to bool\), as
+a result! For the <i>and</i> function, when <i>b1</i> is <i>true</i>, the result is
+<i>id_bool</i>, and when <i>b1</i> is false, the result is <i>constFalse</i>. Here's
+a table representing the <i>and</i> function represented in this way. We'll
+call this function <i>pand</i> (short for <i>partial and</i>, in that it gets us
+only part way to an answer).
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">b1</th>
+<th scope="col" class="org-left">result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">id_bool</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">constFalse</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note again, <i>pand</i> does not return a Boolean, but rather a function
+from Boolean to Boolean. The signature of <i>pand</i> is thus \(bool \to
+(bool \to bool)\). That is, it takes a <i>bool</i> and returns a (unary)
+function of type <i>bool -&gt; bool</i>.  In Idris and most similar languages,
+the \(\to\) operator (on types) is what we call <i>right associative</i>, so
+\(bool \to (bool \to bool)\) can be written as \(bool \to bool \to bool\).
+</p>
+
+<p>
+Again, make sure that you see it: applying <i>pand</i> to, say, <i>true</i>,
+returns a <i>function</i>. So, for example, the expression <i>pand true</i>
+returns the \(id_bool\) function.  This returned function can then be
+applied to another Boolean value to compute a final Boolean result.
+This expression, <i>(pand true) false</i>, would thus evaluate <i>pand true</i>
+to obtain <i>id_bool</i> which would then be applied to <i>false</i> to yield
+<i>false</i>, which is the right answer.
+</p>
+
+<p>
+Try it out in your REPL. Note also that in Idris and most similar
+languages, function application is <i>left</i> associative, so <i>(pand true)
+false</i> can be written more simply as <i>pand true false</i>. It beats
+having to type in all those <i>mkPairs</i>!
+</p>
+</div>
+
+<div id="outline-container-orgheadline195" class="outline-4">
+<h4 id="orgheadline195"><span class="section-number-4">14.3.1</span> Exercises</h4>
+<div class="outline-text-4" id="text-14-3-1">
+<p>
+<b>Problem #1:</b> Open your bool.idr file in an editor and verify the
+names, and the correctness, of your unary Boolean functions. Verify
+correctness by carefully inspecting your code. You may test it as
+well, if you wish, in the REPL.
+</p>
+
+<p>
+<b>Problem #2:</b> Add a statement in a comment block in your bool.idr 
+file stating, "Exam Problem #2: There are <span class="underline">__</span> possible ways to fill
+in the result column for a truth table for a binary Boolean function,
+and there are thus exactly <span class="underline">__</span> such functions, and no more." Fill in
+the right answer(s) in the blanks, of course.
+</p>
+
+<p>
+<b>Problem #3:</b> Carefully verify the correctness of your implementations
+of the binary Boolean functions that we've implemented. Correct your
+code if necessary. We've given the truth table for <i>and</i> above. 
+</p>
+
+<p>
+<b>Problem #4a:</b> At the end of your bool.idr file, implement this <i>pand</i>
+function as specified in the preceding table. What, you ask? Can a
+function really return another function as a result? The answer is
+yes.  Just return the required unary operations by name.
+</p>
+
+<p>
+<b>Problem #4b,c,d:</b> Analyze the <i>or</i>, <i>xor</i>, and <i>nand</i> functions in the
+same way, and provide Idris implementations of these functions in this
+style, as well. Call the new functions <i>por</i>, <i>pxor</i>, and <i>pnand</i>.
+Note: the types of these functions will all be \(bool \to bool \to
+bool\).
+</p>
+
+<p>
+Verify correctness of your new functions
+</p>
+
+<p>
+<b>Problem #5:</b> Edit your boolTest.idr file. Add four tests for each new
+function, one test for each pair of Boolean values.  In your REPL
+verify that you are getting results consistent with those that you
+should be getting from your previous (and possibly corrected)
+implementations of <i>andp</i>, <i>orp</i>, <i>xorp</i>, and <i>nandp</i>.
+</p>
+
+<p>
+Each test should look like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">pand_t_t</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">pand_t_t</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">pand</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #333333; background-color: #FFFFFF;">true</span>
+<span style="color: #8D8D84; font-style: italic;">-- expect true</span>
+</pre>
+</div>
+
+<p>
+[NOTE: The preceding code sometimes renders incorrectly in HTML. There
+should be underscores before each <i>t</i> after <i>pand</i> in both the first
+and second line of code.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline206" class="outline-2">
+<h2 id="orgheadline206"><span class="section-number-2">15</span> Type Inference</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+As we have already seen, Idris supports polymorphic types.  Examples
+of such types so far include <i>Box a</i>, <i>option a</i>, and <i>pair a b</i>. You
+will recall <i>Box, option</i> and <i>pair</i> are known as <i>type constructors</i>.
+Each takes one or more types as arguments and in turn yields a type as
+a result. 
+</p>
+
+<p>
+Consider our polymorphic <i>Box</i> abstract data type as an example.
+Here's the code. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span>
+
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> a polymorphic box type</span>
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkBox</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> return the value in a given box</span>
+<span style="color: #333333; background-color: #FFFFFF;">unbox</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+<span style="color: #333333; background-color: #FFFFFF;">unbox</span> (<span style="color: #333333; background-color: #FFFFFF;">mkBox</span> <span style="color: #333333; background-color: #FFFFFF;">v</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">v</span>
+</pre>
+</div>
+
+<p>
+This code defines <i>Box</i> as a type constructor that takes one <i>type</i>,
+such as <i>nat</i> or <i>bool</i>, as an argument, <i>a</i>. The result of applying
+<i>Box</i> to any type, such as <i>nat</i>, is then a <i>type</i>, in this case <i>Box
+nat</i>. As you will recall, the type of <i>Box</i> itself is thus \(Type \to
+Type\).
+</p>
+
+<p>
+The <i>Box</i> type constructor provides one <i>value constructor</i>, namely
+<i>mkBox a</i>. It takes as a parameter a <i>value</i> of type <i>a</i> and yields a
+term of type <i>Box a</i>. The following code gives an example in which a
+name, <i>x</i>, is bound to a value of type <i>Box nat</i>, specifically to the
+value <i>mkBox (S O)</i>. We think of this as a box containing a one.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">x</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Box</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">x</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkBox</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline198" class="outline-3">
+<h3 id="orgheadline198"><span class="section-number-3">15.1</span> Inferring implicit types</h3>
+<div class="outline-text-3" id="text-15-1">
+<p>
+The interesting and important point of this chapter is, that in most
+cases, Idris is able to <i>infer</i> the type <i>a</i> in expressions involving
+polymorphic types. Consider the term, <i>mkBox (S O)</i>. What is its type?
+Idris knows that <i>mkBox</i> takes a value of type <i>a</i> for some type, <i>a</i>,
+but what is <i>a</i> in this case? Idris determines <i>a</i> by looking at the
+argument, <i>(S O)</i>. It is of type <i>nat</i>, so Idris <i>infers</i> that <i>a</i>
+must be <i>nat</i> and the type of the term, <i>mkBox (S O)</i>, must therefore
+be <i>Box nat</i>. We say that the value of the the type argument to <i>Box</i>,
+is <i>implicit</i> in the term, <i>mkBox (S O)</i>, and that Idris uses <i>type
+inference</i> to determine that <i>a = nat</i>.  Similarly, if the term had
+been <i>mkBox false</i>, then Idris would have inferred that <i>a = bool</i> and
+that the type of the term is <i>Box bool</i>. In this case, of course, the
+term would not typecheck as a value for <i>x</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline204" class="outline-3">
+<h3 id="orgheadline204"><span class="section-number-3">15.2</span> When type inference fails</h3>
+<div class="outline-text-3" id="text-15-2">
+<p>
+There are cases where Idris does not have enough <i>context</i> to infer
+what the value of a type parameter is. A simple example occurs when
+Idris tries to determine the type of an empty list. This brings us to
+the next fundamental abstract data type that we study in this book:
+namely polymorphic lists. 
+</p>
+
+<p>
+Examples of lists include lists of natural numbers, such as \([1, 2,
+3]\), \([]\) (an empty list of natural numbrs), and lists of Boolean
+values, such as \([true,false]\) and \([]\) (the empty list of Boolean
+values). You can already see the problem: it is easy to see that
+\([true,false]\) is a list of Booleans, but what is the type of \([]\)?
+</p>
+</div>
+
+<div id="outline-container-orgheadline201" class="outline-4">
+<h4 id="orgheadline201"><span class="section-number-4">15.2.1</span> A polymorphic list abstract data type</h4>
+<div class="outline-text-4" id="text-15-2-1">
+<p>
+To make the point precise, we now introduce code for a polymorphic
+list type.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">list</span>
+
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> a polymorphic list data type</span>
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">|</span> <span style="color: #333333; background-color: #FFFFFF;">cons</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> (<span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> return the length of a given list</span>
+<span style="color: #333333; background-color: #FFFFFF;">length</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">length</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>
+<span style="color: #333333; background-color: #FFFFFF;">length</span> (<span style="color: #333333; background-color: #FFFFFF;">cons</span> <span style="color: #333333; background-color: #FFFFFF;">head</span> <span style="color: #333333; background-color: #FFFFFF;">tail</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">length</span> <span style="color: #333333; background-color: #FFFFFF;">tail</span>)
+</pre>
+</div>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline199"></a>The polymorphic list data type<br  /><div class="outline-text-5" id="text-15-2-1-1">
+<p>
+This code defines <i>list</i> as a type constructor. It takes with one type
+argument, <i>a</i>, representing the type of elements in a list. With such
+a type constructor, we can thus define types such as <i>list nat</i> and
+<i>list bool</i>, the type of lists of natural numbers and the type of
+lists of Boolean values, respectively. 
+</p>
+
+<p>
+The definition also provides defines two value constructors. The
+first, <i>nil</i>, constructs the term <i>nil</i>, which we will interpret as
+representing the empty list of values of type <i>a</i>. We can thus bind
+names to an empty list of <i>bool</i> and an empty list of <i>nat</i> like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">lb</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">lb</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">ln</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">ln</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+</pre>
+</div>
+
+<p>
+Idris has no problem disambiguating the types of the two different
+<i>nil</i> expressions here, because there's enough context to indicate
+what the values of <i>a</i> must be. For example, <i>lb</i> is declared to be
+bound to a list of <i>bool</i>, so the first nil <i>must</i> be of type <i>list
+bool</i>. That is, <i>a = bool</i> in the first case. Similarly, it must be
+the case that <i>a = nat</i> in the second case.
+</p>
+
+<p>
+The second value constructor, simply called <i>cons</i>, requires a little
+more mental effort to fully appreciate. It enables one to construct a
+new term of type <i>list a</i> by applying <i>cons</i> to two arguments: first, 
+a <i>value</i> of type <i>a</i>, which we interpret as the <i>head</i> (or leftmost)
+element of the new list, and second, a <i>value</i> of type <i>list a</i>, which
+we interpret as being the list constituting the tail, or the rest, of
+the new list. The tail, being of type <i>list a</i>, can itself be either
+<i>nil</i>, or a non-empty list constructed in the same way as the larger
+list, using <i>cons</i>, and thus having an element of type <i>a</i> along with
+an even smaller list as a tail.
+</p>
+
+<p>
+We have already seen exampels of empty lists constructed using <i>nil</i>.
+Here are examples showing how one can construct longer lists (in this
+case of natural numbers).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- empty list of nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l0</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l0</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the list [0]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l1</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">cons</span> <span style="color: #333333; background-color: #FFFFFF;">O</span> <span style="color: #333333; background-color: #FFFFFF;">l0</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the list [0, 1]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l2</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">cons</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>) <span style="color: #333333; background-color: #FFFFFF;">l1</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the list [0, 1, 2]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">cons</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)) <span style="color: #333333; background-color: #FFFFFF;">l2</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the same list, [0, 1, 2]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3'</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">cons</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)) (<span style="color: #333333; background-color: #FFFFFF;">cons</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>) (<span style="color: #333333; background-color: #FFFFFF;">cons</span> <span style="color: #333333; background-color: #FFFFFF;">O</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>))
+</pre>
+</div>
+</div></li>
+
+<li><a id="orgheadline200"></a>A polymorphic list length function<br  /><div class="outline-text-5" id="text-15-2-1-2">
+<p>
+Finally, our simple list data type defines a function for computing
+the length of any give value of type <i>list a</i>, for any type, <i>a</i>. The
+function is itself polymorphic in that it can handle values of type
+<i>list nat</i>, <i>list bool</i>, <i>list (list nat)</i>, or lists of any other type
+whatsoever.
+</p>
+
+<p>
+The function is defined recursively. There is one rule for each of the
+two ways that a list can be constructed: i.e., using either the <i>nil</i>
+or <i>cons</i> constructor. There are no other possibilities. The first
+rule states that the length of an empty list, <i>nil</i>, is zero. The type
+argument, <i>a</i>, is implicit. The second rule defines the length of a
+non-empty list, <i>cons head tail</i>, where <i>head</i> is a list element (of
+type <i>a</i>) and <i>tail</i> is the rest of the list (of type <i>list a</i>). It
+states that the length of such a list is one more than the length of
+the tail.
+</p>
+
+<p>
+To see how these definitions work, you should do a stepwise evaluation
+of a few function application expressions using <i>length</i>. To start,
+consider <i>length l0</i>. The first step is to evaluate <i>l0</i>. This step
+reduces the expression to <i>length nil</i>, with <i>a = nat</i> implicit. The
+function application term now matches the first rule and reduces to
+<i>O</i>. 
+</p>
+
+<p>
+Now consider <i>length l1</i>. Evaluating <i>l1</i> reduces the expression to
+<i>length cons O l0</i>. This matches the second rule with <i>head = O</i> and
+<i>tail = l0</i>. The expression thus reduces to <i>S (length l0)</i>. The next
+step is to reduce the expression <i>length l0</i>, which we We have already
+seen reduces to <i>O</i> by matching with the first rule (the base case of
+the recursion). So the overall expression evalutes to <i>S O</i>, i.e., to
+one, which is the length of list, <i>l1</i>.
+</p>
+
+<p>
+Similarly <i>length l2</i> first reduces to <i>length (cons (S O) l1</i>. This
+expression unifies with the second rule with <i>h = (S O)</i> and <i>tail =
+l1</i>. It then reduces to <i>S (length l1)</i>. The term <i>length l1</i> reduces
+by recursive application of <i>length</i> to (S O), so the overall result
+is <i>S (S O))</i>.
+</p>
+
+<p>
+Finally, to drive the point home, consider the evaluation of the
+function application <i>length l3'/. First /l3'/ is replaced by its
+value, /cons (S (S )) (cons (S O) (cons O nil))</i>. We then evaluate
+<i>length cons (S (S )) (cons (S O) (cons O nil))</i>. This expression
+mathes the second rule with <i>head = (S (S O))</i> and <i>tail = (cons (S O)
+(cons O nil))</i>. Be absolutely sure that you understand how this
+pattern matching is working! 
+</p>
+
+<p>
+The result thus reduces to <i>S (length (cons (S O) (cons O nil)))</i>.
+The recursive application of <i>length</i> again matches the second rule,
+but now with <i>head = (S O)</i> and <i>tail = (cons O nil)</i>. It reduces to
+<i>S (length (cons O nil))</i> and so the whole expression is reduced to <i>S
+(S (length (cons O nil)))</i>. The inner length expression once again
+matches the second rule, now with <i>head = O</i> and <i>tail = nil</i>, and
+thus reduces to <i>S (length nil)</i>. The entire expression has thus now
+reduced to <i>S (S (S (length nil)))</i>. Finally the inner length
+expression reduces to <i>O</i>, as we have seen, so the orginaly expression
+is finally reduced to <i>S (S (S O))</i>, which is to say to three, which
+is the length of the list. Note that as we do not use the value of
+<i>head</i> on the right side of the rule, we could have used underscore in
+place of <i>head</i>, leading to slightly more readable code.
+</p>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline202" class="outline-4">
+<h4 id="orgheadline202"><span class="section-number-4">15.2.2</span> Insufficient context for type inference</h4>
+<div class="outline-text-4" id="text-15-2-2">
+<p>
+We are now at the point where we can write Idris code that exhibits
+the problem that we saw informally at the beginning of this chapter.
+Consider this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">n</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">n</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">length</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+</pre>
+</div>
+
+<p>
+What type of list is <i>nil</i> in this example? It is an empty list of
+<i>bool</i>? An empty list of <i>nat</i>? An empty list of some other type?  The
+point is that Idris simply does not have enought context to be able to
+infer the value of the implicit type parameter <i>a</i>, and so it cannot
+determine what the type of <i>nil</i> must be. In this case, Idris will
+issue an error indicating this situation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline203" class="outline-4">
+<h4 id="orgheadline203"><span class="section-number-4">15.2.3</span> The solution to the problem: making implicit arguments explicit</h4>
+<div class="outline-text-4" id="text-15-2-3">
+<p>
+In such cases, which do arise in practice, albeit usually pretty
+rarely, it is necessary to provide Idris with the information that it
+needs. That is done using what we might call a type hint. A type hint
+is enclosed in curly braces and explicitly binds a type to the name
+whose type value cannot otherwise be inferred. Here's the code.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">n</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">n</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">length</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> { <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> }
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline205" class="outline-3">
+<h3 id="orgheadline205"><span class="section-number-3">15.3</span> Summary</h3>
+<div class="outline-text-3" id="text-15-3">
+<p>
+In this chapter, we further explored the nature and uses of
+polymorphic types. In particular, we explored the concept of type
+inference. We saw that it usually works without our having to think
+much about it, but that in some cases, the compiler lacks sufficient
+context to determine the values of implicit type arguments. In such
+cases, we must provide them explicitly.
+</p>
+
+<p>
+As an example to make clear where and how such problems can arise, we
+introduced our next fundamental abstract data type, and one of the
+most important of all data types, the polymorphic <i>list</i> type. We saw
+how the type is defined inductively, and we saw how we can define
+recursive functions to process values of this type with just two
+rules, one for each of the two possible forms of a list.
+</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-orgheadline209" class="outline-2">
+<h2 id="orgheadline209"><span class="section-number-2">16</span> Notations</h2>
+<div class="outline-text-2" id="text-16">
+</div><div id="outline-container-orgheadline207" class="outline-3">
+<h3 id="orgheadline207"><span class="section-number-3">16.1</span> Operators</h3>
+<div class="outline-text-3" id="text-16-1">
+<p>
+Prefix and infix.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline208" class="outline-3">
+<h3 id="orgheadline208"><span class="section-number-3">16.2</span> Records</h3>
+<div class="outline-text-3" id="text-16-2">
+<p>
+Product types.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline210" class="outline-2">
+<h2 id="orgheadline210"><span class="section-number-2">17</span> Higher-Order Functions</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-28 Mon 10:53</p>
+<p class="date">Created: 2015-10-11 Sun 14:01</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
