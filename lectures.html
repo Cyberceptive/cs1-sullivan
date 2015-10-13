@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-11 Sun 14:01 -->
+<!-- 2015-10-12 Mon 23:48 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -418,7 +418,7 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#orgheadline113">9. Modeling, Abstractions, Code</a></li>
-<li><a href="#orgheadline114">10. Inductive Data Types</a></li>
+<li><a href="#orgheadline114">10. Inductive Definitions</a></li>
 <li><a href="#orgheadline126">11. Recursive Functions</a>
 <ul>
 <li><a href="#orgheadline115">11.1. An example: the factorial function</a></li>
@@ -503,13 +503,36 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline205">15.3. Summary</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline209">16. Notations</a>
+<li><a href="#orgheadline211">16. Infix Operators</a>
 <ul>
-<li><a href="#orgheadline207">16.1. Operators</a></li>
-<li><a href="#orgheadline208">16.2. Records</a></li>
+<li><a href="#orgheadline207">16.1. Prefix and Infix Operator</a></li>
+<li><a href="#orgheadline208">16.2. Associativity</a></li>
+<li><a href="#orgheadline209">16.3. Precedence</a></li>
+<li><a href="#orgheadline210">16.4. Infix operators in Idris</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline210">17. Higher-Order Functions</a></li>
+<li><a href="#orgheadline216">17. Record Notation</a>
+<ul>
+<li><a href="#orgheadline212">17.1. We Use Records to Represent Objects</a></li>
+<li><a href="#orgheadline213">17.2. Projection Functions Get Field Values</a></li>
+<li><a href="#orgheadline214">17.3. Field Override Functions Set Field Values</a></li>
+<li><a href="#orgheadline215">17.4. Record Notation</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline220">18. Tuples and Relations</a>
+<ul>
+<li><a href="#orgheadline217">18.1. Tabular Representation of a Relation</a></li>
+<li><a href="#orgheadline218">18.2. Representing Relations as Lists of Records</a></li>
+<li><a href="#orgheadline219">18.3. Conclusion</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline224">19. Higher-Order Functions</a>
+<ul>
+<li><a href="#orgheadline221">19.1. Map</a></li>
+<li><a href="#orgheadline222">19.2. Filter</a></li>
+<li><a href="#orgheadline223">19.3. Reduce</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2615,7 +2638,7 @@ for which code is to be written.
 </div>
 
 <div id="outline-container-orgheadline114" class="outline-2">
-<h2 id="orgheadline114"><span class="section-number-2">10</span> Inductive Data Types</h2>
+<h2 id="orgheadline114"><span class="section-number-2">10</span> Inductive Definitions</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 In this chapter we ask and answer the question, how can we define
@@ -4318,35 +4341,836 @@ rules, one for each of the two possible forms of a list.
 </div>
 </div>
 
-
-
-<div id="outline-container-orgheadline209" class="outline-2">
-<h2 id="orgheadline209"><span class="section-number-2">16</span> Notations</h2>
+<div id="outline-container-orgheadline211" class="outline-2">
+<h2 id="orgheadline211"><span class="section-number-2">16</span> Infix Operators</h2>
 <div class="outline-text-2" id="text-16">
-</div><div id="outline-container-orgheadline207" class="outline-3">
-<h3 id="orgheadline207"><span class="section-number-3">16.1</span> Operators</h3>
+<p>
+In this chapter we introduce the first of two notational mechanisms
+that make it easier to write code. We introduce <i>infix</i> operators. In
+particular, we will see a way to write lists like this <i>0::1::2::nil</i>,
+rather than like this <i>cons 0 (cons 1 (cons 2 nil))</i>. We will also see
+how to use <i>++</i> as a list append operator, so that we can write
+<i>(0::1::2::3::nil) ++ (4::5::nil)</i> instead of writing <i>append</i> before
+the two list arguments. Infix operators sometimes make code easier to
+write as well as to read.
+</p>
+</div>
+
+<div id="outline-container-orgheadline207" class="outline-3">
+<h3 id="orgheadline207"><span class="section-number-3">16.1</span> Prefix and Infix Operator</h3>
 <div class="outline-text-3" id="text-16-1">
 <p>
-Prefix and infix.
+So far we have always used what we call <i>prefix</i> notation when
+applying binary functions to their arguments. That is, we write the
+operators <i>before</i> writing their operands (thus <i>pre</i>)   For example,
+to compute the sum of one and two using our <i>nat</i> data type, we would
+write <i>(plus (S O) (S (S O)))</i>. The operator (function), <i>plus</i>, is
+written before the operands (arguments), <i>(S O)</i> (one) and <i>S (S O)</i>
+(two).
+</p>
+
+<p>
+By contrast, in elemenary school we learned arithmetic using what we
+call <i>infix</i> notation, in which we write binary operators in between
+their operands. Using infix notation, we would write the sum of one
+and two as <i>1 plus 2</i>, or using a more conventional notation for the
+name of the <i>plus</i> function, simply <i>1 + 2</i>. 
+</p>
+
+<p>
+The choice between prefix and infix notation doesn't change the
+meanings of. Both <i>plus (S O) (S (S O))</i> and <i>1 + 2</i> mean the same
+thing: application of the addition function to values, one and two.
+</p>
+
+<p>
+In one important respect, however, the use of infix notations presents
+several complications. Consider the following two expressions, written
+using ordinary arithmetic notation: \(7 - 4 - 3\) and (5 + 2 * 3). 
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgheadline208" class="outline-3">
-<h3 id="orgheadline208"><span class="section-number-3">16.2</span> Records</h3>
+<h3 id="orgheadline208"><span class="section-number-3">16.2</span> Associativity</h3>
 <div class="outline-text-3" id="text-16-2">
 <p>
-Product types.
+If we parse the first expression as \(7 - (4 - 3)\) then the meaning of
+the expression is \(6\). If we read it as \((7 - 4) - 3\), the meaning is
+\(0\). So, which is it? Unless we agree on whether to group (associate)
+elements from the left or from the right, the meaning is ambiguous.
+</p>
+
+<p>
+Note that no ambiguity arises when we use prefix notation. The first
+expression above is <i>minus 7 (minus 4 3)</i>. The second is <i>minus (minus
+7 4) 3</i>. The two expressions are completely distinct and there can be
+no confusion as to meanings.
+</p>
+
+<p>
+To resolve the ambiguity with prefix notation, we have to agree on a
+convention&#x2014;a shared understanding. The convention in arithmetic is
+to group expressions involving plus, minus, times, and divide from the
+left, and exponentiation, from the right associative. Thus \(2^2^2^2\)
+does not mean \(((2^2)^2)^2)\), or $16^2 = \(256\), but \(2^(2^(2^2))\), or
+\(2^16 = 65536\).
+</p>
+
+<p>
+We say that the usual four arithmetic operators, (\(+, *, -, /\)), are
+<i>left associative</i> (by convention).  Exponentiation, by contrast, is
+<i>right associative</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline209" class="outline-3">
+<h3 id="orgheadline209"><span class="section-number-3">16.3</span> Precedence</h3>
+<div class="outline-text-3" id="text-16-3">
+<p>
+What about the second expression? What does \(5 + 2 * 3\) mean?  If we
+group from the left we get $(5 + 2) * 3*, which is \(21\). But of course
+we know that that is wrong. The usual rules for <i>order of operations</i>
+dictates that we perform multiplications before additions. We say that
+multiplication has higher <i>precedence</i> than addition. What this means
+is that, unless otherwise indicated by parenthesis, we reduce products
+before reducing sums. The expression is thus properly interpreted as
+\(5 + (2 * 3)\), or \(11\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline210" class="outline-3">
+<h3 id="orgheadline210"><span class="section-number-3">16.4</span> Infix operators in Idris</h3>
+<div class="outline-text-3" id="text-16-4">
+<p>
+When specifying an infix operator, we need to specify its name as well
+as its associativity and precedence characteristics. And whereas we
+often use words, such as <i>plus</i>, in prefix notation, we often use
+mathematical symbols, such as <i>+</i>, <i>++</i>, <i>::</i>, and the like, as names
+for functions when we intend to use infix notation. 
+</p>
+
+<p>
+As an example, here is a modified definition of our polymorphic list
+type, using an infix <i>::</i> operator instead of a prefix <i>cons</i> operator
+as the second list constructor.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">list</span>
+
+<span style="color: #0000FF;">infixr</span> 7 (<span style="color: #BA36A5;">::</span>)
+
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> a polymorphic list data type</span>
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">|</span> (<span style="color: #BA36A5;">::</span>) <span style="color: #333333; background-color: #FFFFFF;">a</span> (<span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> return the length of a given list</span>
+<span style="color: #333333; background-color: #FFFFFF;">length</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">length</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>
+<span style="color: #333333; background-color: #FFFFFF;">length</span> (<span style="color: #333333; background-color: #FFFFFF;">head</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">tail</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">length</span> <span style="color: #333333; background-color: #FFFFFF;">tail</span>)
+</pre>
+</div>
+
+<p>
+The line <i>infixr 7 (::)</i> indicates that we are going to define a
+symbol that will be use in infix position (thus <i>infix</i>), that it will
+associate to the right (thus the <i>r</i> in <i>infixr</i>), that it will have
+precedence <i>7</i> (which will be meaningful if an when it is used in an
+expression with operators having other precedence levels), and that
+the name of the operator will be <i>::</i>.
+</p>
+
+<p>
+With these rules established <i>::</i>, we now use <i>::</i> in place of <i>cons.</i>
+The first place this happens is in the constructor, where the <i>::</i> is
+still used in <i>prefix</i> position. In the remainder of the code, it is
+used in infix position. In particular, the second rule for <i>length</i>
+matches <i>head::tail</i> instead of <i>cons head tail</i>. It's essential to
+understand that these expressions have exactly the same meaning. They
+are just written differently.
+</p>
+
+<p>
+The benefit is that we can now write lists without so much verbosity.
+Here we write the same list examples as above, but using the infix
+<i>::</i> operator intead of the prefix <i>cons</i>. The benefits are clearest
+in the last example. When using the Idris <i>Nat</i> type, the benefit is
+clearer yet: we would just write <i>2::1::0::nil</i> as the value of /l3'/.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- empty list of nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l0</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l0</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the list [0]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l1</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">O</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">l0</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the list [0, 1]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l2</span> <span style="color: #BA36A5;">=</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">l1</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the list [0, 1, 2]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3</span> <span style="color: #BA36A5;">=</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">l2</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- the same list, [0, 1, 2]</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l3'</span> <span style="color: #BA36A5;">=</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>))<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">O</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">nil</span>
+</pre>
+</div>
+
+<p>
+Note. Function application has higher precedence than <i>::</i>. For this
+reason we write the pattern in the second rule for <i>length</i> as <i>length
+(head::tail)</i> rather than as <i>length head:: tail</i>. The latter would
+otherwise be parsed as <i>(length head)::tail</i>, which is not desired or
+allowed in this context.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgheadline210" class="outline-2">
-<h2 id="orgheadline210"><span class="section-number-2">17</span> Higher-Order Functions</h2>
+
+<div id="outline-container-orgheadline216" class="outline-2">
+<h2 id="orgheadline216"><span class="section-number-2">17</span> Record Notation</h2>
+<div class="outline-text-2" id="text-17">
+<p>
+In this chapter we introduce <i>record</i> notation for defining tuple
+types (also called <i>product</i> or <i>record</i> types).  As with infix
+operators, record notations really just make it easier to write and to
+read code of the kind that we have already been writing. In
+particular, records (1) give names to the fields of records, (2) bind
+these names to projection functions for those fields, so that we don't
+have to write projection functions ourselves, and (3) provide a more
+conventient way to write field override functions.
+</p>
+</div>
+
+<div id="outline-container-orgheadline212" class="outline-3">
+<h3 id="orgheadline212"><span class="section-number-3">17.1</span> We Use Records to Represent Objects</h3>
+<div class="outline-text-3" id="text-17-1">
+<p>
+As programmers we routinely write implementations of abstract data
+types whose values we use to represent objects and operations in a
+domain of interest.  If an application involves people, for example,
+we might write code that implements a <i>Person</i> abstract data type. The
+code would include <i>data type</i> called <i>Person</i>, with a constructor
+that takes arguments representing the attributes of a person, and and
+a set of functions for performing useful operations on values of this
+type.
+</p>
+
+<p>
+It would be typical in such cases to define an application-specific
+<i>tuple</i>, or <i>record</i>, type, with one constructor that takes arguments
+representing the <i>attributes</i> of the domain objects of interest. For
+example, such a data type might have a constructor, <i>mkPerson</i> taking
+four values: a <i>String</i> representing a person's name, a <i>nat</i> for the
+person's age in years, a <i>nat</i> for his or her height in inches, and a
+<i>bool</i> representing his or her gender, with <i>true</i> signifying <i>female</i>
+and <i>false</i>, male.
+</p>
+
+<p>
+Such a type is commonly called a <i>record</i> type. It has one constructor
+that simply aggregates a set of attribute values into a value of the
+given type. As an example, here's an Idris implementation of a simple
+record type for representing people. (Note that in this code we have
+quietly shifted from the use of our own <i>nat</i> type for Peano numbers
+to the version of Peano numbers provided by Idris, namely <i>Nat</i> with a
+capital <i>N</i>. Using Idris's version allows us to enter natural numbers
+not using iterated applications of <i>S</i>, but using ordinary numerals.) 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> A Person has an age in years, a height in inches, </span>
+<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> and a gender, true=female, false=male.</span>
+<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">String</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #BA36A5;">#</span><span style="color: #333333; background-color: #FFFFFF;">END_SRC</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">Having</span> <span style="color: #333333; background-color: #FFFFFF;">written</span> <span style="color: #333333; background-color: #FFFFFF;">such</span> <span style="color: #333333; background-color: #FFFFFF;">an</span> <span style="color: #333333; background-color: #FFFFFF;">implementation</span>, <span style="color: #333333; background-color: #FFFFFF;">we</span> <span style="color: #333333; background-color: #FFFFFF;">can</span> <span style="color: #333333; background-color: #FFFFFF;">now</span> <span style="color: #333333; background-color: #FFFFFF;">create</span> <span style="color: #333333; background-color: #FFFFFF;">values</span> <span style="color: #0000FF;">of</span>
+<span style="color: #333333; background-color: #FFFFFF;">this</span> <span style="color: #333333; background-color: #FFFFFF;">type</span> <span style="color: #333333; background-color: #FFFFFF;">to</span> <span style="color: #333333; background-color: #FFFFFF;">represent</span> <span style="color: #333333; background-color: #FFFFFF;">several</span> <span style="color: #333333; background-color: #FFFFFF;">different</span> <span style="color: #333333; background-color: #FFFFFF;">people</span><span style="color: #BA36A5;">.</span>
+
+<span style="color: #BA36A5;">#+</span><span style="color: #333333; background-color: #FFFFFF;">BEGIN_SRC</span> <span style="color: #333333; background-color: #FFFFFF;">idris</span>
+<span style="color: #333333; background-color: #FFFFFF;">tom</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">tom</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #008000;">"Tom"</span> 18 72 <span style="color: #333333; background-color: #FFFFFF;">false</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">mary</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">mary</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #008000;">"Mary"</span> 21 68 <span style="color: #333333; background-color: #FFFFFF;">true</span>
+</pre>
+</div>
+
+<p>
+We now consider what are the functions that would be needed to make
+sure a type useful. We consider two kinds of functions: <i>projection
+functions</i>, which are often called <i>getters</i>, and <i>field update</i>
+functions, which are often called <i>setters</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline213" class="outline-3">
+<h3 id="orgheadline213"><span class="section-number-3">17.2</span> Projection Functions Get Field Values</h3>
+<div class="outline-text-3" id="text-17-2">
+<p>
+ Given a value of type <i>Person</i>, a <i>projection</i> function returns the
+value of one of its attributes. We need one such projection function
+per attribute. We will name these functions after the fields whose
+values they return: <i>getAge</i>, <i>getHeight</i> and <i>getGender</i>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">getName</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
+<span style="color: #333333; background-color: #FFFFFF;">getName</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">getAge</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">getAge</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">getHeight</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">getHeight</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">getGender</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">getGender</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
+<span style="color: #BA36A5;">#</span><span style="color: #333333; background-color: #FFFFFF;">END_SRC</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">Having</span> <span style="color: #333333; background-color: #FFFFFF;">written</span> <span style="color: #333333; background-color: #FFFFFF;">such</span> <span style="color: #333333; background-color: #FFFFFF;">projection</span> <span style="color: #333333; background-color: #FFFFFF;">functions</span>, <span style="color: #333333; background-color: #FFFFFF;">we</span> <span style="color: #333333; background-color: #FFFFFF;">can</span> <span style="color: #333333; background-color: #FFFFFF;">now</span> <span style="color: #333333; background-color: #FFFFFF;">recover</span> <span style="color: #333333; background-color: #FFFFFF;">the</span> <span style="color: #333333; background-color: #FFFFFF;">field</span>
+<span style="color: #333333; background-color: #FFFFFF;">values</span> <span style="color: #0000FF;">of</span> <span style="color: #333333; background-color: #FFFFFF;">given</span> <span style="color: #BA36A5;">/</span><span style="color: #333333; background-color: #FFFFFF;">Person</span><span style="color: #BA36A5;">/</span> <span style="color: #333333; background-color: #FFFFFF;">records</span><span style="color: #BA36A5;">.</span> <span style="color: #333333; background-color: #FFFFFF;">Here</span>, <span style="color: #333333; background-color: #FFFFFF;">for</span> <span style="color: #333333; background-color: #FFFFFF;">example</span>, <span style="color: #333333; background-color: #FFFFFF;">we</span> <span style="color: #333333; background-color: #FFFFFF;">find</span> <span style="color: #333333; background-color: #FFFFFF;">Tom's</span>
+<span style="color: #333333; background-color: #FFFFFF;">age</span><span style="color: #BA36A5;">.</span>
+
+<span style="color: #BA36A5;">#+</span><span style="color: #333333; background-color: #FFFFFF;">BEGIN_SRC</span> <span style="color: #333333; background-color: #FFFFFF;">idris</span>
+<span style="color: #333333; background-color: #FFFFFF;">tomsAge</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span> 
+<span style="color: #333333; background-color: #FFFFFF;">tomsAge</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">getAge</span> <span style="color: #333333; background-color: #FFFFFF;">tom</span>
+</pre>
+</div>
+
+<p>
+The result will be an age, which is of type <i>Nat</i>. We retrieve the
+<i>age</i> field from the <i>tom</i> record by applying the <i>getAge</i> projection
+function to the record.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline214" class="outline-3">
+<h3 id="orgheadline214"><span class="section-number-3">17.3</span> Field Override Functions Set Field Values</h3>
+<div class="outline-text-3" id="text-17-3">
+<p>
+In many applications, we use records to represent the <i>state</i> of
+objects. When the state of ab object changes, we need an updated
+record to reflect the new state. It's often the case that the new
+record should have the same values for all of it fields but one.
+</p>
+
+<p>
+As an example, suppose that someone wishes to change his or her name.
+Doing so will not change his age, height or gender. A new record for
+the person should thus have the same values for these fields as the
+old record, with only the name field being <i>overridden</i>.
+</p>
+
+<p>
+We can understand and implement field override operations as simple
+functions. Here's an example: a function that overrides the name in
+a <i>Person</i> record while leaving all of the other fields unchanged. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">setName</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">String</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">setName</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">n</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">h</span> <span style="color: #333333; background-color: #FFFFFF;">g</span>) <span style="color: #333333; background-color: #FFFFFF;">n'</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">n'</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">h</span> <span style="color: #333333; background-color: #FFFFFF;">g</span>
+</pre>
+</div>
+
+<p>
+This field override function takes a Person (record) and a new name (a
+String) as its arguments, and it returns a <i>new</i> Person record. It
+uses pattern matching to destructure the original record, in order to
+get at its field values, and it then creates and returns a new record.
+It builds the new record using all of the field values from the old
+one <i>except</i> for the name field. For that field, it just substitutes
+the new name that was given as an argument. 
+</p>
+
+<p>
+A moment's thought should make it clear that one can define similar
+field override functions (<i>setters</i>) for all of the fields of a given
+record type, and that they will follow the same pattern.
+</p>
+
+
+<p>
+Having defined a field override function, we can use it as exemplified
+in the following code. Here we apply <i>setName</i> to the <i>tom</i> record and
+we provide a new name, John. The result is a record that is just like
+<i>tom</i> except that the value of the <i>name</i> field is now "John". You can
+confirm using the REPL that this code works as described here.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">tom'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">tom'</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">setName</span> <span style="color: #333333; background-color: #FFFFFF;">tom</span> <span style="color: #008000;">"John"</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline215" class="outline-3">
+<h3 id="orgheadline215"><span class="section-number-3">17.4</span> Record Notation</h3>
+<div class="outline-text-3" id="text-17-4">
+<p>
+Our preceding presentation of record types and projection and field
+override functions introduced no new programming mechanisms. We simply
+described a standard, useful way to use the mechanisms that we have
+already learned about.
+</p>
+
+<p>
+There are a few problems with the approach we described.  First, the
+only way to document the intended interpretation of the arguments to
+the record constructor is in comments. It would be good if we could
+give the fields names.  Second, the getter and setter code is highly
+repetitive. It would be good if the programming language relieved us
+of the need to write so much repetitive code. 
+</p>
+
+<p>
+Record notation addresses these problems. It does not provide us with
+greater expressive power. It just makes it easier to write, read, and
+understand the kind of code that wrote in the preceding sections of
+this chapter. Here's a new version of that code using record notation.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">record</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #0000FF;">where</span>
+  <span style="color: #0000FF;">constructor</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span>
+  <span style="color: #333333; background-color: #FFFFFF;">name</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
+  <span style="color: #333333; background-color: #FFFFFF;">age</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+  <span style="color: #333333; background-color: #FFFFFF;">height</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+  <span style="color: #333333; background-color: #FFFFFF;">gender</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">setName</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">String</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">setName</span> <span style="color: #333333; background-color: #FFFFFF;">p</span> <span style="color: #333333; background-color: #FFFFFF;">n</span> <span style="color: #BA36A5;">=</span> <span style="color: #0000FF;">record</span> { <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">n</span> } <span style="color: #333333; background-color: #FFFFFF;">p</span>
+</pre>
+</div>
+
+<p>
+The code starts with the Idris reserved word <i>record</i> followed by the
+name of the type being defined and then the reserved word <i>where</i>. The
+next line specifies the name of the one constructor for values of this
+type. The remaining for lines specify both the types and names for the
+fields of values of this type. Other than giving names to the fields,
+we've said nothing different here than in the earlier type definition.
+</p>
+
+<p>
+The first&#x2014;and a significant&#x2014;benefit of this notation is that it
+makes our code easier to read and understand. The names that we give
+the fields provide strong hints as to the intended interpretations of
+the fields. It's now clear, for example that the first <i>Nat</i> argument
+to the constructor represents an age, and the second, a height. Before
+we had to document these intensions in comment and in the names of the
+projection functions we wrote.
+</p>
+
+<p>
+The second benefit of record notation is that we no longer have to
+write projection functions ourselves. Rather the names of the fields
+are automatically bound to projection functions for the corresponding
+fields. The Idris compiler generates those functions automatically. As
+an example, we can now apply <i>age</i>, as a projection function, to <i>tom</i>
+to get tom's age.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">tAge</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">tAge</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">tom</span>
+</pre>
+</div>
+
+<p>
+Third, Idris generates field override functions. In particular, the
+notation <i>record {fieldName = value}</i> names a field override function
+that, when given a record, returns a new record with all the same
+field values as the original record except for the named field. That
+field gets the specified new value.
+</p>
+
+<p>
+We can use this notation "in line" in our code to perform field
+override operations. Here's an example where we change <i>tom's</i> name
+to John,
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">tom'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">tom'</span> <span style="color: #BA36A5;">=</span> <span style="color: #0000FF;">record</span> {<span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #BA36A5;">=</span> <span style="color: #008000;">"John"</span> } <span style="color: #333333; background-color: #FFFFFF;">tom</span>
+</pre>
+</div>
+
+<p>
+We can also use this notation in explicitly define field override
+functions of the sort that we wrote in earlier sections of this
+chapter. The benefit of using record notation is that we no longer
+have to explicitly write the code to destructure records and copy the
+values of fields that are not being updated. For records with many
+fields, the benefits in reduced code and reduced opportunities for
+errors are real. 
+</p>
+
+<p>
+The <i>setName</i> function that we defined in the code block above gives
+an example of how we can use this record notation to simplify, but not
+to entirely obviate the need for, explicit field override functions.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline220" class="outline-2">
+<h2 id="orgheadline220"><span class="section-number-2">18</span> Tuples and Relations</h2>
+<div class="outline-text-2" id="text-18">
+<p>
+By a <i>relation</i> we mean a set of values of a given tuple (record)
+type. Relations can be visualized as <i>tables</i> of data. Each row of a
+table is represented by a tuple value. Each column of a table picks
+out a specific field from each tuple in a relation. 
+</p>
+
+<p>
+Relations are absolutely central in practical computer science and
+programming. Much, if not most, of the data that computers process
+today in a business setting are stored in relational databases. At an
+abstract level, a relational database is simple a sets of relations
+for storing data for a given application or enterprise.
+</p>
+
+<p>
+In this chapter, we will develop a simple way to represent relations
+as lists of records. In following chapters we will explore a range of
+functions that take relations as arguments and that produce results of
+the kind that are often highly valuable in practice. For example, we
+might want to compute the average age of a subset of people over some
+given height. The methods we will develop will enable us to express
+such computations in extremely concise, elegant, understandable, and
+easy to modify forms.
+</p>
+</div>
+
+<div id="outline-container-orgheadline217" class="outline-3">
+<h3 id="orgheadline217"><span class="section-number-3">18.1</span> Tabular Representation of a Relation</h3>
+<div class="outline-text-3" id="text-18-1">
+<p>
+As an example of a simple relation, consider the following table.  The
+rows (tuples) represent people. The columns represent <i>fields</i> that
+record the <i>attributes</i> of any given person: his or her name, age (in
+years), height (in inches), and whether or not he or she is female.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">name</th>
+<th scope="col" class="org-right">age</th>
+<th scope="col" class="org-right">height</th>
+<th scope="col" class="org-left">female</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Tom</td>
+<td class="org-right">19</td>
+<td class="org-right">56</td>
+<td class="org-left">false</td>
+</tr>
+
+<tr>
+<td class="org-left">Mary</td>
+<td class="org-right">20</td>
+<td class="org-right">59</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">Ge</td>
+<td class="org-right">21</td>
+<td class="org-right">64</td>
+<td class="org-left">true</td>
+</tr>
+
+<tr>
+<td class="org-left">Daryl</td>
+<td class="org-right">19</td>
+<td class="org-right">71</td>
+<td class="org-left">false</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline218" class="outline-3">
+<h3 id="orgheadline218"><span class="section-number-3">18.2</span> Representing Relations as Lists of Records</h3>
+<div class="outline-text-3" id="text-18-2">
+<p>
+We can easily represent such relational information in code. We define
+a tuple (record) type, the values of which we will use to represent
+the rows in the table. The fields of the type will correspond to the
+columns of the table, and will record the relevant attributes of the
+objects (in this case people) of interest. 
+</p>
+
+<p>
+With this this tuple type in hand, we will create one value of this
+type for each person we wish to represent. Finally we will assemble
+these tuples (records) into a list.  Here's code for representing the
+preceding relation in Idris.
+</p>
+
+<p>
+We start by importing our Person type as the required tuple (record)
+type, along with the polymorphic list and bool types. Next we create
+four values of this type, one for each row. Finally we assemble these
+values into a list. That's really all there is to it.
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">People</span>
+
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">list</span>
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- a few Persons</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">tom</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">tom</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #008000;">"Tom"</span> 19 56 <span style="color: #333333; background-color: #FFFFFF;">false</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">mary</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">mary</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #008000;">"Mary"</span> 20 59 <span style="color: #333333; background-color: #FFFFFF;">true</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">ge</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">ge</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #008000;">"Ge"</span> 21 64 <span style="color: #333333; background-color: #FFFFFF;">true</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">daryl</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> 
+<span style="color: #333333; background-color: #FFFFFF;">daryl</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #008000;">"Daryl"</span> 19 71 <span style="color: #333333; background-color: #FFFFFF;">false</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- a list of Persons</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">people</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">people</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">tom</span><span style="color: #BA36A5;">::</span>
+         <span style="color: #333333; background-color: #FFFFFF;">mary</span><span style="color: #BA36A5;">::</span>
+         <span style="color: #333333; background-color: #FFFFFF;">ge</span><span style="color: #BA36A5;">::</span>
+         <span style="color: #333333; background-color: #FFFFFF;">daryl</span><span style="color: #BA36A5;">::</span>
+         <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+</pre>
+</div>
+
+<p>
+You should try out this code, or similar code in a domain of interest
+to you, in your REPL. Evaluate <i>people</i> for example to see exactly how
+Idris presents the list of records. It should be clear that you have
+successfully encoded the preceding table as a list of records of type
+<i>Person</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline219" class="outline-3">
+<h3 id="orgheadline219"><span class="section-number-3">18.3</span> Conclusion</h3>
+<div class="outline-text-3" id="text-18-3">
+<p>
+The interesting question is what can one do with values of such
+<i>relational</i> types? The simple answer is that we can now define
+functions that operate on relations! Operating on relational (i.e.,
+tabular) data is a <i>huge</i> part of what modern software systems
+do. Most business data processing and a great deal of what goes on in
+data science involves functions that take relations as arguments.
+Developing this idea futher is the subject of the next chapter and
+beyond.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline224" class="outline-2">
+<h2 id="orgheadline224"><span class="section-number-2">19</span> Higher-Order Functions</h2>
+<div class="outline-text-2" id="text-19">
+<p>
+Suppose that you are given a relation like the one of the 
+preceding chapter (but maybe much larger, perhaps involving
+millions of records), and you want to calculate the average
+age of everyone who is over six feet tall. How would you do
+this?
+</p>
+
+<p>
+One approach to solving this problem would involve four basic
+steps. First, <i>filter</i> the relation based on height to leave only
+those records for people over six feet tall. Second, <i>map</i> the
+resulting list of people to a corresponding list of their ages.
+Third, <i>reduce</i> this list of ages to a sum. Finally, divide the result
+by the number of ages in the list (the length of the list).
+</p>
+
+<p>
+The concepts of <i>filter</i>, <i>map</i>, and <i>reduce</i> give rise to a set of
+deeply important higher-order polymorphic functions for operating on
+lists (and other collections) of data values. Seeing how they arise
+naturally and easily from the context of a very simple example is
+the task of this chapter.
+</p>
+</div>
+
+<div id="outline-container-orgheadline221" class="outline-3">
+<h3 id="orgheadline221"><span class="section-number-3">19.1</span> Map</h3>
+<div class="outline-text-3" id="text-19-1">
+<p>
+We will actually address the <i>map</i> step first. Here's code to map a
+list of people to a list of their ages. In a nutshell, it works by
+building a new list whose elements are obtained by applying the <i>age</i>
+projection function to each person element of the original list.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">mapAge</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">mapAge</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+<span style="color: #333333; background-color: #FFFFFF;">mapAge</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> (<span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">h</span>)<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">mapAge</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
+</pre>
+</div>
+
+<p>
+We now can apply this code to our relation to obtain a list of ages
+for the people in the relation. Try it in your REPL!
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">ages</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">ages</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mapAge</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>
+</pre>
+</div>
+
+<p>
+What the <i>mapAge</i> code has done is to take a list of elements of one
+type (here a value of type <i>list Person</i>, but let's just call it <i>list
+a</i>), and a function from one type to another type (here from <i>Person</i>
+to <i>Nat</i>, but let's just call it a function of type \(a \to b\)), and it
+has returned as a result a list of that second type (here a <i>list Nat</i>
+but let's just call it a value of type <i>list b</i>).
+</p>
+
+<p>
+These observations and insights lead to an immediate and profound
+generalization of our code.  The following <i>polymorphic</i> function
+takes as its arguments any <i>function</i> of type \(a \to b\) (for <i>any</i>
+types <i>a</i> and <i>b</i>), and a list of values of type <i>a</i>, and it returns a
+list of values of type <i>b</i>, namely the list constructed from elements
+obtained by applying the given function to each element of the first
+list.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">map</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>
+<span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+<span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">?fill_in_this_hold</span>
+</pre>
+</div>
+
+<p>
+Now we can project the <i>age</i> column from our relation using this
+generlaized function, as follows.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">ages</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">ages</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>
+</pre>
+</div>
+
+<p>
+The first argument to <i>map</i> is <i>age</i> which is of type \(Person \to
+Nat\). The second argument, <i>people</i>, is of type <i>list Person$. The
+result is thus of type /list Nat</i>, and in particular it is the list of
+natural numbers obtained by applying the age function to each person
+in the original list.
+</p>
+
+<p>
+The benefit of having generalized the function should immediately be
+clear. We can also use it to obtain a list of the <i>name</i> fields or any
+other field in the relation. We can in fact use it to transform any
+list of values of any type into a list of values of any other type
+simply by providing a function that transforms one value of the first
+type into a value of the second type. Here, for example, is code to
+obtain a list of names for the people in the original relation. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">ages</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
+<span style="color: #333333; background-color: #FFFFFF;">ages</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>
+</pre>
+</div>
+
+<p>
+Note that our first application of <i>map</i> returned a list of <i>Nat</i>
+values but that this application returned a list of <i>Strings</i>. This
+<i>map</i> function is very flexible. It is also our first example of a
+function that takes another function as an argument, which, as a part
+of its operation, it applies to other data. The <i>map</i> function is a
+paradigmatic example of a higher-order function.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline222" class="outline-3">
+<h3 id="orgheadline222"><span class="section-number-3">19.2</span> Filter</h3>
+</div>
+<div id="outline-container-orgheadline223" class="outline-3">
+<h3 id="orgheadline223"><span class="section-number-3">19.3</span> Reduce</h3>
+<div class="outline-text-3" id="text-19-3">
+<p>
+.
+</p>
+</div>
+</div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-10-11 Sun 14:01</p>
+<p class="date">Created: 2015-10-12 Mon 23:48</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
