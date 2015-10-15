@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-09-17 Thu 18:23 -->
+<!-- 2015-10-15 Thu 14:45 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>CS1-Sullivan: Lab 1</title>
@@ -324,16 +324,39 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline46">4.5. Subtractive colors</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline48">5. 5</a></li>
-<li><a href="#orgheadline49">6. 6</a></li>
-<li><a href="#orgheadline50">7. 7</a></li>
-<li><a href="#orgheadline51">8. 8</a></li>
-<li><a href="#orgheadline52">9. 9</a></li>
-<li><a href="#orgheadline53">10. 10</a></li>
-<li><a href="#orgheadline54">11. 11</a></li>
-<li><a href="#orgheadline55">12. 12</a></li>
-<li><a href="#orgheadline56">13. 13</a></li>
-<li><a href="#orgheadline57">14. 14</a></li>
+<li><a href="#orgheadline52">5. Recursion</a>
+<ul>
+<li><a href="#orgheadline48">5.1. Refactor nat.idr, separating examples and tests into natTest.idr</a></li>
+<li><a href="#orgheadline49">5.2. Focus on homework problems</a></li>
+<li><a href="#orgheadline50">5.3. Add a function to compute Fibonacci numbers</a></li>
+<li><a href="#orgheadline51">5.4. Submit your files in whatever state they're in on Collab under Lab5.</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline63">6. Higher-Order Functions</a>
+<ul>
+<li><a href="#orgheadline53">6.1. Partner</a></li>
+<li><a href="#orgheadline54">6.2. Code Review</a></li>
+<li><a href="#orgheadline55">6.3. Code Enhancement</a></li>
+<li><a href="#orgheadline56">6.4. Paper-Based Simulation</a></li>
+<li><a href="#orgheadline57">6.5. Demonstration and Testing</a></li>
+<li><a href="#orgheadline61">6.6. Application</a>
+<ul>
+<li><a href="#orgheadline58">6.6.1. Background</a></li>
+<li><a href="#orgheadline59">6.6.2. Present your application</a></li>
+<li><a href="#orgheadline60">6.6.3. Exercise your map function</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline62">6.7. Check out with the TAs</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline64">7. 7</a></li>
+<li><a href="#orgheadline65">8. 8</a></li>
+<li><a href="#orgheadline66">9. 9</a></li>
+<li><a href="#orgheadline67">10. 10</a></li>
+<li><a href="#orgheadline68">11. 11</a></li>
+<li><a href="#orgheadline69">12. 12</a></li>
+<li><a href="#orgheadline70">13. 13</a></li>
+<li><a href="#orgheadline71">14. 14</a></li>
 </ul>
 </div>
 </div>
@@ -1028,40 +1051,204 @@ you do not finish, finish the work before class Friday.
 </div>
 </div>
 
-<div id="outline-container-orgheadline48" class="outline-2">
-<h2 id="orgheadline48"><span class="section-number-2">5</span> 5</h2>
-</div>
-<div id="outline-container-orgheadline49" class="outline-2">
-<h2 id="orgheadline49"><span class="section-number-2">6</span> 6</h2>
-</div>
-<div id="outline-container-orgheadline50" class="outline-2">
-<h2 id="orgheadline50"><span class="section-number-2">7</span> 7</h2>
-</div>
-<div id="outline-container-orgheadline51" class="outline-2">
-<h2 id="orgheadline51"><span class="section-number-2">8</span> 8</h2>
-</div>
 <div id="outline-container-orgheadline52" class="outline-2">
-<h2 id="orgheadline52"><span class="section-number-2">9</span> 9</h2>
+<h2 id="orgheadline52"><span class="section-number-2">5</span> Recursion</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline48" class="outline-3">
+<h3 id="orgheadline48"><span class="section-number-3">5.1</span> Refactor nat.idr, separating examples and tests into natTest.idr</h3>
 </div>
-<div id="outline-container-orgheadline53" class="outline-2">
-<h2 id="orgheadline53"><span class="section-number-2">10</span> 10</h2>
+<div id="outline-container-orgheadline49" class="outline-3">
+<h3 id="orgheadline49"><span class="section-number-3">5.2</span> Focus on homework problems</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Get ready for the exam. Test your own knowledge. Collaborate if it
+will help. Get help from a TA if you need it!
+</p>
 </div>
-<div id="outline-container-orgheadline54" class="outline-2">
-<h2 id="orgheadline54"><span class="section-number-2">11</span> 11</h2>
 </div>
-<div id="outline-container-orgheadline55" class="outline-2">
-<h2 id="orgheadline55"><span class="section-number-2">12</span> 12</h2>
+<div id="outline-container-orgheadline50" class="outline-3">
+<h3 id="orgheadline50"><span class="section-number-3">5.3</span> Add a function to compute Fibonacci numbers</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+Add a function, <i>fib: nat -&gt; nat</i>, to compute the n'th number in the
+sequence of the Fibonacci numbers. The zero'th Fibonacci number is
+zero. The first is one. For any \(n > 1\), the \(n'th\) Fibonacci number
+is the number the preceding two Fibonacci numbers. In other words,
+you need to write a function where \(fib(0) = 0\), fib(1) = 1$, and
+$fib(n) = fib(n-1) + fib(n-2).$
+</p>
 </div>
-<div id="outline-container-orgheadline56" class="outline-2">
-<h2 id="orgheadline56"><span class="section-number-2">13</span> 13</h2>
 </div>
-<div id="outline-container-orgheadline57" class="outline-2">
-<h2 id="orgheadline57"><span class="section-number-2">14</span> 14</h2>
+<div id="outline-container-orgheadline51" class="outline-3">
+<h3 id="orgheadline51"><span class="section-number-3">5.4</span> Submit your files in whatever state they're in on Collab under Lab5.</h3>
+</div>
+</div>
+<div id="outline-container-orgheadline63" class="outline-2">
+<h2 id="orgheadline63"><span class="section-number-2">6</span> Higher-Order Functions</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline53" class="outline-3">
+<h3 id="orgheadline53"><span class="section-number-3">6.1</span> Partner</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Find a new partner: someone with whom you have not previously worked.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline54" class="outline-3">
+<h3 id="orgheadline54"><span class="section-number-3">6.2</span> Code Review</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+Present your refactored unit, bool, nat, pair, and list code, and
+associated test code, to your partner. As you explain what you have
+produced, your partner should check for (1) the removal of examples
+and test code from your main .idr files, (2) implementation of :: and
+++ infix operators in your list.idr file (in lieu of cons and append
+functions, respectively), (3) code in listTest.idr sufficient to test
+the functioning of these infix operators. Once one partner is done
+presenting, switch roles and review the other partner's code. By the
+end of this <i>code review</i> process you each should have verified that
+the other's code appears to be clean, well organized, and in working
+condition.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline55" class="outline-3">
+<h3 id="orgheadline55"><span class="section-number-3">6.3</span> Code Enhancement</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+Add an implementation of the <i>ite</i> (if-then-else) function that we
+discussed in class in a file called ite.idr. Add implementations of
+the higher-order <i>map</i> and <i>filter</i> functions to your list.idr file.
+You should already have the required code in your notes if not yet
+in your list.idr file. Be sure that your code compiles.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline56" class="outline-3">
+<h3 id="orgheadline56"><span class="section-number-3">6.4</span> Paper-Based Simulation</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+On paper, carefully document the steps that occur when each of the
+following two function application expressions is evaluated. 
+</p>
+<ul class="org-ul">
+<li>map evenb (O::(S O)::(S (S O))::(S (S (S (S O))))::nil)</li>
+<li>filter evenb (O::(S O)::(S (S O))::(S (S (S (S O))))::nil)</li>
+</ul>
+<p>
+To do this you will 
+</p>
+<ul class="org-ul">
+<li>determine which function evaluation rule the expression matches</li>
+<li>determine how pattern matching binds names to parts of the expression</li>
+<li>rewrite the expression into the form on the right side of the rule</li>
+<li>continue evaluating until the result is fully reduced to a value</li>
+</ul>
+<p>
+Work with your partner if/as needed to complete this task.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline57" class="outline-3">
+<h3 id="orgheadline57"><span class="section-number-3">6.5</span> Demonstration and Testing</h3>
+<div class="outline-text-3" id="text-6-5">
+<p>
+Add these two examples to your listTest.idr file and confirm with your
+partner that the map and filter functions produce the expected results.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline61" class="outline-3">
+<h3 id="orgheadline61"><span class="section-number-3">6.6</span> Application</h3>
+<div class="outline-text-3" id="text-6-6">
+</div><div id="outline-container-orgheadline58" class="outline-4">
+<h4 id="orgheadline58"><span class="section-number-4">6.6.1</span> Background</h4>
+<div class="outline-text-4" id="text-6-6-1">
+<p>
+You have been developing a simple application in a domain of interest
+to you. You should have at least implemented a record (tuple) type for
+your domain and have created a list of records of this type. That is,
+you should have created <i>relation</i> relevant to your application domain.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline59" class="outline-4">
+<h4 id="orgheadline59"><span class="section-number-4">6.6.2</span> Present your application</h4>
+<div class="outline-text-4" id="text-6-6-2">
+<p>
+Briefly present your application to your partner. Go over your record
+type and present the code where you create a list of records of that
+type. Use the REPL to confirm that Idris can evalute your list and
+that the result it prints is as expected. Then trade roles so each
+partner presents his or her application to the other. The partner who
+is listening should confirm that the partner who is presenting has in
+fact created a list of records (a relation) for the given domain.
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline60" class="outline-4">
+<h4 id="orgheadline60"><span class="section-number-4">6.6.3</span> Exercise your map function</h4>
+<div class="outline-text-4" id="text-6-6-3">
+<p>
+In your REPL, demonstrate to your partner that you can <i>map</i> one of
+your record's projection functions (such as <i>age</i> or <i>name</i> in the
+instructor's <i>people</i> example) over your list of records in order to
+obtain one <i>column</i> of data from your relation.  For the <i>people</i>
+example presented in class, such code would look like this: <i>map age
+people</i>, where <i>people</i> is a list of <i>Person</i> values and <i>age</i> is one
+of the projection functions for the <i>Person</i> record type. Show that
+you can project any column from your relation by mapping different
+project functions over the list. Discuss what you're seeing with your
+partner and be sure that you each understand what the <i>map</i> function
+is doing.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline62" class="outline-3">
+<h3 id="orgheadline62"><span class="section-number-3">6.7</span> Check out with the TAs</h3>
+<div class="outline-text-3" id="text-6-7">
+<p>
+Before you leave the lab, check out with the TAs. Briefly explain what
+you were able to accomplish. Be sure they have written your names on
+the attendance list and that they have noted your progress through
+these tasks. Turn in the paper on which you documented the steps in
+the evaluation of the function application examples above. Be sure
+that your name is on your paper. If you and your partner produced one
+document only, put both your names on it. Include your email addresses
+as well. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline64" class="outline-2">
+<h2 id="orgheadline64"><span class="section-number-2">7</span> 7</h2>
+</div>
+<div id="outline-container-orgheadline65" class="outline-2">
+<h2 id="orgheadline65"><span class="section-number-2">8</span> 8</h2>
+</div>
+<div id="outline-container-orgheadline66" class="outline-2">
+<h2 id="orgheadline66"><span class="section-number-2">9</span> 9</h2>
+</div>
+<div id="outline-container-orgheadline67" class="outline-2">
+<h2 id="orgheadline67"><span class="section-number-2">10</span> 10</h2>
+</div>
+<div id="outline-container-orgheadline68" class="outline-2">
+<h2 id="orgheadline68"><span class="section-number-2">11</span> 11</h2>
+</div>
+<div id="outline-container-orgheadline69" class="outline-2">
+<h2 id="orgheadline69"><span class="section-number-2">12</span> 12</h2>
+</div>
+<div id="outline-container-orgheadline70" class="outline-2">
+<h2 id="orgheadline70"><span class="section-number-2">13</span> 13</h2>
+</div>
+<div id="outline-container-orgheadline71" class="outline-2">
+<h2 id="orgheadline71"><span class="section-number-2">14</span> 14</h2>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-09-17 Thu 18:23</p>
+<p class="date">Created: 2015-10-15 Thu 14:45</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
