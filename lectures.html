@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-12 Mon 23:48 -->
+<!-- 2015-10-14 Wed 23:53 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -526,11 +526,40 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline219">18.3. Conclusion</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline224">19. Higher-Order Functions</a>
+<li><a href="#orgheadline226">19. Higher-Order Functions</a>
 <ul>
 <li><a href="#orgheadline221">19.1. Map</a></li>
-<li><a href="#orgheadline222">19.2. Filter</a></li>
-<li><a href="#orgheadline223">19.3. Reduce</a></li>
+<li><a href="#orgheadline224">19.2. Filter</a>
+<ul>
+<li><a href="#orgheadline222">19.2.1. Decisions and Alternation</a></li>
+<li><a href="#orgheadline223">19.2.2. A simpler example</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline225">19.3. Reduce</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline245">20. Future</a>
+<ul>
+<li><a href="#orgheadline227">20.1. Equality (Typeclasses)</a></li>
+<li><a href="#orgheadline228">20.2. Information Hiding Modularity (Set, Dictionary)</a></li>
+<li><a href="#orgheadline231">20.3. Processes (Termination, Coinduction)</a>
+<ul>
+<li><a href="#orgheadline229">20.3.1. Simulation</a></li>
+<li><a href="#orgheadline230">20.3.2. Games</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline232">20.4. Effects (I/O and State)</a></li>
+<li><a href="#orgheadline240">20.5. Procedural Programming</a>
+<ul>
+<li><a href="#orgheadline237">20.5.1. Commands</a></li>
+<li><a href="#orgheadline238">20.5.2. Procedures</a></li>
+<li><a href="#orgheadline239">20.5.3. Classes</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline241">20.6. Libraries</a></li>
+<li><a href="#orgheadline242">20.7. Algorithms</a></li>
+<li><a href="#orgheadline243">20.8. Complexity</a></li>
+<li><a href="#orgheadline244">20.9. Debugging</a></li>
 </ul>
 </li>
 </ul>
@@ -4633,16 +4662,16 @@ values they return: <i>getAge</i>, <i>getHeight</i> and <i>getGender</i>.
 <div class="org-src-container">
 
 <pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">getName</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
-<span style="color: #333333; background-color: #FFFFFF;">getName</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
+<span style="color: #333333; background-color: #FFFFFF;">getName</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">name</span>
 
 <span style="color: #333333; background-color: #FFFFFF;">getAge</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
 <span style="color: #333333; background-color: #FFFFFF;">getAge</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
 
 <span style="color: #333333; background-color: #FFFFFF;">getHeight</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
-<span style="color: #333333; background-color: #FFFFFF;">getHeight</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
+<span style="color: #333333; background-color: #FFFFFF;">getHeight</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">height</span>
 
-<span style="color: #333333; background-color: #FFFFFF;">getGender</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
-<span style="color: #333333; background-color: #FFFFFF;">getGender</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">age</span>
+<span style="color: #333333; background-color: #FFFFFF;">getGender</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #333333; background-color: #FFFFFF;">getGender</span> (<span style="color: #333333; background-color: #FFFFFF;">mkPerson</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span>
 <span style="color: #BA36A5;">#</span><span style="color: #333333; background-color: #FFFFFF;">END_SRC</span>
 
 <span style="color: #333333; background-color: #FFFFFF;">Having</span> <span style="color: #333333; background-color: #FFFFFF;">written</span> <span style="color: #333333; background-color: #FFFFFF;">such</span> <span style="color: #333333; background-color: #FFFFFF;">projection</span> <span style="color: #333333; background-color: #FFFFFF;">functions</span>, <span style="color: #333333; background-color: #FFFFFF;">we</span> <span style="color: #333333; background-color: #FFFFFF;">can</span> <span style="color: #333333; background-color: #FFFFFF;">now</span> <span style="color: #333333; background-color: #FFFFFF;">recover</span> <span style="color: #333333; background-color: #FFFFFF;">the</span> <span style="color: #333333; background-color: #FFFFFF;">field</span>
@@ -5021,8 +5050,8 @@ beyond.
 </div>
 </div>
 
-<div id="outline-container-orgheadline224" class="outline-2">
-<h2 id="orgheadline224"><span class="section-number-2">19</span> Higher-Order Functions</h2>
+<div id="outline-container-orgheadline226" class="outline-2">
+<h2 id="orgheadline226"><span class="section-number-2">19</span> Higher-Order Functions</h2>
 <div class="outline-text-2" id="text-19">
 <p>
 Suppose that you are given a relation like the one of the 
@@ -5155,11 +5184,99 @@ paradigmatic example of a higher-order function.
 </div>
 </div>
 
-<div id="outline-container-orgheadline222" class="outline-3">
-<h3 id="orgheadline222"><span class="section-number-3">19.2</span> Filter</h3>
+<div id="outline-container-orgheadline224" class="outline-3">
+<h3 id="orgheadline224"><span class="section-number-3">19.2</span> Filter</h3>
+<div class="outline-text-3" id="text-19-2">
+<p>
+In the last section we saw how we can use the very general map
+function with an element-wise projection function, such as <i>age</i>, to
+project an entire <i>column</i>, such as the age column, from a given
+relation. That's fine if we want a list of the ages for everyone in
+our relation, but what if we want the ages only for a <i>selected</i>
+subset of records: those satisfying some condition, such as having a
+height over six feet? 
+</p>
+
+<p>
+In this section, we introduce a second major higher-order function to
+address this problem. It's called <i>filter</i>. The idea is that you give
+it a <i>Boolean function</i> that takes a list element and returns <i>true</i>
+if it satisfies the condition and <i>false</i> otherwise. The filter
+function then constructs a new list from all of the elements of the
+original list that satisfy the given condition (for which the Boolean
+function evalutes to <i>true</i>).
+</p>
 </div>
-<div id="outline-container-orgheadline223" class="outline-3">
-<h3 id="orgheadline223"><span class="section-number-3">19.3</span> Reduce</h3>
+
+<div id="outline-container-orgheadline222" class="outline-4">
+<h4 id="orgheadline222"><span class="section-number-4">19.2.1</span> Decisions and Alternation</h4>
+<div class="outline-text-4" id="text-19-2-1">
+<p>
+The overall strategy in constructing a new list will be this. If the
+original list is empty then so is the new list. If the old list is not
+empty, then it has an element, <i>h</i>, at the end, and a smaller list as
+a tail, <i>t</i>. Here's the key observation: if <i>h</i> passes a test, then we
+need to create and return a new list with <i>h</i> at its head, otherwise
+we need to return a list without <i>h</i>. In other words, we need to make
+a decision and then return one of two different results based on the
+outcome of the decision.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">ifThenElse</span>
+
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">ite</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+<span style="color: #333333; background-color: #FFFFFF;">ite</span> <span style="color: #333333; background-color: #FFFFFF;">true</span> <span style="color: #333333; background-color: #FFFFFF;">tb</span> <span style="color: #333333; background-color: #FFFFFF;">fb</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">tb</span>
+<span style="color: #333333; background-color: #FFFFFF;">ite</span> <span style="color: #333333; background-color: #FFFFFF;">false</span> <span style="color: #333333; background-color: #FFFFFF;">tb</span> <span style="color: #333333; background-color: #FFFFFF;">fb</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">fb</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline223" class="outline-4">
+<h4 id="orgheadline223"><span class="section-number-4">19.2.2</span> A simpler example</h4>
+<div class="outline-text-4" id="text-19-2-2">
+<p>
+Let's start with a very simple example. Given a list of natural 
+numbers, let's compute the sublist of even numbers.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">module</span> <span style="color: #333333; background-color: #FFFFFF;">scratch</span>
+
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">list</span>
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #0000FF;">import</span> <span style="color: #333333; background-color: #FFFFFF;">ifThenElse</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">l</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l</span> <span style="color: #BA36A5;">=</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>))<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">nil</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">evens</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+<span style="color: #333333; background-color: #FFFFFF;">evens</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">ite</span> (<span style="color: #333333; background-color: #FFFFFF;">evenb</span> <span style="color: #333333; background-color: #FFFFFF;">h</span>) (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)) (<span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
+
+<span style="color: #333333; background-color: #FFFFFF;">l'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">l'</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">l</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">filter</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
+<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">ite</span> (<span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">h</span>) (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)) (<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline225" class="outline-3">
+<h3 id="orgheadline225"><span class="section-number-3">19.3</span> Reduce</h3>
 <div class="outline-text-3" id="text-19-3">
 <p>
 .
@@ -5167,10 +5284,64 @@ paradigmatic example of a higher-order function.
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgheadline245" class="outline-2">
+<h2 id="orgheadline245"><span class="section-number-2">20</span> Future</h2>
+<div class="outline-text-2" id="text-20">
+</div><div id="outline-container-orgheadline227" class="outline-3">
+<h3 id="orgheadline227"><span class="section-number-3">20.1</span> Equality (Typeclasses)</h3>
+</div>
+<div id="outline-container-orgheadline228" class="outline-3">
+<h3 id="orgheadline228"><span class="section-number-3">20.2</span> Information Hiding Modularity (Set, Dictionary)</h3>
+</div>
+<div id="outline-container-orgheadline231" class="outline-3">
+<h3 id="orgheadline231"><span class="section-number-3">20.3</span> Processes (Termination, Coinduction)</h3>
+<div class="outline-text-3" id="text-20-3">
+</div><div id="outline-container-orgheadline229" class="outline-4">
+<h4 id="orgheadline229"><span class="section-number-4">20.3.1</span> Simulation</h4>
+</div>
+<div id="outline-container-orgheadline230" class="outline-4">
+<h4 id="orgheadline230"><span class="section-number-4">20.3.2</span> Games</h4>
+</div>
+</div>
+<div id="outline-container-orgheadline232" class="outline-3">
+<h3 id="orgheadline232"><span class="section-number-3">20.4</span> Effects (I/O and State)</h3>
+</div>
+<div id="outline-container-orgheadline240" class="outline-3">
+<h3 id="orgheadline240"><span class="section-number-3">20.5</span> Procedural Programming</h3>
+<div class="outline-text-3" id="text-20-5">
+</div><div id="outline-container-orgheadline237" class="outline-4">
+<h4 id="orgheadline237"><span class="section-number-4">20.5.1</span> Commands</h4>
+<div class="outline-text-4" id="text-20-5-1">
+</div><ol class="org-ol"><li><a id="orgheadline233"></a>assignment<br  /></li>
+<li><a id="orgheadline234"></a>sequential composition<br  /></li>
+<li><a id="orgheadline235"></a>iteration (for and while, including nested loops)<br  /></li>
+<li><a id="orgheadline236"></a>alternation (if/then/else)<br  /></li></ol>
+</div>
+<div id="outline-container-orgheadline238" class="outline-4">
+<h4 id="orgheadline238"><span class="section-number-4">20.5.2</span> Procedures</h4>
+</div>
+<div id="outline-container-orgheadline239" class="outline-4">
+<h4 id="orgheadline239"><span class="section-number-4">20.5.3</span> Classes</h4>
+</div>
+</div>
+<div id="outline-container-orgheadline241" class="outline-3">
+<h3 id="orgheadline241"><span class="section-number-3">20.6</span> Libraries</h3>
+</div>
+<div id="outline-container-orgheadline242" class="outline-3">
+<h3 id="orgheadline242"><span class="section-number-3">20.7</span> Algorithms</h3>
+</div>
+<div id="outline-container-orgheadline243" class="outline-3">
+<h3 id="orgheadline243"><span class="section-number-3">20.8</span> Complexity</h3>
+</div>
+<div id="outline-container-orgheadline244" class="outline-3">
+<h3 id="orgheadline244"><span class="section-number-3">20.9</span> Debugging</h3>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-10-12 Mon 23:48</p>
+<p class="date">Created: 2015-10-14 Wed 23:53</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
