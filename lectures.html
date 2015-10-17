@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-14 Wed 23:53 -->
+<!-- 2015-10-16 Fri 21:29 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -526,7 +526,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline219">18.3. Conclusion</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline226">19. Higher-Order Functions</a>
+<li><a href="#orgheadline228">19. Higher-Order Functions</a>
 <ul>
 <li><a href="#orgheadline221">19.1. Map</a></li>
 <li><a href="#orgheadline224">19.2. Filter</a>
@@ -535,31 +535,57 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline223">19.2.2. A simpler example</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline225">19.3. Reduce</a></li>
+<li><a href="#orgheadline225">19.3. Reduce (Fold)</a></li>
+<li><a href="#orgheadline227">19.4. Exercises</a>
+<ul>
+<li><a href="#orgheadline226">19.4.1. DNA</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline245">20. Future</a>
-<ul>
-<li><a href="#orgheadline227">20.1. Equality (Typeclasses)</a></li>
-<li><a href="#orgheadline228">20.2. Information Hiding Modularity (Set, Dictionary)</a></li>
-<li><a href="#orgheadline231">20.3. Processes (Termination, Coinduction)</a>
-<ul>
-<li><a href="#orgheadline229">20.3.1. Simulation</a></li>
-<li><a href="#orgheadline230">20.3.2. Games</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline232">20.4. Effects (I/O and State)</a></li>
-<li><a href="#orgheadline240">20.5. Procedural Programming</a>
+<li><a href="#orgheadline239">20. Relational Queries</a>
 <ul>
-<li><a href="#orgheadline237">20.5.1. Commands</a></li>
-<li><a href="#orgheadline238">20.5.2. Procedures</a></li>
-<li><a href="#orgheadline239">20.5.3. Classes</a></li>
+<li><a href="#orgheadline229">20.1. Generalization</a></li>
+<li><a href="#orgheadline230">20.2. Improved Argument Ordering</a></li>
+<li><a href="#orgheadline234">20.3. Statistical Queries</a>
+<ul>
+<li><a href="#orgheadline231">20.3.1. Count</a></li>
+<li><a href="#orgheadline232">20.3.2. Sum</a></li>
+<li><a href="#orgheadline233">20.3.3. Mean</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline241">20.6. Libraries</a></li>
-<li><a href="#orgheadline242">20.7. Algorithms</a></li>
-<li><a href="#orgheadline243">20.8. Complexity</a></li>
-<li><a href="#orgheadline244">20.9. Debugging</a></li>
+<li><a href="#orgheadline235">20.4. Summary</a></li>
+<li><a href="#orgheadline238">20.5. Exercises</a>
+<ul>
+<li><a href="#orgheadline236">20.5.1. Create a relation module</a></li>
+<li><a href="#orgheadline237">20.5.2. Demonstrate application in your domain</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline259">21. Future (Tentative)</a>
+<ul>
+<li><a href="#orgheadline240">21.1. Equality (Typeclasses)</a></li>
+<li><a href="#orgheadline241">21.2. Information Hiding Modularity (Set, Dictionary)</a></li>
+<li><a href="#orgheadline244">21.3. Processes (Termination, Coinduction)</a>
+<ul>
+<li><a href="#orgheadline242">21.3.1. Simulation</a></li>
+<li><a href="#orgheadline243">21.3.2. Games</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline245">21.4. Effects (I/O and State)</a></li>
+<li><a href="#orgheadline254">21.5. Procedural Programming</a>
+<ul>
+<li><a href="#orgheadline246">21.5.1. Environment</a></li>
+<li><a href="#orgheadline251">21.5.2. Commands</a></li>
+<li><a href="#orgheadline252">21.5.3. Procedures</a></li>
+<li><a href="#orgheadline253">21.5.4. Classes</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline255">21.6. Libraries</a></li>
+<li><a href="#orgheadline256">21.7. Algorithms</a></li>
+<li><a href="#orgheadline257">21.8. Complexity</a></li>
+<li><a href="#orgheadline258">21.9. Debugging</a></li>
 </ul>
 </li>
 </ul>
@@ -5050,8 +5076,8 @@ beyond.
 </div>
 </div>
 
-<div id="outline-container-orgheadline226" class="outline-2">
-<h2 id="orgheadline226"><span class="section-number-2">19</span> Higher-Order Functions</h2>
+<div id="outline-container-orgheadline228" class="outline-2">
+<h2 id="orgheadline228"><span class="section-number-2">19</span> Higher-Order Functions</h2>
 <div class="outline-text-2" id="text-19">
 <p>
 Suppose that you are given a relation like the one of the 
@@ -5239,7 +5265,7 @@ outcome of the decision.
 <h4 id="orgheadline223"><span class="section-number-4">19.2.2</span> A simpler example</h4>
 <div class="outline-text-4" id="text-19-2-2">
 <p>
-Let's start with a very simple example. Given a list of natural 
+Let's start with a simple example. Given a list of natural 
 numbers, let's compute the sublist of even numbers.
 </p>
 
@@ -5259,10 +5285,37 @@ numbers, let's compute the sublist of even numbers.
 <span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span>
 <span style="color: #333333; background-color: #FFFFFF;">evens</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">ite</span> (<span style="color: #333333; background-color: #FFFFFF;">evenb</span> <span style="color: #333333; background-color: #FFFFFF;">h</span>) (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)) (<span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
 
-<span style="color: #333333; background-color: #FFFFFF;">l'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
-<span style="color: #333333; background-color: #FFFFFF;">l'</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">l</span>
+<span style="color: #333333; background-color: #FFFFFF;">result</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">result</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">evens</span> <span style="color: #333333; background-color: #FFFFFF;">l</span>
 </pre>
 </div>
+
+<p>
+This function combines conditions and recursions. The base case is
+that an empty list of natural numbers filtered for even numbers is
+still just the empty list. There are two cases for a non-empty
+list. First, if the head of the list is even (this is the condition),
+then the result is a list starting with that number and followed by
+the result for the rest of the list; otherwise the head of the given
+list is left out, and the result is just the filtered version of the
+rest of the list. 
+</p>
+
+<p>
+Of course filtering lists of natural numbers for evenness is not the 
+only kind of filtering of lists that we might want to do. Indeed, we
+might want to filter lists with many different types of elements; and
+we might want to use many different criteria to decide which elements
+to include in a filtered result. 
+</p>
+
+<p>
+We can easily generalize the preceding concrete example by replacing
+<i>list nat</i> with <i>list a</i>, where <i>a</i> is any type, and by making <i>evenb</i>
+into a function-valued parameter of type $a &rarr; bool$&#x2014;a Boolean
+predicate on elements of the kind that appear in the list. The result
+is a generalized list filtering function. 
+</p>
 
 <div class="org-src-container">
 
@@ -5271,77 +5324,612 @@ numbers, let's compute the sublist of even numbers.
 <span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">ite</span> (<span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">h</span>) (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)) (<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
 </pre>
 </div>
-</div>
-</div>
+
+<p>
+Given this generalized, higher-order function, we can use us to carry
+out the same computation as above by passing <i>evenb</i> in as a function
+parameter. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">result2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">result2</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">evenb</span> ((<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>))<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">nil</span>)
+</pre>
 </div>
 
-<div id="outline-container-orgheadline225" class="outline-3">
-<h3 id="orgheadline225"><span class="section-number-3">19.3</span> Reduce</h3>
-<div class="outline-text-3" id="text-19-3">
 <p>
-.
+Given that <i>evenb</i> is known to be of type \(nat \to bool\), Idris uses
+type inference to infer that the value of the type argument, <i>a</i>, (the
+type of list element in this context) is <i>nat</i>. The overall expression
+type checks and <i>result2</i> ends up being the same as <i>result</i> above.
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgheadline245" class="outline-2">
-<h2 id="orgheadline245"><span class="section-number-2">20</span> Future</h2>
+<div id="outline-container-orgheadline225" class="outline-3">
+<h3 id="orgheadline225"><span class="section-number-3">19.3</span> Reduce (Fold)</h3>
+<div class="outline-text-3" id="text-19-3">
+<p>
+Now we turn to our third and final major higher-order function on
+lists. This function is generally called a <i>right fold</i> function, and
+is usually named <i>foldr</i>. It is also known as a <i>reduce</i> operation.
+</p>
+
+<p>
+The basic idea is simple. We're given a list of values and a function
+such as addition, and we want to apply the function repeatedly to
+reduce the list of values to a single value. Reducing the list <i>[1, 2,
+3, 4]</i> using addition, for example, would yield <i>10</i> as a result,
+while reducing the same list using multiplication would yield <i>24</i>.
+</p>
+
+<p>
+Here's a special-purpose, <i>fancy</i> addition, function for reducing a
+list of natural numbers using addition. It says that if you do fancy
+addition this to the empty list you get zero, and if you do it to a
+non-empty list&#x2014;namely a list with a head, <i>h</i>, and a tail <i>t</i>&#x2014;the
+result is the ordinary sum of the head and the result of doing fancy
+addition on the rest of the list. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">fancyplus</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">fancyplus</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>
+<span style="color: #333333; background-color: #FFFFFF;">fancyplus</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">add</span> <span style="color: #333333; background-color: #FFFFFF;">h</span> (<span style="color: #333333; background-color: #FFFFFF;">fancyplus</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
+</pre>
+</div>
+
+<p>
+Here's analogous code for reducing a list of natural numbers to a
+product using multiplication. Note carefully the points of variation:
+we replaced <i>add</i> with <i>mult</i>, and we replaced the value produced for
+the base case. For addition, it was <i>O</i>, but for multiplication is it
+<i>(S O)</i> (i.e., one).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">fancymult</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">fancymult</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)
+<span style="color: #333333; background-color: #FFFFFF;">fancymult</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mult</span> <span style="color: #333333; background-color: #FFFFFF;">h</span> (<span style="color: #333333; background-color: #FFFFFF;">fancymult</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
+</pre>
+</div>
+
+<p>
+And here is yet another example. This function reduces a list of Idris
+String values to a single String by appending all the strings together
+using Idris's infix string append operation, <i>(++)</i>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">fancyappend</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">String</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
+<span style="color: #333333; background-color: #FFFFFF;">fancyappend</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #008000;">""</span>
+<span style="color: #333333; background-color: #FFFFFF;">fancyappend</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">h</span> <span style="color: #BA36A5;">++</span> (<span style="color: #333333; background-color: #FFFFFF;">fancyappend</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
+</pre>
+</div>
+
+<p>
+Clearly all of these functions share a great deal of commonality. They
+vary in just three dimensions: (1) the type of element in the list to
+be reduced, (2) the binary function to be used, and (3) the value that
+should be returned when reducing the empty list. 
+</p>
+
+<p>
+We can avoid having to repeat such ourselves in this way by writing
+one higher-order, polymorphic function with <i>arguments</i> (parameters)
+for these dimensions of variation. The idea is that we can then get
+any of the preceding behaviors by calling the generalized function 
+with the right arguments. Here's the generalized code.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">foldr</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+<span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">id</span> <span style="color: #333333; background-color: #FFFFFF;">nil</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">id</span>
+<span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">id</span> (<span style="color: #333333; background-color: #FFFFFF;">h</span><span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">t</span>) <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">h</span> (<span style="color: #333333; background-color: #FFFFFF;">list</span><span style="color: #BA36A5;">.</span><span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">f</span> <span style="color: #333333; background-color: #FFFFFF;">id</span> <span style="color: #333333; background-color: #FFFFFF;">t</span>)
+</pre>
+</div>
+
+<p>
+The code is polymorphic in the type, <i>a</i>, of elements in the list to
+be reduced. The function then takes three arguments: a binary function
+(such as <i>add</i>) that takes two values of this type and returns another
+value of the same type; the specific value of this type that is to be
+used as the result for the empty list; and a list of elements of this
+type. The function then uses the recursive computation that we saw in
+each of the concrete examples to reduce the list of elements of type
+<i>a</i> to a result, also of type <i>a</i>.
+</p>
+
+<p>
+Having defined this general <i>foldr</i> function, we can of course use it
+to compute the results computed by any of the specialized versions
+that started this section. Here are two examples.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">sum</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">sum</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">list</span><span style="color: #BA36A5;">.</span><span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">add</span> <span style="color: #333333; background-color: #FFFFFF;">O</span> ((<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>))<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">nil</span>)
+
+<span style="color: #333333; background-color: #FFFFFF;">product</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">sum</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">list</span><span style="color: #BA36A5;">.</span><span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">mult</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>) ((<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>))<span style="color: #BA36A5;">::</span>(<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> (<span style="color: #333333; background-color: #FFFFFF;">S</span> <span style="color: #333333; background-color: #FFFFFF;">O</span>)))))<span style="color: #BA36A5;">::</span><span style="color: #333333; background-color: #FFFFFF;">nil</span>)
+</pre>
+</div>
+
+<p>
+As an exercise, the reader should confirm that the function can also
+be used to reduce a list of Strings to a single String using the Idris
+<i>(++)</i> string append function. Note that one must enclose the <i>++</i> in
+parenthesis when passing it as a value, to prevent Idris from trying
+to evaluate it immediately.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline227" class="outline-3">
+<h3 id="orgheadline227"><span class="section-number-3">19.4</span> Exercises</h3>
+<div class="outline-text-3" id="text-19-4">
+</div><div id="outline-container-orgheadline226" class="outline-4">
+<h4 id="orgheadline226"><span class="section-number-4">19.4.1</span> DNA</h4>
+<div class="outline-text-4" id="text-19-4-1">
+<p>
+A DNA molecule is a sequence of base pairs. A base pair is one
+of <i>AT</i>, <i>TA</i>, <i>CG</i>, or <i>GC</i>. We can represent a DNA molecule
+as a <i>list</i> of basepairs. An example is <i>[AT,TA,CG,AT]</i>.
+</p>
+
+<p>
+A DNA molecule can be split into two strands of bases. A base is one
+of <i>A</i>, <i>T</i>, <i>C</i>, or <i>G</i>. We can represent a strand as a <i>list</i> of
+bases. For example, the DNA molecule [AT,TA,CG,AT] splits into the two
+strands [A,T,C,A] and [T,A,G,T]. The first strand is obtained by
+taking the first base from each base pair in the DNA molecule, and the
+second strand by taking the second base in each base pair.
+</p>
+
+<p>
+In a file called dna.idr, define a <i>base</i> data type with values <i>A</i>,
+<i>T</i>, <i>C</i>, and <i>G</i>. For purposes of this assignment, you can represent
+a base pair as value of type <i>pair base base</i>. You must be careful
+always to create base pairs from <i>complementary</i> bases: <i>A</i> and <i>T</i>,
+and <i>C</i> and <i>G</i>, respectively.
+</p>
+
+<p>
+Write a function called complement_base that takes a base and returns
+the base that is its complement. Write test code for this function in
+a separate dnaTest.idr file.
+</p>
+
+<p>
+Write a function called complement_strand that takes a <i>list base</i>
+(representing a DNA strand) and that returns the complementary strand
+(the strand of bases complementary to those in the given list). Your
+function <b>must</b> work by using <i>map</i> and <i>complement_base</i>.
+</p>
+
+<p>
+Write a function called <i>strand1</i> that takes a <i>list (pair base base)</i>
+representing a DNA molecule and that returns a value of type <i>list
+base</i> representing the first strand of the given DNA molecule. Write
+an analogous <i>strand2</i> function to return the second strand of a given
+DNA molecule.
+</p>
+
+<p>
+Write a function called complete that takes a <i>list base</i> representing
+a strand of DNA and that returns a <i>list (pair base base)</i>
+representing a DNA molecule, such that the first strand of the DNA
+molecule is the given list of bases and the second strand is its
+complementary strand. You must use <i>map</i> to implement this function.
+</p>
+
+<p>
+Write a function called countBase that takes both a <i>list base</i>,
+representing a strand of DNA, and a particular base, and that returns
+the number of occurrences of that base in the given strand (as a
+natural number). Your function must use <i>map</i> and <i>foldr</i>. Hint, use a
+function that converts the list of bases into a list of zeros and ones
+dependending on whether bases in the list match the given base, then
+use <i>foldr</i> to reduce the resulting list by summing up all the ones
+and zeros.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline239" class="outline-2">
+<h2 id="orgheadline239"><span class="section-number-2">20</span> Relational Queries</h2>
 <div class="outline-text-2" id="text-20">
-</div><div id="outline-container-orgheadline227" class="outline-3">
-<h3 id="orgheadline227"><span class="section-number-3">20.1</span> Equality (Typeclasses)</h3>
+<p>
+At the beginning of this chapter, we observed the need to be able to
+compute statistics on data represented in relations. This often
+involves at least three steps: (1) select records from a relation
+based on some filtering criterion, (20 project out a column (field)
+from the result, yielding a list of values for that field, and (3)
+reduce the resulting list to a single value, such as a sum.
+</p>
+
+<p>
+Our <i>filter</i>, <i>map</i>, and <i>foldr</i> functions have provided us the tools
+needed to perform these operations in a very general way. Here is
+code, for example, where we first filter our list of people to include
+only women; where we project the age field; and where we then sum up
+the restulting list of ages, as we might do as one step in computing
+the average age of women in our database.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">women</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">Person</span>
+<span style="color: #333333; background-color: #FFFFFF;">women</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">wAges</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">wAges</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">women</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">years</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">years</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">list</span><span style="color: #BA36A5;">.</span><span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0 <span style="color: #333333; background-color: #FFFFFF;">wAges</span>
+</pre>
 </div>
-<div id="outline-container-orgheadline228" class="outline-3">
-<h3 id="orgheadline228"><span class="section-number-3">20.2</span> Information Hiding Modularity (Set, Dictionary)</h3>
+
+<p>
+We start by passing the <i>gender</i> projection function to the filter
+operation and then applying the result to our list of people. The
+result is a smaller list of people for which the <i>gender</i> function
+returned true, which is the case for all and only the women in our
+people relation. We then <i>map</i> the <i>age</i> projection function over list
+list to obtain a list of ages for the selected people. Finally we fold
+this list into a sum.
+</p>
+
+<p>
+As a next step we observe that we could have written the three steps
+in this process in a single, equivalent, line of code. Here it is.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">oneLine</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">oneLine</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">list</span><span style="color: #BA36A5;">.</span><span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0 (<span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> (<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>))
+</pre>
 </div>
-<div id="outline-container-orgheadline231" class="outline-3">
-<h3 id="orgheadline231"><span class="section-number-3">20.3</span> Processes (Termination, Coinduction)</h3>
+</div>
+
+<div id="outline-container-orgheadline229" class="outline-3">
+<h3 id="orgheadline229"><span class="section-number-3">20.1</span> Generalization</h3>
+<div class="outline-text-3" id="text-20-1">
+<p>
+We can see in the preceding example a more general form of <i>query</i>.
+Such a query starts with a relation, performs a <i>select</i> operation
+using <i>filter</i>, then performs a <i>project</i> operation using <i>map</i>, and
+finally performs a <i>reduce</i> operation using <i>foldr</i>. What will vary
+from case to case are the relation (here <i>people</i>), the selection
+predicate (here <i>gender</i>), the projection operator (here <i>age</i>), and
+the reduction operation (here <i>plus</i>) and its associated identity
+element.
+</p>
+
+<p>
+Replacing these concrete values with parameters so that programmers
+can performan many different kinds of queries leads to the following
+code. (The line breaks and indentation are just for readability.)
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">query</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">value</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span> <span style="color: #BA36A5;">-&gt;</span> 
+         (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> 
+            (<span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">tuple</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span>
+<span style="color: #333333; background-color: #FFFFFF;">query</span> <span style="color: #333333; background-color: #FFFFFF;">reduce</span> <span style="color: #333333; background-color: #FFFFFF;">id</span> <span style="color: #333333; background-color: #FFFFFF;">project</span> <span style="color: #333333; background-color: #FFFFFF;">select</span> <span style="color: #333333; background-color: #FFFFFF;">relation</span> <span style="color: #BA36A5;">=</span>
+       <span style="color: #333333; background-color: #FFFFFF;">list</span><span style="color: #BA36A5;">.</span><span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">reduce</span> <span style="color: #333333; background-color: #FFFFFF;">id</span> (<span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">project</span> (<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">select</span> <span style="color: #333333; background-color: #FFFFFF;">relation</span>))
+</pre>
+</div>
+
+<p>
+The following are examples of the use of this query function. Be sure
+you see clearly how these function applications are working. Think
+about the type inference that Idris must be doing.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">years'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">years'</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0 <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">totalHeight</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #8D8D84; font-style: italic;">--names = "Foo " ++ "Bar"</span>
+<span style="color: #333333; background-color: #FFFFFF;">totalHeight</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0 <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>
+
+<span style="color: #333333; background-color: #FFFFFF;">names</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
+<span style="color: #333333; background-color: #FFFFFF;">names</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query</span> (<span style="color: #BA36A5;">++</span>) <span style="color: #008000;">""</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">people</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline230" class="outline-3">
+<h3 id="orgheadline230"><span class="section-number-3">20.2</span> Improved Argument Ordering</h3>
+<div class="outline-text-3" id="text-20-2">
+<p>
+We can perhaps improve the readability of applications of our query
+function by changing the order of the arguments. Here's the same
+function, with with the argument ordering.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">query2</span><span style="color: #BA36A5;">:</span>  (<span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">tuple</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span>) <span style="color: #BA36A5;">-&gt;</span>
+            (<span style="color: #333333; background-color: #FFFFFF;">value</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">value</span>
+<span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">relation</span> <span style="color: #333333; background-color: #FFFFFF;">select</span> <span style="color: #333333; background-color: #FFFFFF;">project</span> <span style="color: #333333; background-color: #FFFFFF;">reduce</span> <span style="color: #333333; background-color: #FFFFFF;">id</span> <span style="color: #BA36A5;">=</span>
+         <span style="color: #333333; background-color: #FFFFFF;">list</span><span style="color: #BA36A5;">.</span><span style="color: #333333; background-color: #FFFFFF;">foldr</span> <span style="color: #333333; background-color: #FFFFFF;">reduce</span> <span style="color: #333333; background-color: #FFFFFF;">id</span> (<span style="color: #333333; background-color: #FFFFFF;">map</span> <span style="color: #333333; background-color: #FFFFFF;">project</span> (<span style="color: #333333; background-color: #FFFFFF;">filter</span> <span style="color: #333333; background-color: #FFFFFF;">select</span> <span style="color: #333333; background-color: #FFFFFF;">relation</span>))
+</pre>
+</div>
+
+<p>
+Here are examples of uses of this modified query function.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">years''</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">years''</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">people</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0
+
+<span style="color: #333333; background-color: #FFFFFF;">totalInches''</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">totalInches''</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">people</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">height</span> <span style="color: #333333; background-color: #FFFFFF;">mult</span> 1
+
+<span style="color: #333333; background-color: #FFFFFF;">names''</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
+<span style="color: #333333; background-color: #FFFFFF;">names''</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">people</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">name</span> (<span style="color: #BA36A5;">++</span>) <span style="color: #008000;">""</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline234" class="outline-3">
+<h3 id="orgheadline234"><span class="section-number-3">20.3</span> Statistical Queries</h3>
 <div class="outline-text-3" id="text-20-3">
-</div><div id="outline-container-orgheadline229" class="outline-4">
-<h4 id="orgheadline229"><span class="section-number-4">20.3.1</span> Simulation</h4>
+<p>
+We can now build several useful and easy-to-use <i>statistical query</i>
+functions, using <i>query2</i> as a helper function, or subroutine. In this
+subsection, we present three such queries: one that produces a <i>count</i>
+of the number of records in a relation (providing an alternative to
+using <i>length</i>), one that produces a sums up the natural numbers in a
+column of a relation, and one that combines these two functions to
+compute the average (represented as a rational number (fraction) that
+we represent, in turn, as a simple pair of natural numbers, and which
+we interpret as the numerator and the denominator of a rational
+number).
+</p>
 </div>
-<div id="outline-container-orgheadline230" class="outline-4">
-<h4 id="orgheadline230"><span class="section-number-4">20.3.2</span> Games</h4>
+
+<div id="outline-container-orgheadline231" class="outline-4">
+<h4 id="orgheadline231"><span class="section-number-4">20.3.1</span> Count</h4>
+<div class="outline-text-4" id="text-20-3-1">
+<p>
+We have already defined a recursive function to compute the length of
+a list. Here we present a different technique using our <i>map-reduce</i>
+query approach. The idea is that instead of a mapping a <i>projection</i>
+function over a list of selected records we map a function that simply
+returns the number <i>1</i> for each record in the list. Here's a function
+that given any argument returns <i>1</i>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">countOne</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">countOne</span> <span style="color: #333333; background-color: #FFFFFF;">v</span> <span style="color: #BA36A5;">=</span> 1
+</pre>
+</div>
+
+<p>
+Mapping this function over any list of length <i>k</i> (of values of any
+type) will return a list of ones of length <i>k</i>. By then reducing this
+list using addition we compute the length of the original list. We can
+implement this idea by passing <i>countOne</i> as an argument to our query
+function.
+</p>
+
+<p>
+Here's an example. Work through the example in detail to be sure that
+you understand how it works at each step.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">number</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">number</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">people</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">countOne</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0
+</pre>
+</div>
+
+<p>
+To avoid having to use the <i>query2</i> argument with a fairly repetitive
+list of arguments each time we want to compute the count of elements
+in a list, we can write a function, here called <i>count_rel</i> (a name
+that reminds us that the function counts the number of records in a
+relation), to implement the common pattern, with the variabilities as
+parameters. The arguments are a relation and a selection predicate and
+the result is the number of records in the resulting relation.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">count_rel</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">tuple</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">count_rel</span> <span style="color: #333333; background-color: #FFFFFF;">rel</span> <span style="color: #333333; background-color: #FFFFFF;">sel</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">rel</span> <span style="color: #333333; background-color: #FFFFFF;">sel</span> <span style="color: #333333; background-color: #FFFFFF;">countOne</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0
+</pre>
 </div>
 </div>
-<div id="outline-container-orgheadline232" class="outline-3">
-<h3 id="orgheadline232"><span class="section-number-3">20.4</span> Effects (I/O and State)</h3>
 </div>
-<div id="outline-container-orgheadline240" class="outline-3">
-<h3 id="orgheadline240"><span class="section-number-3">20.5</span> Procedural Programming</h3>
+
+<div id="outline-container-orgheadline232" class="outline-4">
+<h4 id="orgheadline232"><span class="section-number-4">20.3.2</span> Sum</h4>
+<div class="outline-text-4" id="text-20-3-2">
+<p>
+We can similarly write a function, here called <i>sum_rel</i>, to compute
+the sum of the values in a column of numberic values from a set of
+records selected from a relation. The parameters are a relation, a
+filtering predicate, and a projection function that produces a natural
+number result. The result is the sum of the these numbers.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">sum_rel</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">tuple</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">sum_rel</span> <span style="color: #333333; background-color: #FFFFFF;">rel</span> <span style="color: #333333; background-color: #FFFFFF;">sel</span> <span style="color: #333333; background-color: #FFFFFF;">proj</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">rel</span> <span style="color: #333333; background-color: #FFFFFF;">sel</span> <span style="color: #333333; background-color: #FFFFFF;">proj</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline233" class="outline-4">
+<h4 id="orgheadline233"><span class="section-number-4">20.3.3</span> Mean</h4>
+<div class="outline-text-4" id="text-20-3-3">
+<p>
+We now close the loop on the promise made at the start of this
+chapter. Here is code that returns a pair of natural numbers that
+we interpret as a fraction. The first number is the total number of
+years in the ages of the women in our data set; the second is the
+number of women in the data set. The result is the average age,
+represented here as a rational number (fraction).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">aveAge</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">aveAge</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">mkPair</span> 
+           (<span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">people</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">age</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0) 
+           (<span style="color: #333333; background-color: #FFFFFF;">query2</span> <span style="color: #333333; background-color: #FFFFFF;">people</span> <span style="color: #333333; background-color: #FFFFFF;">gender</span> <span style="color: #333333; background-color: #FFFFFF;">countOne</span> <span style="color: #333333; background-color: #FFFFFF;">plus</span> 0)
+</pre>
+</div>
+
+<p>
+We can of course generalize from the specifics of that query to a
+general form. The following <i>ave_rel</i> function thus takes a relation,
+a selection predicate, and a projection function (or any function
+taking a record and yielding a natural number) and returns a fraction
+representing the average of the numbers in the selected set of records.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">ave_rel</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">list</span> <span style="color: #333333; background-color: #FFFFFF;">tuple</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">tuple</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span> <span style="color: #333333; background-color: #FFFFFF;">Nat</span>
+<span style="color: #333333; background-color: #FFFFFF;">ave_rel</span> <span style="color: #333333; background-color: #FFFFFF;">rel</span> <span style="color: #333333; background-color: #FFFFFF;">sel</span> <span style="color: #333333; background-color: #FFFFFF;">proj</span> <span style="color: #BA36A5;">=</span>  <span style="color: #333333; background-color: #FFFFFF;">mkPair</span> (<span style="color: #333333; background-color: #FFFFFF;">sum</span> <span style="color: #333333; background-color: #FFFFFF;">rel</span> <span style="color: #333333; background-color: #FFFFFF;">sel</span> <span style="color: #333333; background-color: #FFFFFF;">proj</span>) (<span style="color: #333333; background-color: #FFFFFF;">count</span> <span style="color: #333333; background-color: #FFFFFF;">rel</span> <span style="color: #333333; background-color: #FFFFFF;">sel</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline235" class="outline-3">
+<h3 id="orgheadline235"><span class="section-number-3">20.4</span> Summary</h3>
+<div class="outline-text-3" id="text-20-4">
+<p>
+This chapter has shown how what seem to be highly abstract and not
+obviously useful higher-order functions can be harness to enable the
+development of very concise and highly general statistical query
+functions that can operate on <i>any</i> relation!
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline238" class="outline-3">
+<h3 id="orgheadline238"><span class="section-number-3">20.5</span> Exercises</h3>
 <div class="outline-text-3" id="text-20-5">
-</div><div id="outline-container-orgheadline237" class="outline-4">
-<h4 id="orgheadline237"><span class="section-number-4">20.5.1</span> Commands</h4>
+</div><div id="outline-container-orgheadline236" class="outline-4">
+<h4 id="orgheadline236"><span class="section-number-4">20.5.1</span> Create a relation module</h4>
 <div class="outline-text-4" id="text-20-5-1">
-</div><ol class="org-ol"><li><a id="orgheadline233"></a>assignment<br  /></li>
-<li><a id="orgheadline234"></a>sequential composition<br  /></li>
-<li><a id="orgheadline235"></a>iteration (for and while, including nested loops)<br  /></li>
-<li><a id="orgheadline236"></a>alternation (if/then/else)<br  /></li></ol>
+<p>
+Create a new Idris module called <i>relation</i> in a file called
+relation.idr. Add the general relation query functions defined above
+to this file. Develop a separate relationTest.idr file and put the
+demonstration and test cases above in that file. Add some tests of
+your own. Make sure that all of this code actually works.
+</p>
 </div>
-<div id="outline-container-orgheadline238" class="outline-4">
-<h4 id="orgheadline238"><span class="section-number-4">20.5.2</span> Procedures</h4>
 </div>
-<div id="outline-container-orgheadline239" class="outline-4">
-<h4 id="orgheadline239"><span class="section-number-4">20.5.3</span> Classes</h4>
+
+<div id="outline-container-orgheadline237" class="outline-4">
+<h4 id="orgheadline237"><span class="section-number-4">20.5.2</span> Demonstrate application in your domain</h4>
+<div class="outline-text-4" id="text-20-5-2">
+<p>
+Demonstrate the application of these functions to relations in <i>your</i>
+domain. Do this by importing the <i>relation</i> module into the file in
+which are are developing your application, and into corresponding test
+file, and write some code that performs statistical queries on your
+relation. Test your code to be sure it produces the expected results.
+It will be helpful if your records contain a <i>Boolean</i> field, since
+you will then have a ready-made selection predicate.
+</p>
 </div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline259" class="outline-2">
+<h2 id="orgheadline259"><span class="section-number-2">21</span> Future (Tentative)</h2>
+<div class="outline-text-2" id="text-21">
+</div><div id="outline-container-orgheadline240" class="outline-3">
+<h3 id="orgheadline240"><span class="section-number-3">21.1</span> Equality (Typeclasses)</h3>
 </div>
 <div id="outline-container-orgheadline241" class="outline-3">
-<h3 id="orgheadline241"><span class="section-number-3">20.6</span> Libraries</h3>
-</div>
-<div id="outline-container-orgheadline242" class="outline-3">
-<h3 id="orgheadline242"><span class="section-number-3">20.7</span> Algorithms</h3>
-</div>
-<div id="outline-container-orgheadline243" class="outline-3">
-<h3 id="orgheadline243"><span class="section-number-3">20.8</span> Complexity</h3>
+<h3 id="orgheadline241"><span class="section-number-3">21.2</span> Information Hiding Modularity (Set, Dictionary)</h3>
 </div>
 <div id="outline-container-orgheadline244" class="outline-3">
-<h3 id="orgheadline244"><span class="section-number-3">20.9</span> Debugging</h3>
+<h3 id="orgheadline244"><span class="section-number-3">21.3</span> Processes (Termination, Coinduction)</h3>
+<div class="outline-text-3" id="text-21-3">
+</div><div id="outline-container-orgheadline242" class="outline-4">
+<h4 id="orgheadline242"><span class="section-number-4">21.3.1</span> Simulation</h4>
+</div>
+<div id="outline-container-orgheadline243" class="outline-4">
+<h4 id="orgheadline243"><span class="section-number-4">21.3.2</span> Games</h4>
+</div>
+</div>
+<div id="outline-container-orgheadline245" class="outline-3">
+<h3 id="orgheadline245"><span class="section-number-3">21.4</span> Effects (I/O and State)</h3>
+</div>
+<div id="outline-container-orgheadline254" class="outline-3">
+<h3 id="orgheadline254"><span class="section-number-3">21.5</span> Procedural Programming</h3>
+<div class="outline-text-3" id="text-21-5">
+</div><div id="outline-container-orgheadline246" class="outline-4">
+<h4 id="orgheadline246"><span class="section-number-4">21.5.1</span> Environment</h4>
+</div>
+<div id="outline-container-orgheadline251" class="outline-4">
+<h4 id="orgheadline251"><span class="section-number-4">21.5.2</span> Commands</h4>
+<div class="outline-text-4" id="text-21-5-2">
+</div><ol class="org-ol"><li><a id="orgheadline247"></a>assignment<br  /></li>
+<li><a id="orgheadline248"></a>sequential composition<br  /></li>
+<li><a id="orgheadline249"></a>iteration (for and while, including nested loops)<br  /></li>
+<li><a id="orgheadline250"></a>alternation (if/then/else)<br  /></li></ol>
+</div>
+<div id="outline-container-orgheadline252" class="outline-4">
+<h4 id="orgheadline252"><span class="section-number-4">21.5.3</span> Procedures</h4>
+</div>
+<div id="outline-container-orgheadline253" class="outline-4">
+<h4 id="orgheadline253"><span class="section-number-4">21.5.4</span> Classes</h4>
+</div>
+</div>
+<div id="outline-container-orgheadline255" class="outline-3">
+<h3 id="orgheadline255"><span class="section-number-3">21.6</span> Libraries</h3>
+</div>
+<div id="outline-container-orgheadline256" class="outline-3">
+<h3 id="orgheadline256"><span class="section-number-3">21.7</span> Algorithms</h3>
+</div>
+<div id="outline-container-orgheadline257" class="outline-3">
+<h3 id="orgheadline257"><span class="section-number-3">21.8</span> Complexity</h3>
+</div>
+<div id="outline-container-orgheadline258" class="outline-3">
+<h3 id="orgheadline258"><span class="section-number-3">21.9</span> Debugging</h3>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-10-14 Wed 23:53</p>
+<p class="date">Created: 2015-10-16 Fri 21:29</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
