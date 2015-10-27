@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-26 Mon 02:03 -->
+<!-- 2015-10-27 Tue 01:52 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -562,7 +562,7 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline240">20.2. Interpretations</a></li>
 <li><a href="#orgheadline241">20.3. Implementations</a></li>
 <li><a href="#orgheadline242">20.4. Separation of Concerns</a></li>
-<li><a href="#orgheadline243">20.5. Example: Specification of a Set ADT and its Interpretation</a></li>
+<li><a href="#orgheadline243">20.5. Example: A Set ADT</a></li>
 </ul>
 </li>
 <li><a href="#orgheadline251">21. Representation</a>
@@ -5920,11 +5920,11 @@ you will then have a ready-made selection predicate.
 <p>
 Software systems are made of <i>specifications</i>, <i>interpretations</i>, and
 <i>implementations</i>. In this chapter we introduce the idea that software
-designers can and often should design specifications separately from
-implementations. We will illustate by designing a specification that
-we will interpret as representing a <i>set</i> abstract data type. That is,
-the <i>domain</i> that our specification will model be that of mathematical
-sets and set operations such as intersection, union, and difference.
+designers can and often should design specifications and
+interpretations separately from implementations. We will illustate by
+designing a specification that we will interpret as representing a
+<i>set</i> abstract data type, with set operations such as intersection,
+union, and difference.
 </p>
 </div>
 
@@ -6015,23 +6015,27 @@ the specifications and implementations of our programs.
 </div>
 
 <div id="outline-container-orgheadline243" class="outline-3">
-<h3 id="orgheadline243"><span class="section-number-3">20.5</span> Example: Specification of a Set ADT and its Interpretation</h3>
+<h3 id="orgheadline243"><span class="section-number-3">20.5</span> Example: A Set ADT</h3>
 <div class="outline-text-3" id="text-20-5">
 <p>
-In this section, we present, bit by bit, a specification and our
-interpretation of the specification as representing a mathematical
-abstraction, namely a <i>set</i> abstract data type (ADT). Recall that an
-ADT comprises a set of values of some type and a set of operations
-involving those values.
+In this section, we present a specification and an interpretation of
+the specification as representing a <i>set</i> abstract data type. Recall
+that an ADT comprises a set of values of some type along with a set of
+operations involving those values.
 </p>
 
 <p>
-We start with a type constructor. Until now, you have seen data type
-definitions that combine elements of specification and implementation.
-For example, we could write <i>data set a = mkSet (list a)</i> to define a
-set of terms that we will interpret as representing sets. Each term is
-like a ``box with a list of values of type a'' inside. You will recall
-that the type of <i>set</i> in this case is \(Type \to Type\). 
+We have placed the code below in a file called set_adt.idr.
+</p>
+
+<p>
+After the requisite imports, we start with a type constructor. Until
+now, you have seen data type definitions that combine elements of
+specification and implementation.  For example, we could write <i>data
+set a = mkSet (list a)</i> to define a set of terms that we will
+interpret as representing sets. Each term is like a ``box with a list
+of values of type a'' inside. You will recall that the type of <i>set</i>
+in this case is \(Type \to Type\).
 </p>
 
 <p>
@@ -6053,25 +6057,22 @@ explanatory prose, here in the form of an Idris documentation string.
 
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> </span><span style="color: #8D8D84;">@</span><span style="color: #D0372D;">a</span><span style="color: #036A07;"> the type of values in a set </span>
-<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> Values of type /set a/ represent mathematical sets of values.</span>
-<span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">set</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">a</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Type</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Type</span>
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- A polymorphic set type. We interpret values of type (set a) as</span>
+<span style="color: #8D8D84; font-style: italic;">-- representing sets of values of type a.</span>
+  <span style="color: #0000FF;">data</span> <span style="color: #333333; background-color: #FFFFFF;">set</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">a</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Type</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Type</span>
 </pre>
 </div>
 
 <p>
 To provide clients with the ability to obtain a representation of an
-empty set, we provide the empty function. This function returns an
-Idris value that represents the empty set of values of type <i>a</i>. From
-now on, we elide the words about values <i>representing</i> sets, as we
-have already made this interpretation clear.
+empty set, we provide the empty set value as part of the public 
+"interface" that this module presents to its clients. 
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> </span><span style="color: #8D8D84;">@</span><span style="color: #D0372D;">a</span><span style="color: #036A07;"> the type of the values in the set</span>
-<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> </span><span style="color: #8D8D84;">@</span><span style="color: #D0372D;">s'</span><span style="color: #036A07;"> = the empty set of a</span>
-<span style="color: #333333; background-color: #FFFFFF;">emptySet</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">a</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">Type</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- The empty set of a</span>
+<span style="color: #333333; background-color: #FFFFFF;">emptySet</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
 </pre>
 </div>
 
@@ -6081,8 +6082,8 @@ Next we specify a function for asking whether a set, <i>s</i>, is empty.
 
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> if s is empty then result' = true, otherwise false</span>
-<span style="color: #333333; background-color: #FFFFFF;">isEmpty</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">result'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- If s is empty then true, otherwise false</span>
+<span style="color: #333333; background-color: #FFFFFF;">isEmpty</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
 </pre>
 </div>
 
@@ -6098,8 +6099,8 @@ we show how to do this in the specification of <i>set_insert</i> function.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||@</span><span style="color: #036A07;"> </span><span style="color: #D0372D;">s'</span><span style="color: #036A07;"> = s union {v}</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_insert</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">v</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Return the set, s union {v}</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_insert</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
 </pre>
 </div>
 
@@ -6110,8 +6111,8 @@ original.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> </span><span style="color: #8D8D84;">@</span><span style="color: #D0372D;">s'</span><span style="color: #036A07;"> = s - {v}</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_remove</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">v</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Return the set, s - {v}</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_remove</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">v</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
 </pre>
 </div>
 
@@ -6122,8 +6123,8 @@ set, of course.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> </span><span style="color: #8D8D84;">@</span><span style="color: #D0372D;">n'</span><span style="color: #036A07;"> = the number of elements in s</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_cardinality</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">n'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Return the number of elements in s</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_cardinality</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">nat</span>
 </pre>
 </div>
 
@@ -6134,47 +6135,112 @@ it is a predicate that answers whether the given element is in the set
 </p>
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> </span><span style="color: #8D8D84;">@</span><span style="color: #D0372D;">result'</span><span style="color: #036A07;">= true if v is in s, otherwise false</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_member</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">v</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">result'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- If v is in s return true, otherwise false</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_member</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">v</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+</pre>
+</div>
+
+<p>
+The <i>union</i>, <i>intersection</i>, and <i>difference</i> operations each take two
+set arguments and return their union, intersection, and difference, as
+the names suggest.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Return union of s1 and s2</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_union</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- Return the intersection of s1 and s2</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_intersection</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- Return the set difference, s1 minus s2</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_difference</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> result' = s1 union s2</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_union</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">result'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Return true p is true for every v in s, otherwise false</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_forall</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">p</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
 
-<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> result' = s1 intersect s2</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_intersection</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">result'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
 
-<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> result' = s1 minus s2</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_difference</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">result'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+<span style="color: #8D8D84; font-style: italic;">-- Return true if p is true for some v in s, otherwise else false</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_exists</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">p</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+
+<span style="color: #8D8D84; font-style: italic;">-- If (set_exists p s), return (some v) such that (p v) is true, else</span>
+<span style="color: #8D8D84; font-style: italic;">-- return none. We need to return an option because there might not be</span>
+<span style="color: #8D8D84; font-style: italic;">-- an element in s with property p.  If there is such an element, we</span>
+<span style="color: #8D8D84; font-style: italic;">-- call it a "witness to the property p."</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_witness</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">p</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">option</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
 </pre>
 </div>
+
+<p>
+The <i>set_product</i> function takes two sets of elements (or possible
+different types) and returns product set: i.e., that set of all pairs
+of elements, where the first element in each pair comes from s1 and
+the second comes from s2. For example, the product of the &#x2013; sets {1,
+2} and {a, b} is { (1, a), (1, b), (2, a), (2, b) }.
+</p>
 
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> result' = true if for all v in s, p is true for v, else false</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_forall</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">p</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">result'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>)
-
-<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> result' = true if for some v in s, p is true for v, else false</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_exists</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">p</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">result'</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>)
-
-<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> result' = if (set_exists p s) then (some v) s.t. v in s and </span>
-<span style="color: #8D8D84;">|||</span><span style="color: #036A07;"> (p v) is true, else (none)</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_witness</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">option</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Return the cartesian product of s1 and s2. </span>
+<span style="color: #333333; background-color: #FFFFFF;">set_product</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> (<span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>)
 </pre>
 </div>
+
+<p>
+The powerset of a given set is the set of all subsets of that set.
+For example, the powerset of {1, 2, 3} is the set, { {}, {1}, {2},
+{3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3} }. The cardinality of the
+powerset of a set of cardinality n is 2^n.
+</p>
 
 <div class="org-src-container">
 
-<pre class="src src-idris"><span style="color: #333333; background-color: #FFFFFF;">set_product</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> (<span style="color: #333333; background-color: #FFFFFF;">pair</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #333333; background-color: #FFFFFF;">b</span>)
-<span style="color: #333333; background-color: #FFFFFF;">set_powerset</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Extra credit: Return the set of all sets of elements of s.</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_powerset</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>)
+</pre>
+</div>
+
+
+<p>
+These functions provide implementations of set equality and set
+serialization to a string form. They're implemented in typeclass
+instances.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- return true if s1 and s2 are equal, else false</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_eql</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s1</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s2</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">bool</span>
+
+<span style="color: #8D8D84; font-style: italic;">-- Return a string representation of s</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_toString</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">Serialize</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">String</span>
+</pre>
+</div>
+
+<p>
+These typeclass instances delegate their overloaded functions
+to the <i>set_eql</i> and <i>toString</i> functions that we just defined.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-idris"><span style="color: #0000FF;">instance</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">eq</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #0000FF;">where</span>
+  <span style="color: #333333; background-color: #FFFFFF;">eql</span> <span style="color: #333333; background-color: #FFFFFF;">s1</span> <span style="color: #333333; background-color: #FFFFFF;">s2</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">set_eql</span> <span style="color: #333333; background-color: #FFFFFF;">s1</span> <span style="color: #333333; background-color: #FFFFFF;">s2</span>
+
+<span style="color: #0000FF;">instance</span> (<span style="color: #333333; background-color: #FFFFFF;">Serialize</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">Serialize</span> (<span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #0000FF;">where</span>
+  <span style="color: #333333; background-color: #FFFFFF;">toString</span> <span style="color: #333333; background-color: #FFFFFF;">s</span> <span style="color: #BA36A5;">=</span> <span style="color: #333333; background-color: #FFFFFF;">set_toString</span> <span style="color: #333333; background-color: #FFFFFF;">s</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
+
+
 
 <div id="outline-container-orgheadline251" class="outline-2">
 <h2 id="orgheadline251"><span class="section-number-2">21</span> Representation</h2>
@@ -6764,7 +6830,7 @@ operators.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-10-26 Mon 02:03</p>
+<p class="date">Created: 2015-10-27 Tue 01:52</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
