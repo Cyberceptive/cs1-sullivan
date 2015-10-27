@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-27 Tue 01:52 -->
+<!-- 2015-10-27 Tue 02:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Lectures</title>
@@ -6055,6 +6055,14 @@ this element is meant to represent in both the name, <i>set</i>, and in
 explanatory prose, here in the form of an Idris documentation string.
 </p>
 
+<p>
+In this chapter we introduce a new feature of Idris, which you can
+see used in the following code: We can give names to the arguments
+in a function type declaration. It's often useful to do so. Having
+names for arguments makes it easier to describe what a function is
+meant to do. 
+</p>
+
 <div class="org-src-container">
 
 <pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- A polymorphic set type. We interpret values of type (set a) as</span>
@@ -6088,19 +6096,14 @@ Next we specify a function for asking whether a set, <i>s</i>, is empty.
 </div>
 
 <p>
-The insert operation models the addition of an element to a set
-yielding a new set. If the element was already in the set, the new
-set is the same as the original.
-</p>
-
-<p>
-It is often useful to give names to the arguments of functions.  Here
-we show how to do this in the specification of <i>set_insert</i> function.
+The insert operation models the addition of an element, v, to a set,
+s, yielding a new set. If v was already in s, the new set is the same
+as s.
 </p>
 <div class="org-src-container">
 
 <pre class="src src-idris"><span style="color: #8D8D84; font-style: italic;">-- Return the set, s union {v}</span>
-<span style="color: #333333; background-color: #FFFFFF;">set_insert</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span> <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
+<span style="color: #333333; background-color: #FFFFFF;">set_insert</span><span style="color: #BA36A5;">:</span> (<span style="color: #333333; background-color: #FFFFFF;">eq</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">=&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">v</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> (<span style="color: #333333; background-color: #FFFFFF;">s</span><span style="color: #BA36A5;">:</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>) <span style="color: #BA36A5;">-&gt;</span> <span style="color: #333333; background-color: #FFFFFF;">set</span> <span style="color: #333333; background-color: #FFFFFF;">a</span>
 </pre>
 </div>
 
@@ -6830,7 +6833,7 @@ operators.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Kevin Sullivan</p>
-<p class="date">Created: 2015-10-27 Tue 01:52</p>
+<p class="date">Created: 2015-10-27 Tue 02:02</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
