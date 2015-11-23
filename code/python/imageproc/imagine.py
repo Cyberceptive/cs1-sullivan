@@ -8,6 +8,7 @@ import runWorld as rw
 import drawWorld as dw
 import image_processing as ip
 import imagineFun as af
+
 ################################################################
 
 # Initialize display
@@ -123,13 +124,24 @@ def handleKeyDown(state, unicode, key, mod):
     # Quiz: Why do we not have to write: state = funcToRun(state)?
     #
     funcToRun(state)
-
     return(state)
 
 ################################################################
 
-# World state will be single x coordinate at left edge of world
-
-# x coord and delta x
+# Refresh screen at intended 20FPS
 frameRate = 20
+
+# Run the main event loop. Note that there is a change in
+# the way you call runWorld: Instead of passing a single
+# handleEvent function, you pass individual functions for
+# handling different kinds of events; and if there is no
+# need to handle particular kinds of events, you can just
+# pass "None." The runWorld function makes sure that it
+# does not try to call an event handler that is None. 
+# 
+# Make sure you see that we're passing initState off to
+# runWorld, and that you understand that that is the state
+# value that runWorld will pass back to the functions you
+# define in this file.
+#
 rw.runWorld(initState, updateState, updateDisplay, endState, frameRate, handleMouseDown, None, handleKeyDown, None, None)

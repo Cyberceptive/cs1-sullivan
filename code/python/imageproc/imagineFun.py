@@ -67,6 +67,12 @@ def badChoice(state):
     print("Bad choice, try again")
     return state
 
+def bwconvert(state):
+    (ip.bw)(state['processed'])
+    state['needsDisplayUpdate'] = True
+    return state
+    
+
 ################################################################
 
 # A menu simply associated functions to call with menu items.
@@ -82,6 +88,7 @@ menu = {
     110 : negative,  # n
     114 : reset,     # r
     108 : load,      # l
-    115 : save       # s
+    115 : save,      # s
+    98 : bwconvert   # b 
     }
 
