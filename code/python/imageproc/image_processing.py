@@ -1,5 +1,7 @@
 import pygame as pg
 
+################### PIXEL OPERATIONS ######################
+
 # grayPixel: pixel -> pixel
 # compute and return a gray pixel with the same intensity
 # as the given pixel. A little complication: the intensity
@@ -33,10 +35,22 @@ def inverse(pixel):
 
 # intensify: pixel -> nat255 -> pixel
 # brighten each channel of pixel by quantity
+#
+# NOTE: there might be an overflow bug in this code!
+# If so, reason through it and fix it. Consider the
+# possible need for a function that brightens an
+# individual pixel intensity, never returning a result
+# greater than 255 or less than 0.
+#
 def intensify(pixel,quantity):
     return (pixel[0]+quantity, pixel[1]+quantity, pixel[2]+quantity)
 
 
+################### IMAGE OPERATIONS ######################
+
+# invert: modifies image pixel array of image_surf in place
+# replace each pixel with its photographic "negative"
+#
 def invert(image_surf):
 
     # get pixel dimensions of image
@@ -52,6 +66,9 @@ def invert(image_surf):
             pixels3d[x,y] = inverse(pixels3d[x,y])
 
 
+
+# bw: modifies image pixel array of image_surf in place
+# replaces each pixel with a corresponding gray-scale pixel
 def bw(image_surf):
 
     # get pixel dimensions of image
@@ -66,5 +83,3 @@ def bw(image_surf):
         for y in range(cols):
             pixels3d[x,y] = grayPixel(pixels3d[x,y])
 
-
-                        
