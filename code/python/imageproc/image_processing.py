@@ -42,8 +42,20 @@ def inverse(pixel):
 # individual pixel intensity, never returning a result
 # greater than 255 or less than 0.
 #
+
+# helper function: add intensity but keep result
+# between 0 and 255
+def intensify_channel(intensity, quantity):
+    if (intensity + quantity > 255):
+        return 255
+    if (intensity + quantity < 0):
+        return 0;
+    return intensity + quantity
+        
 def intensify(pixel,quantity):
-    return (pixel[0]+quantity, pixel[1]+quantity, pixel[2]+quantity)
+    return (intensify_channel(pixel[0], quantity),
+            intensify_channel(pixel[1], quantity),
+            intensify_channel(pixel[2], quantity))
 
 
 ################### IMAGE OPERATIONS ######################
@@ -69,7 +81,7 @@ def invert(image_surf):
 
 # bw: modifies image pixel array of image_surf in place
 # replaces each pixel with a corresponding gray-scale pixel
-def bw(image_surf):
+def grayscale(image_surf):
 
     # get pixel dimensions of image
     rows = image_surf.get_size()[0]
@@ -82,4 +94,25 @@ def bw(image_surf):
     for x in range(rows):
         for y in range(cols):
             pixels3d[x,y] = grayPixel(pixels3d[x,y])
+
+# invert: modifies image pixel array of image_surf in place
+# replace each pixel with its photographic "negative"
+#
+def brighten(image_surf):
+
+    # get pixel dimensions of image
+    rows = image_surf.get_size()[0]
+    cols = image_surf.get_size()[1]
+    
+    # get reference to and lock pixel array
+    pixels3d = pg.surfarray.pixels3d(image_surf)
+
+    intensify_amount = 10
+
+    # update pixels in place (side effect!)
+    for x in range(rows):
+        for y in range(cols):
+            pixels3d[x,y] = intensify(pixels3d[x,y], intensify_amount)
+
+
 
